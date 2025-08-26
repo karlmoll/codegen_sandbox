@@ -5,6 +5,168 @@
     "owners": ["platform-security@company.example"],
     "tags": ["mcp", "oauth2.1", "oidc", "tls", "jwks"]
   },
+  "controls": {
+    "oauth-authorization": {
+      "description": "Use OAuth 2.1 Authorization Code + PKCE with OIDC metadata and JWKS validation.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/oauth-authorization",
+          "config": {
+            "appliesTo": {
+              "nodes": ["mcp-resource-server", "oauth-authorization-server", "mcp-client"],
+              "relationships": ["client-obtains-token", "mcp-validates-tokens"]
+            },
+            "scopes": ["mcp:connect", "mcp:tools:read", "mcp:resources:read"],
+            "pkce": "S256"
+          }
+        }
+      ]
+    },
+    "rbac-and-least-privilege": {
+      "description": "Enforce RBAC and least privilege for tools/resources exposed by MCP.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/rbac-least-privilege",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server"] },
+            "model": "role-based",
+            "defaultDeny": true
+          }
+        }
+      ]
+    },
+    "input-validation-and-output-encoding": {
+      "description": "Validate all inputs and encode outputs to prevent injection and parsing attacks.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/input-output-sanitization",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server"] },
+            "validationLibrary": "owasp-validation",
+            "rejectUnknownFields": true
+          }
+        }
+      ]
+    },
+    "secrets-management": {
+      "description": "Manage credentials via a secrets manager; avoid hardcoding and enable rotation.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/secrets-management",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server", "secrets-manager"] },
+            "rotationDays": 30,
+            "noHardcodedSecrets": true
+          }
+        }
+      ]
+    },
+    "encryption-in-transit": {
+      "description": "TLS 1.2+ everywhere, HSTS at edge, WebSocket over TLS.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/tls-enforcement",
+          "config": {
+            "appliesTo": { "relationships": ["client-calls-edge", "edge-proxies-mcp", "mcp-validates-tokens", "mcp-logs-siem", "mcp-fetches-secrets"] },
+            "minTLS": "TLSv1.2",
+            "hsts": true
+          }
+        }
+      ]
+    },
+    "isolation-and-sandboxing": {
+      "description": "Run MCP server in isolated container/sandbox; limit filesystem and network access.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/isolation",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server"] },
+            "containerization": true,
+            "seccomp": true,
+            "readOnlyFS": true
+          }
+        }
+      ]
+    },
+    "patch-and-dependency-security": {
+      "description": "Keep systems patched and scan dependencies for vulnerabilities.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/patching-dependencies",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server", "edge-waf-proxy"] },
+            "dependencyScanner": "oss-index",
+            "autoUpdates": true
+          }
+        }
+      ]
+    },
+    "audit-logging-and-siem": {
+      "description": "Comprehensive security logging with forwarding to SIEM and anomaly detection.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/logging-siem",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server", "siem"], "relationships": ["mcp-logs-siem"] },
+            "logCategories": ["auth", "tool-call", "admin", "error"],
+            "retentionDays": 365
+          }
+        }
+      ]
+    },
+    "waf-and-rate-limiting": {
+      "description": "Edge reverse proxy with WAF rules and rate limiting to mitigate abuse.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/waf-rate-limiting",
+          "config": {
+            "appliesTo": { "nodes": ["edge-waf-proxy"], "relationships": ["client-calls-edge", "edge-proxies-mcp"] },
+            "rateLimit": { "burst": 100, "perMinute": 1000 },
+            "wafRuleset": "owasp-core"
+          }
+        }
+      ]
+    },
+    "policy-decision-point": {
+      "description": "Externalize authorization decisions via policy engine (e.g., OPA).",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/policy-decision",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server", "policy-engine"], "relationships": ["mcp-calls-policy"] },
+            "policyLanguage": "rego",
+            "defaultDeny": true
+          }
+        }
+      ]
+    },
+    "prompt-injection-and-tool-poisoning-defenses": {
+      "description": "Layered defenses against prompt injection and malicious tool descriptions.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/prompt-tool-defenses",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server"] },
+            "contentFiltering": true,
+            "toolAllowlist": true
+          }
+        }
+      ]
+    },
+    "user-consent-and-transparency": {
+      "description": "Explicit user consent for data access and tool operations; clear documentation.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/user-consent",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-client", "mcp-resource-server"] },
+            "consentUI": true,
+            "explainTools": true
+          }
+        }
+      ]
+    }
+  },
   "nodes": [
     {
       "unique-id": "mcp-resource-server",
@@ -94,9 +256,53 @@
           "requestedScopes": ["openid", "profile", "mcp:connect", "mcp:tools:read", "mcp:resources:read"]
         }
       }
+    },
+    {
+      "unique-id": "edge-waf-proxy",
+      "node-type": "service",
+      "name": "Edge Reverse Proxy + WAF",
+      "description": "Edge service terminating TLS, enforcing WAF and rate limiting, and proxying to MCP.",
+      "interfaces": [ { "unique-id": "edge-https" } ],
+      "metadata": {
+        "waf": { "ruleset": "owasp-core" },
+        "rateLimiting": { "burst": 100, "perMinute": 1000 },
+        "tls": { "min": "TLSv1.2", "hsts": true }
+      }
+    },
+    {
+      "unique-id": "secrets-manager",
+      "node-type": "service",
+      "name": "Secrets Manager",
+      "description": "Centralized secrets store for API keys and credentials with rotation.",
+      "interfaces": [ { "unique-id": "secrets-api" } ]
+    },
+    {
+      "unique-id": "siem",
+      "node-type": "service",
+      "name": "SIEM / Anomaly Detection",
+      "description": "Security analytics platform receiving audit logs and emitting alerts.",
+      "interfaces": [ { "unique-id": "siem-intake" } ]
+    },
+    {
+      "unique-id": "policy-engine",
+      "node-type": "service",
+      "name": "Policy Decision Point",
+      "description": "Externalized authorization policy engine (e.g., OPA).",
+      "interfaces": [ { "unique-id": "policy-api" } ]
     }
   ],
   "relationships": [
+    {
+      "unique-id": "client-calls-edge",
+      "description": "Client calls Edge Reverse Proxy + WAF over HTTPS.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-client", "interfaces": ["mcp-client-http"] },
+          "destination": { "node": "edge-waf-proxy", "interfaces": ["edge-https"] }
+        }
+      },
+      "protocol": "HTTPS"
+    },
     {
       "unique-id": "client-obtains-token",
       "description": "Client obtains tokens from Authorization Server via Authorization Code + PKCE.",
@@ -113,6 +319,50 @@
         "consent": "required",
         "scopes": ["openid", "profile", "mcp:connect", "mcp:tools:read", "mcp:resources:read"]
       }
+    },
+    {
+      "unique-id": "edge-proxies-mcp",
+      "description": "Edge proxy forwards sanitized requests to MCP Resource Server, enforcing WAF and rate limits.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "edge-waf-proxy", "interfaces": ["edge-https"] },
+          "destination": { "node": "mcp-resource-server", "interfaces": ["mcp-api-https"] }
+        }
+      },
+      "protocol": "HTTPS"
+    },
+    {
+      "unique-id": "mcp-fetches-secrets",
+      "description": "MCP Resource Server retrieves secrets from Secrets Manager.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-resource-server" },
+          "destination": { "node": "secrets-manager" }
+        }
+      },
+      "protocol": "HTTPS"
+    },
+    {
+      "unique-id": "mcp-logs-siem",
+      "description": "MCP Resource Server forwards security logs and metrics to SIEM/Anomaly Detection.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-resource-server" },
+          "destination": { "node": "siem" }
+        }
+      },
+      "protocol": "HTTPS"
+    },
+    {
+      "unique-id": "mcp-calls-policy",
+      "description": "MCP Resource Server queries external policy engine for authorization decisions.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-resource-server" },
+          "destination": { "node": "policy-engine" }
+        }
+      },
+      "protocol": "HTTPS"
     },
     {
       "unique-id": "client-calls-mcp",
@@ -161,6 +411,21 @@
         "authorizationServers": ["https://auth.company.example"],
         "requiredScopes": ["mcp:connect", "mcp:tools:read", "mcp:resources:read"]
       }
+    }
+  ],
+  "flows": [
+    {
+      "unique-id": "secure-request-and-audit",
+      "name": "Secure Request with OAuth, WAF, Policy, and Audit",
+      "description": "End-to-end secure flow: token issuance, edge protections, token validation, policy check, and audit logging.",
+      "transitions": [
+        { "relationship-unique-id": "client-obtains-token", "sequence-number": 1, "description": "Client performs OAuth Authorization Code with PKCE at Authorization Server." },
+        { "relationship-unique-id": "client-calls-edge", "sequence-number": 2, "description": "Client calls Edge Reverse Proxy + WAF." },
+        { "relationship-unique-id": "edge-proxies-mcp", "sequence-number": 3, "description": "Edge forwards request to MCP after WAF/rate limiting." },
+        { "relationship-unique-id": "mcp-validates-tokens", "sequence-number": 4, "description": "MCP validates JWT via JWKS and checks claims/scopes." },
+        { "relationship-unique-id": "mcp-calls-policy", "sequence-number": 5, "description": "MCP queries external policy engine for authorization decision." },
+        { "relationship-unique-id": "mcp-logs-siem", "sequence-number": 6, "description": "MCP emits security and audit logs to SIEM." }
+      ]
     }
   ],
   "adrs": [
