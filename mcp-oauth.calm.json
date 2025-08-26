@@ -1,0 +1,172 @@
+{
+  "$schema": "https://calm.finos.org/release/1.0/meta/calm.json",
+  "metadata": {
+    "name": "MCP Server with OAuth 2.1 (Auth Code + PKCE)",
+    "owners": ["platform-security@company.example"],
+    "tags": ["mcp", "oauth2.1", "oidc", "tls", "jwks"]
+  },
+  "nodes": [
+    {
+      "unique-id": "mcp-resource-server",
+      "node-type": "service",
+      "name": "MCP Resource Server",
+      "description": "MCP server acting as OAuth2.1 Resource Server secured via HTTPS with JWT validation via JWKS.",
+      "interfaces": [
+        { "unique-id": "mcp-api-https" },
+        { "unique-id": "mcp-ws" },
+        { "unique-id": "mcp-prm" }
+      ],
+      "metadata": {
+        "baseUrl": "https://mcp.company.example",
+        "mcp": {
+          "role": "resource-server",
+          "spec": "https://modelcontextprotocol.io/specification/"
+        },
+        "security": {
+          "https": { "enforced": true, "minTLS": "TLSv1.2", "hsts": true },
+          "oauth2": {
+            "audience": "https://mcp.company.example",
+            "requiredScopes": ["mcp:connect", "mcp:tools:read", "mcp:resources:read"],
+            "trustedAuthorizationServers": ["oauth-authorization-server"],
+            "tokenValidation": {
+              "algorithms": ["RS256", "ES256"],
+              "checks": ["signature", "exp", "nbf", "aud", "iss", "scope"],
+              "jwksCacheSeconds": 300
+            }
+          }
+        },
+        "endpoints": [
+          { "name": "Protected Resource Metadata (PRM)", "path": "/.well-known/oauth-protected-resource", "protocol": "HTTPS", "interface": "mcp-prm" },
+          { "name": "MCP API", "path": "/api", "protocol": "HTTPS", "interface": "mcp-api-https" },
+          { "name": "MCP WebSocket", "path": "/ws", "protocol": "WebSocket", "interface": "mcp-ws" },
+          { "name": "Health", "path": "/healthz", "protocol": "HTTPS" }
+        ]
+      }
+    },
+    {
+      "unique-id": "oauth-authorization-server",
+      "node-type": "service",
+      "name": "OAuth Authorization Server",
+      "description": "OIDC-compliant Authorization Server issuing OAuth 2.1 tokens. Supports Authorization Code + PKCE and dynamic client registration.",
+      "interfaces": [
+        { "unique-id": "oauth-authorization" },
+        { "unique-id": "oauth-token" },
+        { "unique-id": "oauth-registration" },
+        { "unique-id": "oidc-metadata" },
+        { "unique-id": "jwks" }
+      ],
+      "metadata": {
+        "baseUrl": "https://auth.company.example",
+        "oauth2": {
+          "version": "2.1",
+          "oidc": true,
+          "authorizationEndpoint": "https://auth.company.example/oauth2/v1/authorize",
+          "tokenEndpoint": "https://auth.company.example/oauth2/v1/token",
+          "registrationEndpoint": "https://auth.company.example/oauth2/v1/register",
+          "jwksUri": "https://auth.company.example/oauth2/v1/keys",
+          "metadataEndpoint": "https://auth.company.example/.well-known/openid-configuration",
+          "supportedFlows": {
+            "authorizationCode": { "enabled": true, "pkce": "required", "codeChallengeMethods": ["S256"] }
+          },
+          "defaultScopes": ["openid", "profile", "email", "mcp:connect", "mcp:tools:read", "mcp:resources:read"]
+        }
+      }
+    },
+    {
+      "unique-id": "mcp-client",
+      "node-type": "webclient",
+      "name": "MCP Client (Agent/UI)",
+      "description": "Client that connects to the MCP Resource Server. Uses OAuth 2.1 Authorization Code + PKCE to obtain access tokens.",
+      "interfaces": [
+        { "unique-id": "mcp-client-browser" },
+        { "unique-id": "mcp-client-http" },
+        { "unique-id": "mcp-client-redirect" }
+      ],
+      "metadata": {
+        "platform": "desktop",
+        "oauth2Client": {
+          "flow": "authorization_code",
+          "pkce": "S256",
+          "redirectUris": [
+            "http://localhost:5173/callback",
+            "app.example.mcp://oauth/callback"
+          ],
+          "requestedScopes": ["openid", "profile", "mcp:connect", "mcp:tools:read", "mcp:resources:read"]
+        }
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "unique-id": "client-obtains-token",
+      "description": "Client obtains tokens from Authorization Server via Authorization Code + PKCE.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-client", "interfaces": ["mcp-client-browser", "mcp-client-redirect"] },
+          "destination": { "node": "oauth-authorization-server", "interfaces": ["oauth-authorization", "oauth-token"] }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "grantType": "authorization_code",
+        "pkce": "S256",
+        "consent": "required",
+        "scopes": ["openid", "profile", "mcp:connect", "mcp:tools:read", "mcp:resources:read"]
+      }
+    },
+    {
+      "unique-id": "client-calls-mcp",
+      "description": "Client calls MCP Resource Server using Bearer access tokens.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-client", "interfaces": ["mcp-client-http"] },
+          "destination": { "node": "mcp-resource-server", "interfaces": ["mcp-api-https", "mcp-ws"] }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "bearer-token",
+        "requiredScopes": ["mcp:connect", "mcp:tools:read", "mcp:resources:read"]
+      }
+    },
+    {
+      "unique-id": "mcp-validates-tokens",
+      "description": "MCP Resource Server validates JWTs with Authorization Server via JWKS.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-resource-server", "interfaces": ["mcp-api-https"] },
+          "destination": { "node": "oauth-authorization-server", "interfaces": ["jwks", "oidc-metadata"] }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "jwksUri": "https://auth.company.example/oauth2/v1/keys",
+        "audience": "https://mcp.company.example",
+        "issuers": ["https://auth.company.example"],
+        "claimsChecked": ["aud", "iss", "exp", "nbf", "scope"]
+      }
+    },
+    {
+      "unique-id": "mcp-exposes-prm",
+      "description": "MCP Resource Server exposes Protected Resource Metadata (PRM) for client discovery.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-resource-server", "interfaces": ["mcp-prm"] },
+          "destination": { "node": "mcp-client", "interfaces": ["mcp-client-http"] }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "endpoint": "https://mcp.company.example/.well-known/oauth-protected-resource",
+        "authorizationServers": ["https://auth.company.example"],
+        "requiredScopes": ["mcp:connect", "mcp:tools:read", "mcp:resources:read"]
+      }
+    }
+  ],
+  "adrs": [
+    "https://modelcontextprotocol.io/specification/",
+    "https://www.rfc-editor.org/rfc/rfc8414",
+    "https://www.rfc-editor.org/rfc/rfc8725"
+  ]
+}
+
