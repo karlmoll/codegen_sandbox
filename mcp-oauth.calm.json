@@ -184,6 +184,19 @@
           "role": "resource-server",
           "spec": "https://modelcontextprotocol.io/specification/"
         },
+        "air": {
+          "framework": "FINOS AIR",
+          "reference": "https://air-governance-framework.finos.org/",
+          "controls": [
+            { "category": "Preventative", "name": "Access control and least privilege" },
+            { "category": "Preventative", "name": "Input validation and output encoding" },
+            { "category": "Preventative", "name": "Encryption in transit (TLS)" },
+            { "category": "Preventative", "name": "Isolation and sandboxing" },
+            { "category": "Preventative", "name": "Prompt injection and tool poisoning defenses" },
+            { "category": "Preventative", "name": "Externalized authorization policy" },
+            { "category": "Detective", "name": "Audit logging and observability" }
+          ]
+        },
         "security": {
           "https": { "enforced": true, "minTLS": "TLSv1.2", "hsts": true },
           "oauth2": {
@@ -219,6 +232,14 @@
       ],
       "metadata": {
         "baseUrl": "https://auth.company.example",
+        "air": {
+          "framework": "FINOS AIR",
+          "reference": "https://air-governance-framework.finos.org/",
+          "controls": [
+            { "category": "Preventative", "name": "Strong authentication and token security" },
+            { "category": "Preventative", "name": "Secure key management and rotation" }
+          ]
+        },
         "oauth2": {
           "version": "2.1",
           "oidc": true,
@@ -246,6 +267,13 @@
       ],
       "metadata": {
         "platform": "desktop",
+        "air": {
+          "framework": "FINOS AIR",
+          "reference": "https://air-governance-framework.finos.org/",
+          "controls": [
+            { "category": "Preventative", "name": "User consent and transparency" }
+          ]
+        },
         "oauth2Client": {
           "flow": "authorization_code",
           "pkce": "S256",
@@ -301,7 +329,17 @@
           "destination": { "node": "edge-waf-proxy", "interfaces": ["edge-https"] }
         }
       },
-      "protocol": "HTTPS"
+      "protocol": "HTTPS",
+      "metadata": {
+        "air": {
+          "framework": "FINOS AIR",
+          "reference": "https://air-governance-framework.finos.org/",
+          "controls": [
+            { "category": "Preventative", "name": "Encryption in transit (TLS)" },
+            { "category": "Preventative", "name": "WAF and rate limiting" }
+          ]
+        }
+      }
     },
     {
       "unique-id": "client-obtains-token",
@@ -329,7 +367,17 @@
           "destination": { "node": "mcp-resource-server", "interfaces": ["mcp-api-https"] }
         }
       },
-      "protocol": "HTTPS"
+      "protocol": "HTTPS",
+      "metadata": {
+        "air": {
+          "framework": "FINOS AIR",
+          "reference": "https://air-governance-framework.finos.org/",
+          "controls": [
+            { "category": "Preventative", "name": "Input validation and sanitization at edge" },
+            { "category": "Preventative", "name": "Encryption in transit (TLS)" }
+          ]
+        }
+      }
     },
     {
       "unique-id": "mcp-fetches-secrets",
@@ -393,7 +441,14 @@
         "jwksUri": "https://auth.company.example/oauth2/v1/keys",
         "audience": "https://mcp.company.example",
         "issuers": ["https://auth.company.example"],
-        "claimsChecked": ["aud", "iss", "exp", "nbf", "scope"]
+        "claimsChecked": ["aud", "iss", "exp", "nbf", "scope"],
+        "air": {
+          "framework": "FINOS AIR",
+          "reference": "https://air-governance-framework.finos.org/",
+          "controls": [
+            { "category": "Preventative", "name": "Strong authentication and token validation" }
+          ]
+        }
       }
     },
     {
