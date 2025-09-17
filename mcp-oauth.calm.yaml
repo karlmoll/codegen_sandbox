@@ -1,0 +1,174 @@
+calmVersion: 1.0.0
+name: MCP Server with OAuth 2.1 (Authorization Code + PKCE)
+description: >-
+  Architecture-as-code model (CALM) of an MCP Resource Server protected by OAuth 2.1,
+  with a dedicated Authorization Server, dynamic client registration, Protected Resource
+  Metadata (PRM), TLS, scopes, and token validation via JWKS. Demonstrates a
+  properly configured OAuth integration for MCP.
+metadata:
+  owners:
+    - platform-security@company.example
+  tags:
+    - mcp
+    - oauth2.1
+    - oidc
+    - tls
+    - jwks
+
+components:
+  - id: mcp-resource-server
+    name: MCP Resource Server
+    type: Service
+    properties:
+      domain: api.company.example
+      baseUrl: https://mcp.company.example
+      mcp:
+        role: resource-server
+        spec: https://modelcontextprotocol.io/specification/
+        exposedEndpoints:
+          - name: Protected Resource Metadata (PRM)
+            path: /.well-known/oauth-protected-resource
+            protocol: https
+          - name: MCP WebSocket
+            path: /ws
+            protocol: wss
+          - name: Health
+            path: /healthz
+            protocol: https
+      security:
+        https:
+          enforced: true
+          minTLS: TLSv1.2
+          hsts: true
+        oauth2:
+          resourceIndicators:
+            audience: https://mcp.company.example
+          scopesRequired:
+            - mcp:connect
+            - mcp:tools:read
+            - mcp:resources:read
+          trustAuthorizationServers:
+            - ref: oauth-authorization-server
+          tokenValidation:
+            algorithms: [RS256, ES256]
+            check:
+              - signature
+              - exp
+              - nbf
+              - aud
+              - iss
+              - scope
+            jwksCacheSeconds: 300
+
+  - id: oauth-authorization-server
+    name: OAuth Authorization Server
+    type: Service
+    properties:
+      baseUrl: https://auth.company.example
+      oauth2:
+        version: "2.1"
+        oidc: true
+        metadataEndpoint: https://auth.company.example/.well-known/openid-configuration
+        authorizationEndpoint: https://auth.company.example/oauth2/v1/authorize
+        tokenEndpoint: https://auth.company.example/oauth2/v1/token
+        jwksUri: https://auth.company.example/oauth2/v1/keys
+        dynamicClientRegistration:
+          enabled: true
+          endpoint: https://auth.company.example/oauth2/v1/register
+          tokenEndpointAuthMethodsSupported: [private_key_jwt, none]
+        supportedFlows:
+          authorizationCode:
+            enabled: true
+            pkce: required
+            codeChallengeMethodsSupported: [S256]
+        defaultScopes:
+          - openid
+          - profile
+          - email
+          - mcp:connect
+          - mcp:tools:read
+          - mcp:resources:read
+
+  - id: mcp-client
+    name: MCP Client (Agent/UI)
+    type: Application
+    properties:
+      platform: desktop
+      oauth2Client:
+        flow: authorization_code
+        pkce: S256
+        redirectUris:
+          - http://localhost:5173/callback
+          - app.example.mcp://oauth/callback
+        requestedScopes:
+          - openid
+          - profile
+          - mcp:connect
+          - mcp:tools:read
+          - mcp:resources:read
+
+relationships:
+  # Client obtains tokens from Authorization Server via Authorization Code + PKCE
+  - source: mcp-client
+    target: oauth-authorization-server
+    type: obtainsTokenFrom
+    properties:
+      grantType: authorization_code
+      pkce: S256
+      consent: required
+
+  # Client calls the MCP Resource Server with Bearer access tokens
+  - source: mcp-client
+    target: mcp-resource-server
+    type: calls
+    properties:
+      protocol: https
+      authentication: bearer-token
+      requiredScopes:
+        - mcp:connect
+
+  # MCP Resource Server trusts Authorization Server and validates tokens via JWKS
+  - source: mcp-resource-server
+    target: oauth-authorization-server
+    type: validatesTokensWith
+    properties:
+      jwksUri: https://auth.company.example/oauth2/v1/keys
+      audience: https://mcp.company.example
+      issuers:
+        - https://auth.company.example
+      claimsChecked: [aud, iss, exp, nbf, scope]
+
+  # MCP Resource Server publishes Protected Resource Metadata for discovery
+  - source: mcp-resource-server
+    target: mcp-client
+    type: exposesMetadataTo
+    properties:
+      endpoint: https://mcp.company.example/.well-known/oauth-protected-resource
+      advertises:
+        authorizationServers:
+          - https://auth.company.example
+        requiredScopes:
+          - mcp:connect
+          - mcp:tools:read
+          - mcp:resources:read
+
+views:
+  - id: logical-overview
+    name: Logical Overview
+    type: system-landscape
+    elements:
+      - mcp-client
+      - oauth-authorization-server
+      - mcp-resource-server
+    relationships:
+      - mcp-client->oauth-authorization-server
+      - mcp-client->mcp-resource-server
+      - mcp-resource-server->oauth-authorization-server
+      - mcp-resource-server->mcp-client
+    layout: left-right
+
+notes:
+  - Ensure TLS certificates are valid and rotate regularly.
+  - Enforce least-privilege scopes; separate read vs write scopes if applicable.
+  - Consider token introspection for opaque tokens; use JWKS for JWTs.
+  - Use PAR/PKCE/DPoP as per organizational standards if required.

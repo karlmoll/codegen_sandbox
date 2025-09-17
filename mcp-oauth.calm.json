@@ -1,0 +1,492 @@
+{
+  "$schema": "https://calm.finos.org/release/1.0/meta/calm.json",
+  "metadata": {
+    "name": "MCP Server with OAuth 2.1 (Auth Code + PKCE)",
+    "owners": ["platform-security@company.example"],
+    "tags": ["mcp", "oauth2.1", "oidc", "tls", "jwks"]
+  },
+  "controls": {
+    "oauth-authorization": {
+      "description": "Use OAuth 2.1 Authorization Code + PKCE with OIDC metadata and JWKS validation.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/oauth-authorization",
+          "config": {
+            "appliesTo": {
+              "nodes": ["mcp-resource-server", "oauth-authorization-server", "mcp-client"],
+              "relationships": ["client-obtains-token", "mcp-validates-tokens"]
+            },
+            "scopes": ["mcp:connect", "mcp:tools:read", "mcp:resources:read"],
+            "pkce": "S256"
+          }
+        }
+      ]
+    },
+    "rbac-and-least-privilege": {
+      "description": "Enforce RBAC and least privilege for tools/resources exposed by MCP.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/rbac-least-privilege",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server"] },
+            "model": "role-based",
+            "defaultDeny": true
+          }
+        }
+      ]
+    },
+    "input-validation-and-output-encoding": {
+      "description": "Validate all inputs and encode outputs to prevent injection and parsing attacks.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/input-output-sanitization",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server"] },
+            "validationLibrary": "owasp-validation",
+            "rejectUnknownFields": true
+          }
+        }
+      ]
+    },
+    "secrets-management": {
+      "description": "Manage credentials via a secrets manager; avoid hardcoding and enable rotation.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/secrets-management",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server", "secrets-manager"] },
+            "rotationDays": 30,
+            "noHardcodedSecrets": true
+          }
+        }
+      ]
+    },
+    "encryption-in-transit": {
+      "description": "TLS 1.2+ everywhere, HSTS at edge, WebSocket over TLS.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/tls-enforcement",
+          "config": {
+            "appliesTo": { "relationships": ["client-calls-edge", "edge-proxies-mcp", "mcp-validates-tokens", "mcp-logs-siem", "mcp-fetches-secrets"] },
+            "minTLS": "TLSv1.2",
+            "hsts": true
+          }
+        }
+      ]
+    },
+    "isolation-and-sandboxing": {
+      "description": "Run MCP server in isolated container/sandbox; limit filesystem and network access.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/isolation",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server"] },
+            "containerization": true,
+            "seccomp": true,
+            "readOnlyFS": true
+          }
+        }
+      ]
+    },
+    "patch-and-dependency-security": {
+      "description": "Keep systems patched and scan dependencies for vulnerabilities.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/patching-dependencies",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server", "edge-waf-proxy"] },
+            "dependencyScanner": "oss-index",
+            "autoUpdates": true
+          }
+        }
+      ]
+    },
+    "audit-logging-and-siem": {
+      "description": "Comprehensive security logging with forwarding to SIEM and anomaly detection.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/logging-siem",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server", "siem"], "relationships": ["mcp-logs-siem"] },
+            "logCategories": ["auth", "tool-call", "admin", "error"],
+            "retentionDays": 365
+          }
+        }
+      ]
+    },
+    "waf-and-rate-limiting": {
+      "description": "Edge reverse proxy with WAF rules and rate limiting to mitigate abuse.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/waf-rate-limiting",
+          "config": {
+            "appliesTo": { "nodes": ["edge-waf-proxy"], "relationships": ["client-calls-edge", "edge-proxies-mcp"] },
+            "rateLimit": { "burst": 100, "perMinute": 1000 },
+            "wafRuleset": "owasp-core"
+          }
+        }
+      ]
+    },
+    "policy-decision-point": {
+      "description": "Externalize authorization decisions via policy engine (e.g., OPA).",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/policy-decision",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server", "policy-engine"], "relationships": ["mcp-calls-policy"] },
+            "policyLanguage": "rego",
+            "defaultDeny": true
+          }
+        }
+      ]
+    },
+    "prompt-injection-and-tool-poisoning-defenses": {
+      "description": "Layered defenses against prompt injection and malicious tool descriptions.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/prompt-tool-defenses",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-resource-server"] },
+            "contentFiltering": true,
+            "toolAllowlist": true
+          }
+        }
+      ]
+    },
+    "user-consent-and-transparency": {
+      "description": "Explicit user consent for data access and tool operations; clear documentation.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/user-consent",
+          "config": {
+            "appliesTo": { "nodes": ["mcp-client", "mcp-resource-server"] },
+            "consentUI": true,
+            "explainTools": true
+          }
+        }
+      ]
+    }
+  },
+  "nodes": [
+    {
+      "unique-id": "mcp-resource-server",
+      "node-type": "service",
+      "name": "MCP Resource Server",
+      "description": "MCP server acting as OAuth2.1 Resource Server secured via HTTPS with JWT validation via JWKS.",
+      "interfaces": [
+        { "unique-id": "mcp-api-https" },
+        { "unique-id": "mcp-ws" },
+        { "unique-id": "mcp-prm" }
+      ],
+      "metadata": {
+        "baseUrl": "https://mcp.company.example",
+        "mcp": {
+          "role": "resource-server",
+          "spec": "https://modelcontextprotocol.io/specification/"
+        },
+        "air": {
+          "framework": "FINOS AIR",
+          "reference": "https://air-governance-framework.finos.org/",
+          "controls": [
+            { "category": "Preventative", "name": "Access control and least privilege" },
+            { "category": "Preventative", "name": "Input validation and output encoding" },
+            { "category": "Preventative", "name": "Encryption in transit (TLS)" },
+            { "category": "Preventative", "name": "Isolation and sandboxing" },
+            { "category": "Preventative", "name": "Prompt injection and tool poisoning defenses" },
+            { "category": "Preventative", "name": "Externalized authorization policy" },
+            { "category": "Detective", "name": "Audit logging and observability" }
+          ]
+        },
+        "security": {
+          "https": { "enforced": true, "minTLS": "TLSv1.2", "hsts": true },
+          "oauth2": {
+            "audience": "https://mcp.company.example",
+            "requiredScopes": ["mcp:connect", "mcp:tools:read", "mcp:resources:read"],
+            "trustedAuthorizationServers": ["oauth-authorization-server"],
+            "tokenValidation": {
+              "algorithms": ["RS256", "ES256"],
+              "checks": ["signature", "exp", "nbf", "aud", "iss", "scope"],
+              "jwksCacheSeconds": 300
+            }
+          }
+        },
+        "endpoints": [
+          { "name": "Protected Resource Metadata (PRM)", "path": "/.well-known/oauth-protected-resource", "protocol": "HTTPS", "interface": "mcp-prm" },
+          { "name": "MCP API", "path": "/api", "protocol": "HTTPS", "interface": "mcp-api-https" },
+          { "name": "MCP WebSocket", "path": "/ws", "protocol": "WebSocket", "interface": "mcp-ws" },
+          { "name": "Health", "path": "/healthz", "protocol": "HTTPS" }
+        ]
+      }
+    },
+    {
+      "unique-id": "oauth-authorization-server",
+      "node-type": "service",
+      "name": "OAuth Authorization Server",
+      "description": "OIDC-compliant Authorization Server issuing OAuth 2.1 tokens. Supports Authorization Code + PKCE and dynamic client registration.",
+      "interfaces": [
+        { "unique-id": "oauth-authorization" },
+        { "unique-id": "oauth-token" },
+        { "unique-id": "oauth-registration" },
+        { "unique-id": "oidc-metadata" },
+        { "unique-id": "jwks" }
+      ],
+      "metadata": {
+        "baseUrl": "https://auth.company.example",
+        "air": {
+          "framework": "FINOS AIR",
+          "reference": "https://air-governance-framework.finos.org/",
+          "controls": [
+            { "category": "Preventative", "name": "Strong authentication and token security" },
+            { "category": "Preventative", "name": "Secure key management and rotation" }
+          ]
+        },
+        "oauth2": {
+          "version": "2.1",
+          "oidc": true,
+          "authorizationEndpoint": "https://auth.company.example/oauth2/v1/authorize",
+          "tokenEndpoint": "https://auth.company.example/oauth2/v1/token",
+          "registrationEndpoint": "https://auth.company.example/oauth2/v1/register",
+          "jwksUri": "https://auth.company.example/oauth2/v1/keys",
+          "metadataEndpoint": "https://auth.company.example/.well-known/openid-configuration",
+          "supportedFlows": {
+            "authorizationCode": { "enabled": true, "pkce": "required", "codeChallengeMethods": ["S256"] }
+          },
+          "defaultScopes": ["openid", "profile", "email", "mcp:connect", "mcp:tools:read", "mcp:resources:read"]
+        }
+      }
+    },
+    {
+      "unique-id": "mcp-client",
+      "node-type": "webclient",
+      "name": "MCP Client (Agent/UI)",
+      "description": "Client that connects to the MCP Resource Server. Uses OAuth 2.1 Authorization Code + PKCE to obtain access tokens.",
+      "interfaces": [
+        { "unique-id": "mcp-client-browser" },
+        { "unique-id": "mcp-client-http" },
+        { "unique-id": "mcp-client-redirect" }
+      ],
+      "metadata": {
+        "platform": "desktop",
+        "air": {
+          "framework": "FINOS AIR",
+          "reference": "https://air-governance-framework.finos.org/",
+          "controls": [
+            { "category": "Preventative", "name": "User consent and transparency" }
+          ]
+        },
+        "oauth2Client": {
+          "flow": "authorization_code",
+          "pkce": "S256",
+          "redirectUris": [
+            "http://localhost:5173/callback",
+            "app.example.mcp://oauth/callback"
+          ],
+          "requestedScopes": ["openid", "profile", "mcp:connect", "mcp:tools:read", "mcp:resources:read"]
+        }
+      }
+    },
+    {
+      "unique-id": "edge-waf-proxy",
+      "node-type": "service",
+      "name": "Edge Reverse Proxy + WAF",
+      "description": "Edge service terminating TLS, enforcing WAF and rate limiting, and proxying to MCP.",
+      "interfaces": [ { "unique-id": "edge-https" } ],
+      "metadata": {
+        "waf": { "ruleset": "owasp-core" },
+        "rateLimiting": { "burst": 100, "perMinute": 1000 },
+        "tls": { "min": "TLSv1.2", "hsts": true }
+      }
+    },
+    {
+      "unique-id": "secrets-manager",
+      "node-type": "service",
+      "name": "Secrets Manager",
+      "description": "Centralized secrets store for API keys and credentials with rotation.",
+      "interfaces": [ { "unique-id": "secrets-api" } ]
+    },
+    {
+      "unique-id": "siem",
+      "node-type": "service",
+      "name": "SIEM / Anomaly Detection",
+      "description": "Security analytics platform receiving audit logs and emitting alerts.",
+      "interfaces": [ { "unique-id": "siem-intake" } ]
+    },
+    {
+      "unique-id": "policy-engine",
+      "node-type": "service",
+      "name": "Policy Decision Point",
+      "description": "Externalized authorization policy engine (e.g., OPA).",
+      "interfaces": [ { "unique-id": "policy-api" } ]
+    }
+  ],
+  "relationships": [
+    {
+      "unique-id": "client-calls-edge",
+      "description": "Client calls Edge Reverse Proxy + WAF over HTTPS.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-client", "interfaces": ["mcp-client-http"] },
+          "destination": { "node": "edge-waf-proxy", "interfaces": ["edge-https"] }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "air": {
+          "framework": "FINOS AIR",
+          "reference": "https://air-governance-framework.finos.org/",
+          "controls": [
+            { "category": "Preventative", "name": "Encryption in transit (TLS)" },
+            { "category": "Preventative", "name": "WAF and rate limiting" }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "client-obtains-token",
+      "description": "Client obtains tokens from Authorization Server via Authorization Code + PKCE.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-client", "interfaces": ["mcp-client-browser", "mcp-client-redirect"] },
+          "destination": { "node": "oauth-authorization-server", "interfaces": ["oauth-authorization", "oauth-token"] }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "grantType": "authorization_code",
+        "pkce": "S256",
+        "consent": "required",
+        "scopes": ["openid", "profile", "mcp:connect", "mcp:tools:read", "mcp:resources:read"]
+      }
+    },
+    {
+      "unique-id": "edge-proxies-mcp",
+      "description": "Edge proxy forwards sanitized requests to MCP Resource Server, enforcing WAF and rate limits.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "edge-waf-proxy", "interfaces": ["edge-https"] },
+          "destination": { "node": "mcp-resource-server", "interfaces": ["mcp-api-https"] }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "air": {
+          "framework": "FINOS AIR",
+          "reference": "https://air-governance-framework.finos.org/",
+          "controls": [
+            { "category": "Preventative", "name": "Input validation and sanitization at edge" },
+            { "category": "Preventative", "name": "Encryption in transit (TLS)" }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "mcp-fetches-secrets",
+      "description": "MCP Resource Server retrieves secrets from Secrets Manager.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-resource-server" },
+          "destination": { "node": "secrets-manager" }
+        }
+      },
+      "protocol": "HTTPS"
+    },
+    {
+      "unique-id": "mcp-logs-siem",
+      "description": "MCP Resource Server forwards security logs and metrics to SIEM/Anomaly Detection.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-resource-server" },
+          "destination": { "node": "siem" }
+        }
+      },
+      "protocol": "HTTPS"
+    },
+    {
+      "unique-id": "mcp-calls-policy",
+      "description": "MCP Resource Server queries external policy engine for authorization decisions.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-resource-server" },
+          "destination": { "node": "policy-engine" }
+        }
+      },
+      "protocol": "HTTPS"
+    },
+    {
+      "unique-id": "client-calls-mcp",
+      "description": "Client calls MCP Resource Server using Bearer access tokens.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-client", "interfaces": ["mcp-client-http"] },
+          "destination": { "node": "mcp-resource-server", "interfaces": ["mcp-api-https", "mcp-ws"] }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "bearer-token",
+        "requiredScopes": ["mcp:connect", "mcp:tools:read", "mcp:resources:read"]
+      }
+    },
+    {
+      "unique-id": "mcp-validates-tokens",
+      "description": "MCP Resource Server validates JWTs with Authorization Server via JWKS.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-resource-server", "interfaces": ["mcp-api-https"] },
+          "destination": { "node": "oauth-authorization-server", "interfaces": ["jwks", "oidc-metadata"] }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "jwksUri": "https://auth.company.example/oauth2/v1/keys",
+        "audience": "https://mcp.company.example",
+        "issuers": ["https://auth.company.example"],
+        "claimsChecked": ["aud", "iss", "exp", "nbf", "scope"],
+        "air": {
+          "framework": "FINOS AIR",
+          "reference": "https://air-governance-framework.finos.org/",
+          "controls": [
+            { "category": "Preventative", "name": "Strong authentication and token validation" }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "mcp-exposes-prm",
+      "description": "MCP Resource Server exposes Protected Resource Metadata (PRM) for client discovery.",
+      "relationship-type": {
+        "connects": {
+          "source": { "node": "mcp-resource-server", "interfaces": ["mcp-prm"] },
+          "destination": { "node": "mcp-client", "interfaces": ["mcp-client-http"] }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "endpoint": "https://mcp.company.example/.well-known/oauth-protected-resource",
+        "authorizationServers": ["https://auth.company.example"],
+        "requiredScopes": ["mcp:connect", "mcp:tools:read", "mcp:resources:read"]
+      }
+    }
+  ],
+  "flows": [
+    {
+      "unique-id": "secure-request-and-audit",
+      "name": "Secure Request with OAuth, WAF, Policy, and Audit",
+      "description": "End-to-end secure flow: token issuance, edge protections, token validation, policy check, and audit logging.",
+      "transitions": [
+        { "relationship-unique-id": "client-obtains-token", "sequence-number": 1, "description": "Client performs OAuth Authorization Code with PKCE at Authorization Server." },
+        { "relationship-unique-id": "client-calls-edge", "sequence-number": 2, "description": "Client calls Edge Reverse Proxy + WAF." },
+        { "relationship-unique-id": "edge-proxies-mcp", "sequence-number": 3, "description": "Edge forwards request to MCP after WAF/rate limiting." },
+        { "relationship-unique-id": "mcp-validates-tokens", "sequence-number": 4, "description": "MCP validates JWT via JWKS and checks claims/scopes." },
+        { "relationship-unique-id": "mcp-calls-policy", "sequence-number": 5, "description": "MCP queries external policy engine for authorization decision." },
+        { "relationship-unique-id": "mcp-logs-siem", "sequence-number": 6, "description": "MCP emits security and audit logs to SIEM." }
+      ]
+    }
+  ],
+  "adrs": [
+    "https://modelcontextprotocol.io/specification/",
+    "https://www.rfc-editor.org/rfc/rfc8414",
+    "https://www.rfc-editor.org/rfc/rfc8725"
+  ]
+}
+
