@@ -1,7 +1,7 @@
 {
   "$schema": "https://calm.finos.org/release/1.0/meta/calm.json",
   "metadata": {
-    "name": "Enterprise MCP Golden Path with AIR Controls",
+    "name": "Experimental - Enterprise MCP Golden Path with AIR Controls",
     "owners": ["platform-security@company.example", "sre@company.example", "data-governance@company.example", "ai-governance@company.example"],
     "tags": [
       "mcp",
