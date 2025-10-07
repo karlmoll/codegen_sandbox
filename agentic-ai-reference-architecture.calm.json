@@ -1,0 +1,1628 @@
+{
+  "$schema": "https://calm.finos.org/release/1.0/meta/calm.json",
+  "metadata": {
+    "name": "FINOS Agentic AI Reference Architecture with AIR Governance",
+    "version": "1.0.0",
+    "owners": [
+      "ai-governance@finos.org",
+      "architecture-as-code@finos.org"
+    ],
+    "tags": [
+      "agentic-ai",
+      "multi-agent",
+      "llm",
+      "mcp",
+      "rag",
+      "finos-air",
+      "ai-governance",
+      "reference-architecture"
+    ],
+    "description": "A flexible, high-level reference architecture for agentic AI systems with embedded FINOS AIR (AI Readiness) governance controls. This architecture supports arbitrary tech stack implementations and agent-to-agent communication patterns.",
+    "architecture-type": "reference",
+    "modularity": {
+      "description": "This CALM document is designed as a master reference that can link to sub-component specifications",
+      "sub-components": [
+        {
+          "name": "MCP Server Component",
+          "reference": "./components/mcp-server.calm.json",
+          "description": "Model Context Protocol server for agent tool access"
+        },
+        {
+          "name": "Agent Communication Protocol",
+          "reference": "./components/agent-communication.calm.json",
+          "description": "Agent-to-agent communication patterns and protocols"
+        },
+        {
+          "name": "Knowledge Base Component",
+          "reference": "./components/knowledge-base.calm.json",
+          "description": "RAG and vector database components"
+        }
+      ]
+    },
+    "air-governance": {
+      "framework": "FINOS AIR",
+      "version": "1.0",
+      "reference": "https://air-governance-framework.finos.org/",
+      "threats": [
+        {
+          "id": "AIR-OP-004",
+          "name": "Hallucination and Inaccurate Outputs",
+          "description": "Agents may generate confident but incorrect outputs, compounded in multi-agent scenarios.",
+          "category": "Operational",
+          "severity": "critical",
+          "agentic-context": "Multi-agent systems can amplify hallucinations when agents build on each other's outputs",
+          "reference": "https://air-governance-framework.finos.org/#air-op-004"
+        },
+        {
+          "id": "AIR-SEC-010",
+          "name": "Prompt Injection",
+          "description": "Attackers may manipulate agent behavior through crafted inputs at any interaction point.",
+          "category": "Security",
+          "severity": "high",
+          "agentic-context": "Agent-to-agent communication creates multiple injection surfaces",
+          "reference": "https://air-governance-framework.finos.org/#air-sec-010"
+        },
+        {
+          "id": "AIR-SEC-002",
+          "name": "Information Leaked to Vector Store",
+          "description": "Sensitive data may leak through shared knowledge bases accessed by multiple agents.",
+          "category": "Security",
+          "severity": "critical",
+          "reference": "https://air-governance-framework.finos.org/#air-sec-002"
+        },
+        {
+          "id": "AIR-SEC-001",
+          "name": "Data Poisoning",
+          "description": "Malicious data injection into agent knowledge bases or tool responses.",
+          "category": "Security",
+          "severity": "high",
+          "reference": "https://air-governance-framework.finos.org/#air-sec-001"
+        },
+        {
+          "id": "AIR-OP-020",
+          "name": "Reputational Risk",
+          "description": "Agent failures in production can cause significant reputational damage.",
+          "category": "Operational",
+          "severity": "high",
+          "reference": "https://air-governance-framework.finos.org/#air-op-020"
+        },
+        {
+          "id": "AIR-SEC-009",
+          "name": "Agent Autonomy and Control Loss",
+          "description": "Autonomous agents may take unintended actions beyond designed parameters.",
+          "category": "Security",
+          "severity": "critical",
+          "agentic-context": "Critical threat for agentic systems with tool access and autonomy",
+          "reference": "https://air-governance-framework.finos.org/#air-sec-009"
+        },
+        {
+          "id": "AIR-OP-015",
+          "name": "Model Drift",
+          "description": "Agent performance degrades over time as underlying models drift.",
+          "category": "Operational",
+          "severity": "high",
+          "reference": "https://air-governance-framework.finos.org/#air-op-015"
+        },
+        {
+          "id": "AIR-SEC-011",
+          "name": "Tool Misuse and Privilege Escalation",
+          "description": "Agents may misuse tools or escalate privileges beyond intended scope.",
+          "category": "Security",
+          "severity": "high",
+          "agentic-context": "Agents with tool access require strict authorization boundaries",
+          "reference": "https://air-governance-framework.finos.org/#air-sec-011"
+        },
+        {
+          "id": "AIR-OP-021",
+          "name": "Agent Coordination Failures",
+          "description": "Multi-agent systems may experience deadlocks, conflicts, or coordination failures.",
+          "category": "Operational",
+          "severity": "medium",
+          "agentic-context": "Unique to multi-agent architectures",
+          "reference": "https://air-governance-framework.finos.org/#air-op-021"
+        }
+      ],
+      "risks": [
+        {
+          "id": "AIR-REG-001",
+          "name": "Regulatory Non-Compliance",
+          "description": "Failure to comply with AI regulations governing autonomous systems.",
+          "category": "Regulatory",
+          "severity": "critical",
+          "reference": "https://air-governance-framework.finos.org/#air-reg-001"
+        },
+        {
+          "id": "AIR-OP-018",
+          "name": "Algorithmic Bias",
+          "description": "Agent decisions may exhibit bias, amplified through multi-agent interactions.",
+          "category": "Operational",
+          "severity": "high",
+          "reference": "https://air-governance-framework.finos.org/#air-op-018"
+        },
+        {
+          "id": "AIR-OP-022",
+          "name": "Emergent Behavior",
+          "description": "Multi-agent systems may exhibit unpredictable emergent behaviors.",
+          "category": "Operational",
+          "severity": "high",
+          "agentic-context": "Critical risk in complex multi-agent scenarios",
+          "reference": "https://air-governance-framework.finos.org/#air-op-022"
+        }
+      ],
+      "controls": [
+        {
+          "id": "AIR-PREV-001",
+          "name": "AI System Risk Assessment",
+          "description": "Comprehensive risk assessment including agent autonomy levels and tool access.",
+          "category": "Preventative",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-1_ai-system-risk-assessment.html"
+        },
+        {
+          "id": "AIR-PREV-002",
+          "name": "Data Filtering From External Knowledge Bases",
+          "description": "Sanitize data accessed by agents from external sources.",
+          "category": "Preventative",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-2_data-filtering-from-external-knowledge-bases.html"
+        },
+        {
+          "id": "AIR-PREV-003",
+          "name": "User/App/Model Firewalling/Filtering",
+          "description": "AI firewalls at agent boundaries to filter malicious inputs and outputs.",
+          "category": "Preventative",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-3_user-app-model-firewalling-filtering.html"
+        },
+        {
+          "id": "AIR-PREV-012",
+          "name": "Role-Based Access Control for AI Data",
+          "description": "Granular RBAC for agent access to tools, data, and other agents.",
+          "category": "Preventative",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-12_role-based-access-control-for-ai-data.html"
+        },
+        {
+          "id": "AIR-PREV-013",
+          "name": "Agent Autonomy Limits",
+          "description": "Define and enforce boundaries on agent autonomous actions and tool usage.",
+          "category": "Preventative",
+          "agentic-context": "Critical control for agentic systems",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-13_agent-autonomy-limits.html"
+        },
+        {
+          "id": "AIR-PREV-014",
+          "name": "Human-in-the-Loop Checkpoints",
+          "description": "Require human approval for high-risk agent actions.",
+          "category": "Preventative",
+          "agentic-context": "Essential for production agentic systems",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-14_human-in-the-loop.html"
+        },
+        {
+          "id": "AIR-DET-004",
+          "name": "AI System Observability",
+          "description": "Comprehensive monitoring of agent actions, decisions, and interactions.",
+          "category": "Detective",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-4_ai-system-observability.html"
+        },
+        {
+          "id": "AIR-DET-005",
+          "name": "AI System Audit Trail",
+          "description": "Immutable audit logs for all agent actions and decisions.",
+          "category": "Detective",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-5_ai-system-audit-trail.html"
+        },
+        {
+          "id": "AIR-DET-007",
+          "name": "Agent Behavior Anomaly Detection",
+          "description": "Detect anomalous agent behavior patterns and coordination issues.",
+          "category": "Detective",
+          "agentic-context": "Monitors for emergent behaviors and agent drift",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-7_anomaly-detection.html"
+        },
+        {
+          "id": "AIR-CORR-001",
+          "name": "AI System Incident Response",
+          "description": "Incident response including agent circuit breakers and emergency shutdown.",
+          "category": "Corrective",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-6_ai-system-incident-response.html"
+        }
+      ]
+    }
+  },
+  "controls": {
+    "agent-authentication-authorization": {
+      "description": "Secure authentication and authorization for human users, agents, and agent-to-agent communication.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.finos.org/ai/agent-auth",
+          "config": {
+            "appliesTo": {
+              "nodes": ["human-interface", "agent-orchestrator", "planning-agent", "execution-agent", "validation-agent"],
+              "relationships": ["human-to-orchestrator", "agent-to-agent-*"]
+            },
+            "humanAuth": "OAuth 2.1 + PKCE",
+            "agentAuth": "mTLS + JWT",
+            "agentIdentity": "SPIFFE",
+            "scopeModel": "capability-based"
+          }
+        }
+      ],
+      "air-controls": ["AIR-PREV-012", "AIR-SEC-009", "AIR-SEC-011"]
+    },
+    "agent-autonomy-controls": {
+      "description": "Controls limiting agent autonomous actions and requiring human approval for high-risk operations.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.finos.org/ai/agent-autonomy",
+          "config": {
+            "appliesTo": {
+              "nodes": ["planning-agent", "execution-agent", "human-approval-service"]
+            },
+            "autonomyLevels": {
+              "level0": "No autonomy - human approval required",
+              "level1": "Suggest actions - human approval required",
+              "level2": "Execute within bounds - human notified",
+              "level3": "Full autonomy within domain - logged"
+            },
+            "highRiskActions": ["data-modification", "external-api-calls", "financial-transactions"],
+            "requireHumanApproval": true,
+            "approvalTimeout": "5m"
+          }
+        }
+      ],
+      "air-controls": ["AIR-PREV-013", "AIR-PREV-014", "AIR-SEC-009"]
+    },
+    "agent-tool-access-control": {
+      "description": "Fine-grained access control for agent tool usage via MCP servers.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.finos.org/ai/agent-tool-access",
+          "config": {
+            "appliesTo": {
+              "nodes": ["execution-agent", "mcp-server", "tool-authorization-service"],
+              "relationships": ["agent-to-mcp", "mcp-to-tool-authz"]
+            },
+            "authzModel": "attribute-based-access-control",
+            "toolAllowlist": true,
+            "rateLimit": true,
+            "costTracking": true,
+            "auditAllAccess": true
+          }
+        }
+      ],
+      "air-controls": ["AIR-PREV-012", "AIR-SEC-011", "AIR-DET-005"]
+    },
+    "prompt-injection-protection": {
+      "description": "Multi-layered prompt injection protection at all agent interaction boundaries.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.finos.org/ai/prompt-injection",
+          "config": {
+            "appliesTo": {
+              "nodes": ["ai-gateway", "agent-orchestrator", "planning-agent", "execution-agent"],
+              "relationships": ["human-to-orchestrator", "agent-to-agent-*", "agent-to-llm"]
+            },
+            "techniques": [
+              "input-sanitization",
+              "prompt-templating",
+              "delimiters",
+              "instruction-separation",
+              "output-validation"
+            ],
+            "aiFirewall": true
+          }
+        }
+      ],
+      "air-controls": ["AIR-SEC-010", "AIR-PREV-003"]
+    },
+    "knowledge-base-security": {
+      "description": "Security controls for shared knowledge bases accessed by multiple agents.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.finos.org/ai/knowledge-security",
+          "config": {
+            "appliesTo": {
+              "nodes": ["vector-database", "knowledge-base", "embedding-service"]
+            },
+            "encryption": {
+              "atRest": true,
+              "inTransit": true
+            },
+            "accessControl": "RBAC per agent",
+            "dataClassification": true,
+            "piiFiltering": true,
+            "dataLineage": true
+          }
+        }
+      ],
+      "air-controls": ["AIR-SEC-002", "AIR-PREV-002", "AIR-PREV-012"]
+    },
+    "agent-observability": {
+      "description": "Comprehensive observability for agent actions, decisions, and interactions.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.finos.org/ai/agent-observability",
+          "config": {
+            "appliesTo": {
+              "nodes": ["agent-orchestrator", "planning-agent", "execution-agent", "validation-agent", "observability-platform"]
+            },
+            "traces": {
+              "enabled": true,
+              "agentChainTracking": true,
+              "toolCallTracking": true
+            },
+            "metrics": [
+              "agent-invocations",
+              "tool-usage",
+              "token-consumption",
+              "error-rate",
+              "latency",
+              "cost"
+            ],
+            "logs": {
+              "structured": true,
+              "agentReasoning": true,
+              "decisions": true
+            }
+          }
+        }
+      ],
+      "air-controls": ["AIR-DET-004", "AIR-DET-007", "AIR-OP-015"]
+    },
+    "agent-audit-trail": {
+      "description": "Immutable audit trail for all agent activities and decisions.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.finos.org/ai/agent-audit",
+          "config": {
+            "appliesTo": {
+              "nodes": ["agent-orchestrator", "planning-agent", "execution-agent", "audit-service"]
+            },
+            "logEvents": [
+              "agent-invocation",
+              "agent-decision",
+              "tool-call",
+              "human-approval-request",
+              "human-approval-response",
+              "agent-error",
+              "circuit-breaker-trigger"
+            ],
+            "format": "json",
+            "immutable": true,
+            "retention": "7-years",
+            "includeReasoning": true
+          }
+        }
+      ],
+      "air-controls": ["AIR-DET-005", "AIR-REG-001"]
+    },
+    "hallucination-detection": {
+      "description": "Detection and mitigation of agent hallucinations across multi-agent workflows.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.finos.org/ai/hallucination-detection",
+          "config": {
+            "appliesTo": {
+              "nodes": ["validation-agent", "agent-orchestrator"]
+            },
+            "techniques": [
+              "cross-agent-validation",
+              "source-attribution",
+              "confidence-scoring",
+              "fact-checking",
+              "consistency-checking"
+            ],
+            "validationAgent": {
+              "enabled": true,
+              "role": "validate other agent outputs"
+            },
+            "confidenceThreshold": 0.8
+          }
+        }
+      ],
+      "air-controls": ["AIR-OP-004", "AIR-OP-020"]
+    },
+    "agent-coordination-controls": {
+      "description": "Controls for managing multi-agent coordination and preventing deadlocks.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.finos.org/ai/agent-coordination",
+          "config": {
+            "appliesTo": {
+              "nodes": ["agent-orchestrator", "coordination-service"]
+            },
+            "patterns": ["sequential", "parallel", "hierarchical", "collaborative"],
+            "conflictResolution": true,
+            "deadlockPrevention": true,
+            "maxAgentChainDepth": 10,
+            "timeouts": {
+              "agentExecution": "30s",
+              "overallWorkflow": "5m"
+            }
+          }
+        }
+      ],
+      "air-controls": ["AIR-OP-021", "AIR-OP-022"]
+    },
+    "incident-response-and-circuit-breakers": {
+      "description": "Automated incident response including agent circuit breakers and emergency shutdown.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.finos.org/ai/incident-response",
+          "config": {
+            "appliesTo": {
+              "nodes": ["agent-orchestrator", "planning-agent", "execution-agent", "validation-agent"]
+            },
+            "circuitBreaker": {
+              "enabled": true,
+              "errorThreshold": 5,
+              "timeWindow": "1m",
+              "action": "halt-agent"
+            },
+            "emergencyShutdown": {
+              "triggers": ["repeated-policy-violations", "cost-threshold-exceeded", "anomalous-behavior"],
+              "notificationChannels": ["pagerduty", "slack"]
+            },
+            "humanEscalation": {
+              "enabled": true,
+              "escalationPath": ["agent-ops", "security", "executive"]
+            }
+          }
+        }
+      ],
+      "air-controls": ["AIR-CORR-001", "AIR-SEC-009", "AIR-OP-020"]
+    }
+  },
+  "nodes": [
+    {
+      "unique-id": "human-interface",
+      "node-type": "application",
+      "name": "Human Interface",
+      "description": "User-facing interface for human interaction with agentic AI system (web, mobile, API, chat).",
+      "interfaces": [
+        {
+          "unique-id": "human-ui"
+        },
+        {
+          "unique-id": "human-api"
+        }
+      ],
+      "metadata": {
+        "deployment-flexibility": "web-app, mobile-app, cli, api-client",
+        "air": {
+          "threats": ["AIR-SEC-010"],
+          "controls": ["AIR-PREV-003"],
+          "risk-level": "medium"
+        }
+      }
+    },
+    {
+      "unique-id": "api-gateway",
+      "node-type": "service",
+      "name": "API Gateway",
+      "description": "Enterprise API gateway with security controls and routing.",
+      "interfaces": [
+        {
+          "unique-id": "gateway-https"
+        }
+      ],
+      "metadata": {
+        "capabilities": ["waf", "rate-limiting", "oauth-validation", "routing"],
+        "air": {
+          "threats": ["AIR-SEC-010", "AIR-SEC-011"],
+          "controls": [
+            {
+              "id": "AIR-PREV-003",
+              "name": "User/App/Model Firewalling/Filtering"
+            }
+          ],
+          "risk-level": "high"
+        }
+      }
+    },
+    {
+      "unique-id": "auth-service",
+      "node-type": "service",
+      "name": "Authentication & Authorization Service",
+      "description": "Centralized auth for humans and agents with support for SPIFFE/SPIRE.",
+      "interfaces": [
+        {
+          "unique-id": "auth-oauth"
+        },
+        {
+          "unique-id": "auth-spiffe"
+        }
+      ],
+      "metadata": {
+        "protocols": ["OAuth 2.1", "OIDC", "SPIFFE"],
+        "air": {
+          "threats": ["AIR-SEC-009", "AIR-SEC-011"],
+          "controls": ["AIR-PREV-012"],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "ai-gateway",
+      "node-type": "service",
+      "name": "AI Gateway",
+      "description": "Specialized gateway for AI workloads with prompt injection protection and agent traffic management.",
+      "interfaces": [
+        {
+          "unique-id": "ai-gateway-https"
+        }
+      ],
+      "metadata": {
+        "capabilities": [
+          "prompt-injection-detection",
+          "agent-traffic-management",
+          "token-usage-tracking",
+          "ai-firewall"
+        ],
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": ["AIR-SEC-010", "AIR-OP-004"],
+          "controls": [
+            {
+              "id": "AIR-PREV-003",
+              "name": "User/App/Model Firewalling/Filtering"
+            }
+          ],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "agent-orchestrator",
+      "node-type": "service",
+      "name": "Agent Orchestrator",
+      "description": "Central orchestration service managing agent workflows, coordination, and execution flow.",
+      "interfaces": [
+        {
+          "unique-id": "orchestrator-api"
+        }
+      ],
+      "metadata": {
+        "tech-stack-flexibility": "langchain, langgraph, autogen, crewai, custom",
+        "capabilities": [
+          "workflow-management",
+          "agent-coordination",
+          "state-management",
+          "error-handling",
+          "circuit-breaker"
+        ],
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": [
+            "AIR-SEC-009",
+            "AIR-OP-021",
+            "AIR-OP-022",
+            "AIR-OP-004"
+          ],
+          "controls": [
+            {
+              "id": "AIR-PREV-013",
+              "name": "Agent Autonomy Limits"
+            },
+            {
+              "id": "AIR-PREV-014",
+              "name": "Human-in-the-Loop Checkpoints"
+            },
+            {
+              "id": "AIR-DET-004",
+              "name": "AI System Observability"
+            },
+            {
+              "id": "AIR-DET-007",
+              "name": "Agent Behavior Anomaly Detection"
+            },
+            {
+              "id": "AIR-CORR-001",
+              "name": "AI System Incident Response"
+            }
+          ],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "planning-agent",
+      "node-type": "service",
+      "name": "Planning Agent",
+      "description": "Agent responsible for task decomposition, planning, and strategy generation.",
+      "interfaces": [
+        {
+          "unique-id": "planning-agent-api"
+        }
+      ],
+      "metadata": {
+        "agent-type": "planner",
+        "tech-stack-flexibility": "LangChain PlanAndExecute, ReAct, custom planning logic",
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": ["AIR-OP-004", "AIR-SEC-010", "AIR-SEC-009"],
+          "controls": [
+            {
+              "id": "AIR-PREV-013",
+              "name": "Agent Autonomy Limits"
+            },
+            {
+              "id": "AIR-DET-004",
+              "name": "AI System Observability"
+            },
+            {
+              "id": "AIR-DET-005",
+              "name": "AI System Audit Trail"
+            }
+          ],
+          "risk-level": "high"
+        }
+      }
+    },
+    {
+      "unique-id": "execution-agent",
+      "node-type": "service",
+      "name": "Execution Agent",
+      "description": "Agent responsible for executing planned tasks and interacting with tools via MCP.",
+      "interfaces": [
+        {
+          "unique-id": "execution-agent-api"
+        }
+      ],
+      "metadata": {
+        "agent-type": "executor",
+        "tool-access": "via-mcp-server",
+        "tech-stack-flexibility": "LangChain Tools, custom tool framework",
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": [
+            "AIR-SEC-011",
+            "AIR-SEC-009",
+            "AIR-SEC-010",
+            "AIR-OP-004"
+          ],
+          "controls": [
+            {
+              "id": "AIR-PREV-012",
+              "name": "Role-Based Access Control for AI Data"
+            },
+            {
+              "id": "AIR-PREV-013",
+              "name": "Agent Autonomy Limits"
+            },
+            {
+              "id": "AIR-PREV-014",
+              "name": "Human-in-the-Loop Checkpoints"
+            },
+            {
+              "id": "AIR-DET-005",
+              "name": "AI System Audit Trail"
+            }
+          ],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "validation-agent",
+      "node-type": "service",
+      "name": "Validation Agent",
+      "description": "Agent responsible for validating outputs from other agents, detecting hallucinations, and ensuring quality.",
+      "interfaces": [
+        {
+          "unique-id": "validation-agent-api"
+        }
+      ],
+      "metadata": {
+        "agent-type": "validator",
+        "capabilities": [
+          "hallucination-detection",
+          "output-validation",
+          "fact-checking",
+          "consistency-checking"
+        ],
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": ["AIR-OP-004", "AIR-OP-020"],
+          "controls": [
+            {
+              "id": "AIR-DET-004",
+              "name": "AI System Observability"
+            }
+          ],
+          "risk-level": "high"
+        }
+      }
+    },
+    {
+      "unique-id": "mcp-server",
+      "node-type": "service",
+      "name": "MCP Server (Model Context Protocol)",
+      "description": "Server implementing Model Context Protocol for standardized tool access by agents.",
+      "interfaces": [
+        {
+          "unique-id": "mcp-api"
+        },
+        {
+          "unique-id": "mcp-ws"
+        }
+      ],
+      "metadata": {
+        "protocol": "https://modelcontextprotocol.io/specification/",
+        "sub-component-reference": "./components/mcp-server.calm.json",
+        "capabilities": [
+          "tool-discovery",
+          "tool-invocation",
+          "resource-access",
+          "prompt-templates"
+        ],
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": ["AIR-SEC-011", "AIR-SEC-010", "AIR-SEC-001"],
+          "controls": [
+            {
+              "id": "AIR-PREV-012",
+              "name": "Role-Based Access Control for AI Data"
+            },
+            {
+              "id": "AIR-DET-005",
+              "name": "AI System Audit Trail"
+            }
+          ],
+          "risk-level": "critical",
+          "note": "See detailed MCP component specification for full architecture"
+        }
+      }
+    },
+    {
+      "unique-id": "tool-authorization-service",
+      "node-type": "service",
+      "name": "Tool Authorization Service",
+      "description": "Fine-grained authorization for agent tool access with policy enforcement.",
+      "interfaces": [
+        {
+          "unique-id": "tool-authz-api"
+        }
+      ],
+      "metadata": {
+        "policy-engine": "OPA, Cedar, or custom",
+        "air": {
+          "threats": ["AIR-SEC-011", "AIR-SEC-009"],
+          "controls": [
+            {
+              "id": "AIR-PREV-012",
+              "name": "Role-Based Access Control for AI Data"
+            },
+            {
+              "id": "AIR-PREV-013",
+              "name": "Agent Autonomy Limits"
+            }
+          ],
+          "risk-level": "high"
+        }
+      }
+    },
+    {
+      "unique-id": "llm-service",
+      "node-type": "service",
+      "name": "LLM Service",
+      "description": "Large Language Model service(s) used by agents for reasoning and generation.",
+      "interfaces": [
+        {
+          "unique-id": "llm-api"
+        }
+      ],
+      "metadata": {
+        "tech-stack-flexibility": "OpenAI, Anthropic, Azure OpenAI, AWS Bedrock, self-hosted",
+        "deployment-options": ["cloud-api", "private-endpoint", "on-prem"],
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": ["AIR-OP-004", "AIR-SEC-010", "AIR-OP-015"],
+          "controls": [
+            {
+              "id": "AIR-DET-004",
+              "name": "AI System Observability"
+            }
+          ],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "vector-database",
+      "node-type": "datastore",
+      "name": "Vector Database",
+      "description": "Vector database for agent knowledge retrieval (RAG).",
+      "interfaces": [
+        {
+          "unique-id": "vectordb-api"
+        }
+      ],
+      "metadata": {
+        "tech-stack-flexibility": "Pinecone, Weaviate, Chroma, Milvus, pgvector",
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": ["AIR-SEC-002", "AIR-SEC-001"],
+          "controls": [
+            {
+              "id": "AIR-PREV-002",
+              "name": "Data Filtering From External Knowledge Bases"
+            },
+            {
+              "id": "AIR-PREV-012",
+              "name": "Role-Based Access Control for AI Data"
+            }
+          ],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "knowledge-base",
+      "node-type": "datastore",
+      "name": "Knowledge Base",
+      "description": "Structured and unstructured data sources for agent context and retrieval.",
+      "interfaces": [
+        {
+          "unique-id": "knowledge-api"
+        }
+      ],
+      "metadata": {
+        "sub-component-reference": "./components/knowledge-base.calm.json",
+        "tech-stack-flexibility": "S3, databases, document stores, APIs",
+        "air": {
+          "threats": ["AIR-SEC-002", "AIR-SEC-001"],
+          "controls": [
+            {
+              "id": "AIR-PREV-002",
+              "name": "Data Filtering From External Knowledge Bases"
+            }
+          ],
+          "risk-level": "high"
+        }
+      }
+    },
+    {
+      "unique-id": "embedding-service",
+      "node-type": "service",
+      "name": "Embedding Service",
+      "description": "Service for generating embeddings for vector storage.",
+      "interfaces": [
+        {
+          "unique-id": "embedding-api"
+        }
+      ],
+      "metadata": {
+        "tech-stack-flexibility": "OpenAI embeddings, Cohere, sentence-transformers",
+        "air": {
+          "threats": ["AIR-SEC-002"],
+          "controls": ["AIR-PREV-002"],
+          "risk-level": "medium"
+        }
+      }
+    },
+    {
+      "unique-id": "human-approval-service",
+      "node-type": "service",
+      "name": "Human Approval Service",
+      "description": "Service managing human-in-the-loop approval workflows for high-risk agent actions.",
+      "interfaces": [
+        {
+          "unique-id": "approval-api"
+        },
+        {
+          "unique-id": "approval-ui"
+        }
+      ],
+      "metadata": {
+        "capabilities": [
+          "approval-workflow",
+          "timeout-handling",
+          "escalation",
+          "audit-trail"
+        ],
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": ["AIR-SEC-009", "AIR-OP-020"],
+          "controls": [
+            {
+              "id": "AIR-PREV-014",
+              "name": "Human-in-the-Loop Checkpoints"
+            },
+            {
+              "id": "AIR-DET-005",
+              "name": "AI System Audit Trail"
+            }
+          ],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "observability-platform",
+      "node-type": "service",
+      "name": "Observability Platform",
+      "description": "Centralized observability for agent metrics, traces, and logs.",
+      "interfaces": [
+        {
+          "unique-id": "otel-intake"
+        }
+      ],
+      "metadata": {
+        "tech-stack-flexibility": "Datadog, New Relic, Grafana Stack, Elastic",
+        "air": {
+          "threats": ["AIR-OP-015", "AIR-OP-021"],
+          "controls": [
+            {
+              "id": "AIR-DET-004",
+              "name": "AI System Observability"
+            },
+            {
+              "id": "AIR-DET-007",
+              "name": "Agent Behavior Anomaly Detection"
+            }
+          ],
+          "risk-level": "high"
+        }
+      }
+    },
+    {
+      "unique-id": "audit-service",
+      "node-type": "service",
+      "name": "Audit & Compliance Service",
+      "description": "Immutable audit logging for all agent activities and decisions.",
+      "interfaces": [
+        {
+          "unique-id": "audit-intake"
+        }
+      ],
+      "metadata": {
+        "storage": "immutable-append-only",
+        "retention": "7-years",
+        "air": {
+          "threats": ["AIR-REG-001"],
+          "controls": [
+            {
+              "id": "AIR-DET-005",
+              "name": "AI System Audit Trail"
+            }
+          ],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "coordination-service",
+      "node-type": "service",
+      "name": "Agent Coordination Service",
+      "description": "Service managing multi-agent coordination, conflict resolution, and deadlock prevention.",
+      "interfaces": [
+        {
+          "unique-id": "coordination-api"
+        }
+      ],
+      "metadata": {
+        "capabilities": [
+          "conflict-resolution",
+          "deadlock-detection",
+          "resource-allocation",
+          "agent-discovery"
+        ],
+        "air": {
+          "threats": ["AIR-OP-021", "AIR-OP-022"],
+          "controls": [
+            {
+              "id": "AIR-DET-007",
+              "name": "Agent Behavior Anomaly Detection"
+            }
+          ],
+          "risk-level": "high"
+        }
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "unique-id": "human-to-gateway",
+      "description": "Human user interacts with system via API Gateway.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "human-interface",
+            "interfaces": ["human-api"]
+          },
+          "destination": {
+            "node": "api-gateway",
+            "interfaces": ["gateway-https"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "OAuth 2.1 with PKCE",
+        "air": {
+          "threats": ["AIR-SEC-010"],
+          "controls": ["AIR-PREV-003"]
+        }
+      }
+    },
+    {
+      "unique-id": "gateway-validates-auth",
+      "description": "Gateway validates authentication with auth service.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway"
+          },
+          "destination": {
+            "node": "auth-service",
+            "interfaces": ["auth-oauth"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "air": {
+          "threats": ["AIR-SEC-009"],
+          "controls": ["AIR-PREV-012"]
+        }
+      }
+    },
+    {
+      "unique-id": "gateway-to-ai-gateway",
+      "description": "API Gateway routes AI requests to AI Gateway.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway"
+          },
+          "destination": {
+            "node": "ai-gateway",
+            "interfaces": ["ai-gateway-https"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "mTLS",
+        "air": {
+          "threats": ["AIR-SEC-010"],
+          "controls": ["AIR-PREV-003"]
+        }
+      }
+    },
+    {
+      "unique-id": "ai-gateway-to-orchestrator",
+      "description": "AI Gateway forwards validated requests to Agent Orchestrator.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "ai-gateway"
+          },
+          "destination": {
+            "node": "agent-orchestrator",
+            "interfaces": ["orchestrator-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "mTLS + JWT",
+        "air": {
+          "threats": ["AIR-SEC-010", "AIR-SEC-009"],
+          "controls": ["AIR-PREV-003", "AIR-PREV-013"]
+        }
+      }
+    },
+    {
+      "unique-id": "orchestrator-to-planning-agent",
+      "description": "Orchestrator invokes Planning Agent for task planning.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "agent-orchestrator"
+          },
+          "destination": {
+            "node": "planning-agent",
+            "interfaces": ["planning-agent-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "communication-pattern": "agent-to-agent",
+        "authentication": "mTLS + SPIFFE",
+        "air": {
+          "threats": ["AIR-OP-004", "AIR-SEC-010"],
+          "controls": ["AIR-DET-004", "AIR-DET-005"]
+        }
+      }
+    },
+    {
+      "unique-id": "orchestrator-to-execution-agent",
+      "description": "Orchestrator invokes Execution Agent for task execution.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "agent-orchestrator"
+          },
+          "destination": {
+            "node": "execution-agent",
+            "interfaces": ["execution-agent-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "communication-pattern": "agent-to-agent",
+        "authentication": "mTLS + SPIFFE",
+        "air": {
+          "threats": ["AIR-SEC-011", "AIR-SEC-009"],
+          "controls": ["AIR-PREV-013", "AIR-PREV-014", "AIR-DET-005"]
+        }
+      }
+    },
+    {
+      "unique-id": "orchestrator-to-validation-agent",
+      "description": "Orchestrator invokes Validation Agent to validate outputs.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "agent-orchestrator"
+          },
+          "destination": {
+            "node": "validation-agent",
+            "interfaces": ["validation-agent-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "communication-pattern": "agent-to-agent",
+        "authentication": "mTLS + SPIFFE",
+        "air": {
+          "threats": ["AIR-OP-004"],
+          "controls": ["AIR-DET-004"]
+        }
+      }
+    },
+    {
+      "unique-id": "agent-to-agent-planning-to-execution",
+      "description": "Direct agent-to-agent communication between Planning and Execution agents.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "planning-agent"
+          },
+          "destination": {
+            "node": "execution-agent",
+            "interfaces": ["execution-agent-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "communication-pattern": "agent-to-agent",
+        "sub-component-reference": "./components/agent-communication.calm.json",
+        "authentication": "mTLS + SPIFFE",
+        "air": {
+          "threats": ["AIR-SEC-010", "AIR-OP-021"],
+          "controls": ["AIR-DET-005", "AIR-DET-007"]
+        }
+      }
+    },
+    {
+      "unique-id": "execution-agent-to-mcp",
+      "description": "Execution Agent accesses tools via MCP Server.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "execution-agent"
+          },
+          "destination": {
+            "node": "mcp-server",
+            "interfaces": ["mcp-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "mTLS + JWT",
+        "air": {
+          "threats": ["AIR-SEC-011", "AIR-SEC-009"],
+          "controls": ["AIR-PREV-012", "AIR-PREV-013"]
+        }
+      }
+    },
+    {
+      "unique-id": "mcp-to-tool-authz",
+      "description": "MCP Server checks authorization before tool execution.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "mcp-server"
+          },
+          "destination": {
+            "node": "tool-authorization-service",
+            "interfaces": ["tool-authz-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "mTLS",
+        "air": {
+          "threats": ["AIR-SEC-011"],
+          "controls": ["AIR-PREV-012", "AIR-PREV-013"]
+        }
+      }
+    },
+    {
+      "unique-id": "agent-to-llm",
+      "description": "Agents invoke LLM service for reasoning and generation.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "planning-agent"
+          },
+          "destination": {
+            "node": "llm-service",
+            "interfaces": ["llm-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "note": "All agents (planning, execution, validation) may connect to LLM",
+        "air": {
+          "threats": ["AIR-OP-004", "AIR-SEC-010"],
+          "controls": ["AIR-PREV-003", "AIR-DET-004"]
+        }
+      }
+    },
+    {
+      "unique-id": "agent-to-vectordb",
+      "description": "Agents query vector database for knowledge retrieval.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "planning-agent"
+          },
+          "destination": {
+            "node": "vector-database",
+            "interfaces": ["vectordb-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "queryType": "similarity-search",
+        "air": {
+          "threats": ["AIR-SEC-002"],
+          "controls": ["AIR-PREV-002", "AIR-PREV-012"]
+        }
+      }
+    },
+    {
+      "unique-id": "knowledge-to-embedding",
+      "description": "Knowledge base data is embedded via embedding service.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "knowledge-base",
+            "interfaces": ["knowledge-api"]
+          },
+          "destination": {
+            "node": "embedding-service",
+            "interfaces": ["embedding-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "dataFlow": "batch-and-streaming",
+        "air": {
+          "threats": ["AIR-SEC-001", "AIR-SEC-002"],
+          "controls": ["AIR-PREV-002"]
+        }
+      }
+    },
+    {
+      "unique-id": "embedding-to-vectordb",
+      "description": "Embeddings stored in vector database.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "embedding-service"
+          },
+          "destination": {
+            "node": "vector-database",
+            "interfaces": ["vectordb-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "air": {
+          "threats": ["AIR-SEC-002"],
+          "controls": ["AIR-PREV-002"]
+        }
+      }
+    },
+    {
+      "unique-id": "orchestrator-to-human-approval",
+      "description": "Orchestrator requests human approval for high-risk actions.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "agent-orchestrator"
+          },
+          "destination": {
+            "node": "human-approval-service",
+            "interfaces": ["approval-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "synchronous": false,
+        "timeout": "5m",
+        "air": {
+          "threats": ["AIR-SEC-009", "AIR-OP-020"],
+          "controls": ["AIR-PREV-014"]
+        }
+      }
+    },
+    {
+      "unique-id": "orchestrator-to-coordination",
+      "description": "Orchestrator coordinates with coordination service for multi-agent workflows.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "agent-orchestrator"
+          },
+          "destination": {
+            "node": "coordination-service",
+            "interfaces": ["coordination-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "air": {
+          "threats": ["AIR-OP-021", "AIR-OP-022"],
+          "controls": ["AIR-DET-007"]
+        }
+      }
+    },
+    {
+      "unique-id": "agents-to-observability",
+      "description": "All agents emit telemetry to observability platform.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "agent-orchestrator"
+          },
+          "destination": {
+            "node": "observability-platform",
+            "interfaces": ["otel-intake"]
+          }
+        }
+      },
+      "protocol": "OTLP",
+      "metadata": {
+        "note": "All agent nodes emit traces, metrics, and logs",
+        "air": {
+          "threats": ["AIR-OP-015", "AIR-OP-021"],
+          "controls": ["AIR-DET-004", "AIR-DET-007"]
+        }
+      }
+    },
+    {
+      "unique-id": "agents-to-audit",
+      "description": "All agents log activities to audit service.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "agent-orchestrator"
+          },
+          "destination": {
+            "node": "audit-service",
+            "interfaces": ["audit-intake"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "note": "All agent nodes log decisions and actions",
+        "air": {
+          "threats": ["AIR-REG-001"],
+          "controls": ["AIR-DET-005"]
+        }
+      }
+    }
+  ],
+  "flows": [
+    {
+      "unique-id": "human-to-multi-agent-workflow",
+      "name": "Human Request to Multi-Agent Execution with Approval",
+      "description": "End-to-end flow from human request through multi-agent planning, execution, validation, and approval.",
+      "transitions": [
+        {
+          "relationship-unique-id": "human-to-gateway",
+          "sequence-number": 1,
+          "description": "Human submits request via API Gateway."
+        },
+        {
+          "relationship-unique-id": "gateway-validates-auth",
+          "sequence-number": 2,
+          "description": "Gateway validates user authentication."
+        },
+        {
+          "relationship-unique-id": "gateway-to-ai-gateway",
+          "sequence-number": 3,
+          "description": "Request routed to AI Gateway for prompt injection checks."
+        },
+        {
+          "relationship-unique-id": "ai-gateway-to-orchestrator",
+          "sequence-number": 4,
+          "description": "Validated request forwarded to Agent Orchestrator."
+        },
+        {
+          "relationship-unique-id": "orchestrator-to-planning-agent",
+          "sequence-number": 5,
+          "description": "Orchestrator invokes Planning Agent to decompose task."
+        },
+        {
+          "relationship-unique-id": "agent-to-llm",
+          "sequence-number": 6,
+          "description": "Planning Agent uses LLM for reasoning."
+        },
+        {
+          "relationship-unique-id": "agent-to-vectordb",
+          "sequence-number": 7,
+          "description": "Planning Agent retrieves relevant context from vector DB."
+        },
+        {
+          "relationship-unique-id": "agent-to-agent-planning-to-execution",
+          "sequence-number": 8,
+          "description": "Planning Agent communicates plan to Execution Agent."
+        },
+        {
+          "relationship-unique-id": "orchestrator-to-human-approval",
+          "sequence-number": 9,
+          "description": "Orchestrator requests human approval for high-risk action."
+        },
+        {
+          "relationship-unique-id": "orchestrator-to-execution-agent",
+          "sequence-number": 10,
+          "description": "After approval, Orchestrator invokes Execution Agent."
+        },
+        {
+          "relationship-unique-id": "execution-agent-to-mcp",
+          "sequence-number": 11,
+          "description": "Execution Agent accesses tools via MCP Server."
+        },
+        {
+          "relationship-unique-id": "mcp-to-tool-authz",
+          "sequence-number": 12,
+          "description": "MCP checks tool authorization before execution."
+        },
+        {
+          "relationship-unique-id": "orchestrator-to-validation-agent",
+          "sequence-number": 13,
+          "description": "Orchestrator invokes Validation Agent to validate output."
+        },
+        {
+          "relationship-unique-id": "agents-to-audit",
+          "sequence-number": 14,
+          "description": "All agent actions logged to audit service."
+        },
+        {
+          "relationship-unique-id": "agents-to-observability",
+          "sequence-number": 15,
+          "description": "Telemetry sent to observability platform."
+        }
+      ],
+      "air-governance": {
+        "threats-mitigated": [
+          "AIR-OP-004",
+          "AIR-SEC-010",
+          "AIR-SEC-002",
+          "AIR-SEC-001",
+          "AIR-OP-020",
+          "AIR-SEC-009",
+          "AIR-OP-015",
+          "AIR-SEC-011",
+          "AIR-OP-021"
+        ],
+        "controls-applied": [
+          "AIR-PREV-001",
+          "AIR-PREV-002",
+          "AIR-PREV-003",
+          "AIR-PREV-012",
+          "AIR-PREV-013",
+          "AIR-PREV-014",
+          "AIR-DET-004",
+          "AIR-DET-005",
+          "AIR-DET-007",
+          "AIR-CORR-001"
+        ],
+        "compliance-level": "agentic-ai-production-ready",
+        "autonomy-level": "level2"
+      }
+    },
+    {
+      "unique-id": "agent-to-agent-collaborative-workflow",
+      "name": "Agent-to-Agent Collaborative Workflow",
+      "description": "Multi-agent collaboration with coordination and conflict resolution.",
+      "transitions": [
+        {
+          "relationship-unique-id": "orchestrator-to-coordination",
+          "sequence-number": 1,
+          "description": "Orchestrator registers workflow with coordination service."
+        },
+        {
+          "relationship-unique-id": "orchestrator-to-planning-agent",
+          "sequence-number": 2,
+          "description": "Planning Agent 1 initiates planning."
+        },
+        {
+          "relationship-unique-id": "agent-to-agent-planning-to-execution",
+          "sequence-number": 3,
+          "description": "Direct agent-to-agent communication."
+        },
+        {
+          "relationship-unique-id": "orchestrator-to-coordination",
+          "sequence-number": 4,
+          "description": "Coordination service resolves conflicts."
+        },
+        {
+          "relationship-unique-id": "agents-to-observability",
+          "sequence-number": 5,
+          "description": "Coordination patterns monitored for anomalies."
+        }
+      ],
+      "air-governance": {
+        "threats-mitigated": ["AIR-OP-021", "AIR-OP-022", "AIR-SEC-009"],
+        "controls-applied": ["AIR-DET-007", "AIR-CORR-001"],
+        "compliance-level": "multi-agent-coordination"
+      }
+    },
+    {
+      "unique-id": "knowledge-ingestion-and-rag",
+      "name": "Knowledge Ingestion and RAG Setup",
+      "description": "Data ingestion, embedding generation, and vector storage for agent knowledge retrieval.",
+      "transitions": [
+        {
+          "relationship-unique-id": "knowledge-to-embedding",
+          "sequence-number": 1,
+          "description": "Knowledge base data processed for embedding."
+        },
+        {
+          "relationship-unique-id": "embedding-to-vectordb",
+          "sequence-number": 2,
+          "description": "Embeddings stored in vector database with access controls."
+        },
+        {
+          "relationship-unique-id": "agent-to-vectordb",
+          "sequence-number": 3,
+          "description": "Agents retrieve contextual knowledge for tasks."
+        }
+      ],
+      "air-governance": {
+        "threats-mitigated": ["AIR-SEC-002", "AIR-SEC-001"],
+        "controls-applied": ["AIR-PREV-002", "AIR-PREV-012"],
+        "compliance-level": "data-governance-compliant"
+      }
+    }
+  ],
+  "adrs": [
+    "https://air-governance-framework.finos.org/",
+    "https://modelcontextprotocol.io/specification/",
+    "https://www.finos.org/",
+    "https://spiffe.io/",
+    "https://opentelemetry.io/",
+    "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+    "https://github.com/langchain-ai/langchain",
+    "https://github.com/microsoft/autogen",
+    "https://artificialintelligenceact.eu/"
+  ]
+}
