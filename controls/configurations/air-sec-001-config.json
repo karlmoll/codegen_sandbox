@@ -1,0 +1,59 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-SEC-001",
+  "control-id": "AIR-SEC-001",
+  "control-name": "Data Poisoning Prevention",
+  "category": "Security",
+  "description": "Prevent malicious actors from injecting corrupted or misleading data into training datasets, knowledge bases, and vector stores",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "protection-layers": [
+      {
+        "layer": "data-ingestion",
+        "controls": [
+          "source-authentication",
+          "input-validation",
+          "schema-enforcement",
+          "anomaly-detection"
+        ]
+      },
+      {
+        "layer": "data-storage",
+        "controls": [
+          "access-control",
+          "integrity-verification",
+          "versioning",
+          "audit-logging"
+        ]
+      },
+      {
+        "layer": "data-processing",
+        "controls": [
+          "outlier-detection",
+          "data-quality-checks",
+          "provenance-tracking",
+          "sanitization"
+        ]
+      }
+    ],
+    "validation-rules": {
+      "source-verification": "required",
+      "format-validation": "strict",
+      "content-scanning": "malware-and-injection",
+      "statistical-analysis": "distribution-drift"
+    },
+    "monitoring": {
+      "continuous-monitoring": true,
+      "baseline-comparison": true,
+      "alert-thresholds": {
+        "distribution-shift": 0.15,
+        "anomaly-score": 0.9
+      }
+    },
+    "response-procedures": {
+      "suspicious-data": "quarantine",
+      "confirmed-poisoning": "rollback-and-purge",
+      "incident-notification": "security-team-immediate"
+    }
+  }
+}

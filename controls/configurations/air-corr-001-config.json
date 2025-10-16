@@ -1,0 +1,103 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-CORR-001",
+  "control-id": "AIR-CORR-001",
+  "control-name": "AI System Incident Response",
+  "category": "Corrective",
+  "description": "Establish comprehensive procedures for responding to AI system incidents including failures, security breaches, and ethical violations",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "incident-types": [
+      {
+        "type": "security-breach",
+        "severity": "critical",
+        "response-time": "15-minutes"
+      },
+      {
+        "type": "data-poisoning",
+        "severity": "high",
+        "response-time": "1-hour"
+      },
+      {
+        "type": "model-failure",
+        "severity": "high",
+        "response-time": "1-hour"
+      },
+      {
+        "type": "hallucination-outbreak",
+        "severity": "medium",
+        "response-time": "4-hours"
+      },
+      {
+        "type": "bias-incident",
+        "severity": "high",
+        "response-time": "2-hours"
+      }
+    ],
+    "response-workflow": [
+      {
+        "phase": "detection",
+        "actions": [
+          "automated-monitoring-alert",
+          "manual-report-intake",
+          "initial-triage"
+        ]
+      },
+      {
+        "phase": "containment",
+        "actions": [
+          "isolate-affected-systems",
+          "stop-model-serving",
+          "preserve-evidence"
+        ]
+      },
+      {
+        "phase": "investigation",
+        "actions": [
+          "root-cause-analysis",
+          "impact-assessment",
+          "evidence-collection"
+        ]
+      },
+      {
+        "phase": "remediation",
+        "actions": [
+          "apply-fixes",
+          "redeploy-model",
+          "verify-resolution"
+        ]
+      },
+      {
+        "phase": "post-incident",
+        "actions": [
+          "lessons-learned-review",
+          "update-procedures",
+          "stakeholder-communication"
+        ]
+      }
+    ],
+    "escalation-matrix": {
+      "tier-1": "on-call-engineer",
+      "tier-2": "senior-ai-engineer",
+      "tier-3": "ai-platform-lead",
+      "tier-4": "cto-and-legal"
+    },
+    "communication-plan": {
+      "internal": [
+        "incident-channel",
+        "executive-briefing",
+        "all-hands-update"
+      ],
+      "external": [
+        "customer-notification",
+        "regulatory-reporting",
+        "public-statement"
+      ]
+    },
+    "automated-response": {
+      "circuit-breaker": true,
+      "auto-rollback": "on-critical-error-rate",
+      "traffic-shifting": "gradual-percentage-based"
+    }
+  }
+}

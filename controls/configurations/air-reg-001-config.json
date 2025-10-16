@@ -1,0 +1,66 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-REG-001",
+  "control-id": "AIR-REG-001",
+  "control-name": "AI Regulatory Compliance",
+  "category": "Regulatory",
+  "description": "Ensure compliance with AI-specific regulations, standards, and industry best practices",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "regulatory-frameworks": [
+      {
+        "framework": "EU AI Act",
+        "risk-category": "high-risk",
+        "requirements": [
+          "risk-management-system",
+          "data-governance",
+          "technical-documentation",
+          "record-keeping",
+          "transparency-obligations",
+          "human-oversight",
+          "accuracy-robustness",
+          "cybersecurity"
+        ]
+      },
+      {
+        "framework": "GDPR",
+        "requirements": [
+          "data-minimization",
+          "purpose-limitation",
+          "right-to-explanation",
+          "data-protection-by-design",
+          "data-protection-impact-assessment"
+        ]
+      },
+      {
+        "framework": "NIST AI RMF",
+        "functions": [
+          "govern",
+          "map",
+          "measure",
+          "manage"
+        ]
+      }
+    ],
+    "compliance-activities": [
+      "regular-audits",
+      "documentation-maintenance",
+      "training-programs",
+      "impact-assessments",
+      "conformity-assessments"
+    ],
+    "documentation-requirements": [
+      "technical-documentation",
+      "risk-assessment-records",
+      "training-data-documentation",
+      "model-cards",
+      "compliance-attestations"
+    ],
+    "audit-frequency": "quarterly",
+    "responsible-parties": [
+      "compliance-officer",
+      "legal-team",
+      "ai-governance-board"
+    ]
+  }
+}

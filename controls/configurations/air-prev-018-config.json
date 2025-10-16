@@ -1,0 +1,41 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-PREV-018",
+  "control-id": "AIR-PREV-018",
+  "control-name": "Agent Authority Least Privilege Framework",
+  "category": "Preventative",
+  "description": "Implement granular access controls ensuring agents can only access APIs, tools, and data strictly necessary for their designated functions",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "enforcement-level": "gateway",
+    "agent-roles": [
+      {
+        "role-name": "customer-service-agent",
+        "allowed-endpoints": [
+          "/api/v1/customer/info",
+          "/api/v1/transactions/query"
+        ],
+        "forbidden-actions": [
+          "account-modification",
+          "fund-transfer"
+        ]
+      },
+      {
+        "role-name": "compliance-agent",
+        "allowed-endpoints": [
+          "/api/v1/transactions/*",
+          "/api/v1/compliance/*"
+        ],
+        "access-level": "read-only"
+      }
+    ],
+    "dynamic-privilege-management": {
+      "context-aware-restrictions": true,
+      "transaction-value-thresholds": {
+        "low-value": 1000,
+        "high-value": 10000
+      },
+      "time-bounded-privileges": true
+    }
+  }
+}

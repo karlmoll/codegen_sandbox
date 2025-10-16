@@ -1,0 +1,63 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-OP-004",
+  "control-id": "AIR-OP-004",
+  "control-name": "Hallucination Detection and Mitigation",
+  "category": "Operational",
+  "description": "Detect and mitigate LLM hallucinations through confidence scoring, fact-checking, source grounding, and human validation",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "detection-methods": [
+      {
+        "method": "confidence-scoring",
+        "threshold": 0.85,
+        "action": "flag-for-review"
+      },
+      {
+        "method": "fact-checking",
+        "external-sources": [
+          "verified-knowledge-base",
+          "authoritative-APIs"
+        ],
+        "verification-required": "critical-facts"
+      },
+      {
+        "method": "source-grounding",
+        "require-citations": true,
+        "verify-source-existence": true
+      },
+      {
+        "method": "consistency-checking",
+        "multi-model-validation": true,
+        "temporal-consistency": true
+      }
+    ],
+    "mitigation-strategies": [
+      "response-filtering",
+      "uncertainty-acknowledgment",
+      "source-citation-requirement",
+      "human-in-the-loop-validation",
+      "confidence-score-display"
+    ],
+    "human-review": {
+      "required-for": [
+        "low-confidence-responses",
+        "high-stakes-decisions",
+        "contradictory-information"
+      ],
+      "review-sla": "1-hour",
+      "escalation-path": "subject-matter-expert"
+    },
+    "monitoring": {
+      "enabled": true,
+      "alert-on-low-confidence": true,
+      "log-all-outputs": true,
+      "hallucination-rate-threshold": 0.02
+    },
+    "user-communication": {
+      "display-confidence-scores": true,
+      "show-sources": true,
+      "disclaimer": "AI-generated content may contain inaccuracies"
+    }
+  }
+}
