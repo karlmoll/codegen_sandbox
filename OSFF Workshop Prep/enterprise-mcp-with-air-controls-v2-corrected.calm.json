@@ -1,0 +1,44 @@
+{
+  "$schema": "https://calm.finos.org/release/1.0-rc1/meta/calm.json",
+  "metadata": {
+    "name": "Enterprise MCP Golden Path with Embedded FINOS AIR Controls",
+    "version": "2.1",
+    "owners": [
+      "platform-security@company.example",
+      "sre@company.example",
+      "data-governance@company.example",
+      "ai-governance@company.example"
+    ],
+    "tags": [
+      "mcp",
+      "enterprise",
+      "oauth2.1",
+      "oidc",
+      "authorization",
+      "opa",
+      "observability",
+      "logging",
+      "metrics",
+      "tracing",
+      "resilience",
+      "vault",
+      "finos-air",
+      "ai-governance",
+      "controls-embedded",
+      "calm-1.0-rc1-compliant"
+    ],
+    "description": "A certified architectural pattern for deploying secure, observable, and resilient MCP services in a regulated environment with comprehensively embedded FINOS AIR governance controls following CALM 1.0-rc1 MCP best practices.",
+    "air-governance-framework": {
+      "framework": "FINOS AIR (AI Governance Framework)",
+      "version": "1.0",
+      "reference": "https://air-governance-framework.finos.org/",
+      "compliance-level": "enterprise-ready",
+      "last-reviewed": "2025-10-10",
+      "schema-version": "CALM 1.0-rc1"
+    }
+  },
+  "nodes": [],
+  "relationships": [],
+  "flows": [],
+  "adrs": []
+}
