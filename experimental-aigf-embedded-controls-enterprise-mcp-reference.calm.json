@@ -33,7 +33,7 @@
           "description": "OAuth 2.1 authorization with OIDC, PKCE, and signed JWTs.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-012"
             }
           ]
@@ -51,11 +51,11 @@
           "description": "Centralized secrets with short-lived credentials and rotation through a vault.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-001"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-002"
             }
           ]
@@ -64,11 +64,11 @@
           "description": "Data minimization, classification, retention, and purpose limitation aligned to FINOS AIR and regulatory requirements.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-002"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-REG-001"
             }
           ]
@@ -77,11 +77,11 @@
           "description": "Timeouts, retries with backoff, circuit breaking, bulkheads, and active-active deployment for MCP service.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-CORR-001"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-OP-020"
             }
           ]
@@ -90,11 +90,11 @@
           "description": "WAF, rate limiting, and TLS at the gateway to mitigate abuse and common attacks.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-003"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-SEC-010"
             }
           ]
@@ -103,15 +103,15 @@
           "description": "Multi-layered defenses against prompt injection and malicious tool descriptions.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-SEC-010"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-002"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-003"
             }
           ]
@@ -120,11 +120,11 @@
           "description": "Structured audit and operational logging shipped to a centralized logging platform with field-level controls and retention.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-004"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-005"
             }
           ]
@@ -133,11 +133,11 @@
           "description": "Metrics and distributed tracing via OpenTelemetry with SLIs/SLOs and trace sampling.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-004"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-OP-015"
             }
           ]
@@ -146,11 +146,11 @@
           "description": "Fine-grained authorization using a PDP for policy-based access control.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-012"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-003"
             }
           ]
@@ -173,7 +173,7 @@
           "description": "OAuth 2.1 authorization with OIDC, PKCE, and signed JWTs.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-012"
             }
           ]
@@ -205,11 +205,11 @@
           "description": "Fine-grained authorization using a PDP for policy-based access control.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-012"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-003"
             }
           ]
@@ -231,11 +231,11 @@
           "description": "Centralized secrets with short-lived credentials and rotation through a vault.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-001"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-002"
             }
           ]
@@ -253,11 +253,11 @@
           "description": "Centralized secrets with short-lived credentials and rotation through a vault.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-001"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-002"
             }
           ]
@@ -266,11 +266,11 @@
           "description": "Data minimization, classification, retention, and purpose limitation aligned to FINOS AIR and regulatory requirements.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-002"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-REG-001"
             }
           ]
@@ -279,11 +279,11 @@
           "description": "Timeouts, retries with backoff, circuit breaking, bulkheads, and active-active deployment for MCP service.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-CORR-001"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-OP-020"
             }
           ]
@@ -292,15 +292,15 @@
           "description": "Multi-layered defenses against prompt injection and malicious tool descriptions.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-SEC-010"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-002"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-003"
             }
           ]
@@ -309,11 +309,11 @@
           "description": "Validation and monitoring of AI outputs to detect hallucinations and inaccurate responses.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-OP-004"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-004"
             }
           ]
@@ -322,11 +322,11 @@
           "description": "Structured audit and operational logging shipped to a centralized logging platform with field-level controls and retention.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-004"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-005"
             }
           ]
@@ -335,11 +335,11 @@
           "description": "Metrics and distributed tracing via OpenTelemetry with SLIs/SLOs and trace sampling.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-004"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-OP-015"
             }
           ]
@@ -348,11 +348,11 @@
           "description": "Fine-grained authorization using a PDP for policy-based access control.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-012"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-003"
             }
           ]
@@ -394,11 +394,11 @@
           "description": "Data minimization, classification, retention, and purpose limitation aligned to FINOS AIR and regulatory requirements.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-002"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-REG-001"
             }
           ]
@@ -407,11 +407,11 @@
           "description": "Structured audit and operational logging shipped to a centralized logging platform with field-level controls and retention.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-004"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-005"
             }
           ]
@@ -429,11 +429,11 @@
           "description": "Validation and monitoring of AI outputs to detect hallucinations and inaccurate responses.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-OP-004"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-004"
             }
           ]
@@ -442,11 +442,11 @@
           "description": "Metrics and distributed tracing via OpenTelemetry with SLIs/SLOs and trace sampling.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-004"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-OP-015"
             }
           ]
@@ -470,11 +470,11 @@
           "description": "WAF, rate limiting, and TLS at the gateway to mitigate abuse and common attacks.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-003"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-SEC-010"
             }
           ]
@@ -483,7 +483,7 @@
           "description": "OAuth 2.1 authorization with OIDC, PKCE, and signed JWTs.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-012"
             }
           ]
@@ -509,7 +509,7 @@
           "description": "OAuth 2.1 authorization with OIDC, PKCE, and signed JWTs.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-012"
             }
           ]
@@ -531,11 +531,11 @@
           "description": "Fine-grained authorization using a PDP for policy-based access control.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-012"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-003"
             }
           ]
@@ -557,11 +557,11 @@
           "description": "WAF, rate limiting, and TLS at the gateway to mitigate abuse and common attacks.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-003"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-SEC-010"
             }
           ]
@@ -570,11 +570,11 @@
           "description": "Timeouts, retries with backoff, circuit breaking, bulkheads, and active-active deployment for MCP service.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-CORR-001"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-OP-020"
             }
           ]
@@ -583,11 +583,11 @@
           "description": "Fine-grained authorization using a PDP for policy-based access control.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-012"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-003"
             }
           ]
@@ -630,11 +630,11 @@
           "description": "Structured audit and operational logging shipped to a centralized logging platform with field-level controls and retention.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-004"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-005"
             }
           ]
@@ -659,11 +659,11 @@
           "description": "Structured audit and operational logging shipped to a centralized logging platform with field-level controls and retention.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-004"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-DET-005"
             }
           ]
@@ -713,11 +713,11 @@
           "description": "Timeouts, retries with backoff, circuit breaking, bulkheads, and active-active deployment for MCP service.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-CORR-001"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-OP-020"
             }
           ]
@@ -726,11 +726,11 @@
           "description": "Fine-grained authorization using a PDP for policy-based access control.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-012"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-003"
             }
           ]
@@ -755,11 +755,11 @@
           "description": "Fine-grained authorization using a PDP for policy-based access control.",
           "requirements": [
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-012"
             },
             {
-              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement.json",
+              "requirement-url": "https://air-governance-framework.finos.org/calm/control-requirement",
               "config-url": "https://air-governance-framework.finos.org/calm/AIR-PREV-003"
             }
           ]
