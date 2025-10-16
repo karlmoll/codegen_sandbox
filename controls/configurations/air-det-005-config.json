@@ -1,0 +1,50 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-DET-005",
+  "control-id": "AIR-DET-005",
+  "control-name": "AI System Audit Trail",
+  "category": "Detective",
+  "description": "Maintain comprehensive, tamper-proof audit trails for all AI system decisions and actions",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "audit-events": [
+      "authentication",
+      "authorization",
+      "model-invocation",
+      "data-access",
+      "configuration-change",
+      "admin-action",
+      "error-event"
+    ],
+    "audit-attributes": [
+      "timestamp",
+      "user-id",
+      "source-ip",
+      "action",
+      "resource",
+      "outcome",
+      "request-id",
+      "session-id"
+    ],
+    "retention": {
+      "period-days": 2555,
+      "compliance-framework": [
+        "SOX",
+        "MiFID-II",
+        "GDPR"
+      ]
+    },
+    "integrity": {
+      "method": "cryptographic-hash",
+      "algorithm": "SHA-256",
+      "chain-verification": true
+    },
+    "access-control": {
+      "read-only": true,
+      "authorized-roles": [
+        "security-auditor",
+        "compliance-officer"
+      ]
+    }
+  }
+}

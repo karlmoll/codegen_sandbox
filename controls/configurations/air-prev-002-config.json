@@ -1,0 +1,63 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-PREV-002",
+  "control-id": "AIR-PREV-002",
+  "control-name": "Data Filtering From External Knowledge Bases",
+  "category": "Preventative",
+  "description": "Sanitize and filter data from external knowledge bases to prevent sensitive information leakage into AI systems",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "filtering-stages": [
+      "ingestion",
+      "indexing",
+      "retrieval",
+      "output"
+    ],
+    "sensitive-data-types": [
+      "PII",
+      "credentials",
+      "API-keys",
+      "internal-URLs",
+      "confidential-business-data",
+      "regulated-data"
+    ],
+    "filtering-techniques": [
+      {
+        "technique": "pattern-matching",
+        "patterns": [
+          "credit-card-numbers",
+          "SSN",
+          "email-addresses",
+          "phone-numbers"
+        ]
+      },
+      {
+        "technique": "entity-recognition",
+        "entities": [
+          "PERSON",
+          "ORGANIZATION",
+          "LOCATION",
+          "FINANCIAL-ACCOUNT"
+        ]
+      },
+      {
+        "technique": "classification-based",
+        "classifiers": [
+          "sensitive-data-classifier",
+          "confidentiality-classifier"
+        ]
+      }
+    ],
+    "redaction-methods": [
+      "masking",
+      "tokenization",
+      "removal",
+      "synthetic-replacement"
+    ],
+    "validation": {
+      "pre-ingestion-scan": true,
+      "continuous-monitoring": true,
+      "manual-review-required": "high-risk-data"
+    }
+  }
+}

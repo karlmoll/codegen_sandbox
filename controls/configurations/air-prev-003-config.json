@@ -1,0 +1,32 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-PREV-003",
+  "control-id": "AIR-PREV-003",
+  "control-name": "User/App/Model Firewalling and Filtering",
+  "category": "Preventative",
+  "description": "Monitor and filter interactions between users, applications, and AI models to prevent prompt injection attacks",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "filtering-methods": [
+      "input-sanitization",
+      "prompt-validation",
+      "content-filtering",
+      "instruction-boundary-enforcement"
+    ],
+    "blocked-patterns": [
+      "system-prompt-override",
+      "instruction-injection",
+      "jailbreak-attempts"
+    ],
+    "validation-rules": {
+      "max-input-length": 10000,
+      "allowed-characters": "utf-8",
+      "disallow-control-characters": true
+    },
+    "monitoring": {
+      "log-filtered-inputs": true,
+      "alert-on-attack-patterns": true,
+      "rate-limit-suspicious-actors": true
+    }
+  }
+}

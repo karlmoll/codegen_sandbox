@@ -1,0 +1,38 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-OP-020",
+  "control-id": "AIR-OP-020",
+  "control-name": "Reputational Risk Management",
+  "category": "Operational",
+  "description": "Manage and mitigate reputational risks from AI failures through proactive monitoring, incident response, and stakeholder communication",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "risk-categories": [
+      "inappropriate-responses",
+      "bias-discrimination",
+      "privacy-violations",
+      "service-failures"
+    ],
+    "mitigation-strategies": [
+      "content-moderation",
+      "human-oversight",
+      "response-disclaimers",
+      "incident-response-plan"
+    ],
+    "communication-plan": {
+      "stakeholders": [
+        "customers",
+        "regulators",
+        "media",
+        "internal-teams"
+      ],
+      "response-time-sla": "1-hour",
+      "escalation-paths": [
+        "technical-team",
+        "legal",
+        "communications",
+        "executive"
+      ]
+    }
+  }
+}

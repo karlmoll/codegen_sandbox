@@ -1,0 +1,84 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-DET-004",
+  "control-id": "AIR-DET-004",
+  "control-name": "AI System Observability",
+  "category": "Detective",
+  "description": "Implement comprehensive monitoring and observability to detect anomalies, performance degradation, and security breaches in AI systems",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "observability-pillars": [
+      {
+        "pillar": "metrics",
+        "metrics": [
+          {
+            "name": "model-latency",
+            "type": "histogram",
+            "slo": "p95 < 300ms"
+          },
+          {
+            "name": "model-throughput",
+            "type": "counter",
+            "slo": "> 1000 rps"
+          },
+          {
+            "name": "error-rate",
+            "type": "gauge",
+            "slo": "< 0.1%"
+          },
+          {
+            "name": "confidence-score-distribution",
+            "type": "histogram",
+            "alert-on": "distribution-shift"
+          },
+          {
+            "name": "hallucination-rate",
+            "type": "gauge",
+            "slo": "< 2%"
+          }
+        ]
+      },
+      {
+        "pillar": "logs",
+        "log-types": [
+          "request-response-logs",
+          "model-prediction-logs",
+          "error-logs",
+          "security-logs",
+          "audit-logs"
+        ],
+        "structured-logging": true,
+        "pii-scrubbing": true
+      },
+      {
+        "pillar": "traces",
+        "tracing-framework": "OpenTelemetry",
+        "sample-rate": 0.2,
+        "trace-context-propagation": true
+      }
+    ],
+    "anomaly-detection": {
+      "methods": [
+        "statistical-process-control",
+        "ml-based-anomaly-detection",
+        "threshold-based-alerts"
+      ],
+      "alert-channels": [
+        "pagerduty",
+        "slack",
+        "email"
+      ]
+    },
+    "dashboards": [
+      "operational-health",
+      "model-performance",
+      "security-metrics",
+      "business-kpis"
+    ],
+    "slos": {
+      "availability": "99.9%",
+      "latency-p95": "300ms",
+      "error-rate": "0.1%"
+    }
+  }
+}

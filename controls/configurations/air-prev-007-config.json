@@ -1,0 +1,42 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-PREV-007",
+  "control-id": "AIR-PREV-007",
+  "control-name": "Legal and Contractual Frameworks for AI Systems",
+  "category": "Preventative",
+  "description": "Establish comprehensive legal agreements and frameworks to govern AI system development, deployment, and usage",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "framework-components": [
+      "terms-of-service",
+      "privacy-policy",
+      "data-processing-agreements",
+      "vendor-contracts",
+      "user-consent-forms"
+    ],
+    "consent-management": {
+      "explicit-consent-required": true,
+      "consent-granularity": "purpose-specific",
+      "consent-withdrawal": "user-initiated",
+      "consent-audit-trail": true
+    },
+    "data-usage-rights": {
+      "training-data": "explicit-license-required",
+      "user-inputs": "purpose-limited",
+      "model-outputs": "attribution-required",
+      "derived-data": "consent-based"
+    },
+    "liability-clauses": [
+      "limitation-of-liability",
+      "indemnification",
+      "warranty-disclaimers",
+      "force-majeure"
+    ],
+    "compliance-jurisdictions": [
+      "GDPR (EU)",
+      "CCPA (California)",
+      "AI Act (EU)",
+      "PIPL (China)"
+    ]
+  }
+}

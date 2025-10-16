@@ -1,0 +1,72 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-OP-015",
+  "control-id": "AIR-OP-015",
+  "control-name": "Model Drift Detection and Management",
+  "category": "Operational",
+  "description": "Detect and manage AI model performance degradation over time due to changing data patterns and distributions",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "drift-types": [
+      {
+        "type": "concept-drift",
+        "description": "Changes in relationship between inputs and outputs",
+        "detection-method": "performance-monitoring"
+      },
+      {
+        "type": "data-drift",
+        "description": "Changes in input data distribution",
+        "detection-method": "statistical-tests"
+      },
+      {
+        "type": "prediction-drift",
+        "description": "Changes in model output distribution",
+        "detection-method": "distribution-comparison"
+      }
+    ],
+    "detection-techniques": [
+      {
+        "technique": "statistical-tests",
+        "tests": [
+          "KS-test",
+          "chi-square-test",
+          "PSI"
+        ],
+        "significance-level": 0.05
+      },
+      {
+        "technique": "performance-metrics",
+        "metrics": [
+          "accuracy",
+          "precision",
+          "recall",
+          "f1-score"
+        ],
+        "baseline-comparison": true
+      },
+      {
+        "technique": "data-distribution",
+        "methods": [
+          "histogram-comparison",
+          "KL-divergence"
+        ]
+      }
+    ],
+    "monitoring-frequency": "continuous",
+    "alert-thresholds": {
+      "minor-drift": 0.05,
+      "significant-drift": 0.15,
+      "critical-drift": 0.3
+    },
+    "response-procedures": {
+      "minor-drift": "increased-monitoring",
+      "significant-drift": "retraining-evaluation",
+      "critical-drift": "model-rollback-and-urgent-retraining"
+    },
+    "retraining-strategy": {
+      "trigger": "significant-drift-detected",
+      "data-window": "recent-6-months",
+      "validation": "A/B-testing-before-deployment"
+    }
+  }
+}

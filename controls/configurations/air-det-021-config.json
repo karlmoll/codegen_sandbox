@@ -1,0 +1,39 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-DET-021",
+  "control-id": "AIR-DET-021",
+  "control-name": "Agent Decision Audit and Explainability",
+  "category": "Detective",
+  "description": "Implement comprehensive logging and explainability for agent decisions",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "implementation-tier": "tier-3-comprehensive",
+    "decision-logging": {
+      "complete-decision-documentation": true,
+      "input-data-recording": true,
+      "tool-selection-rationale": true,
+      "decision-chain-tracking": true
+    },
+    "explainability": {
+      "natural-language-explanations": true,
+      "confidence-scoring": true,
+      "alternative-analysis": true,
+      "decision-tree-visualization": true
+    },
+    "regulatory-compliance": {
+      "gdpr-right-to-explanation": true,
+      "fair-lending-compliance": true,
+      "data-processing-documentation": true
+    },
+    "tamper-evident-logging": {
+      "cryptographic-protection": true,
+      "immutable-records": true,
+      "retention-period-days": 2555
+    },
+    "real-time-monitoring": {
+      "anomaly-detection": true,
+      "bias-detection": true,
+      "regulatory-violation-detection": true
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-PREV-020",
+  "control-id": "AIR-PREV-020",
+  "control-name": "MCP Server Security Governance",
+  "category": "Preventative",
+  "description": "Establish comprehensive security controls for MCP servers including supply chain verification and secure communication",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "implementation-tier": "tier-2-centralized-proxy",
+    "supply-chain-verification": {
+      "vendor-security-assessment": true,
+      "penetration-testing-required": true,
+      "security-certifications": [
+        "SOC2-Type-II",
+        "ISO-27001"
+      ]
+    },
+    "secure-communication": {
+      "tls-version": "1.3",
+      "mutual-authentication": true,
+      "certificate-management": "automated-rotation"
+    },
+    "data-integrity": {
+      "cryptographic-signatures": true,
+      "schema-validation": true,
+      "cross-reference-validation": true
+    },
+    "monitoring": {
+      "behavioral-monitoring": true,
+      "anomaly-detection": true,
+      "threat-intelligence-integration": true
+    },
+    "approved-mcp-servers": [
+      {
+        "server-id": "mcp-reports-server",
+        "vendor": "internal",
+        "last-security-review": "2025-10-01",
+        "risk-level": "low"
+      }
+    ]
+  }
+}

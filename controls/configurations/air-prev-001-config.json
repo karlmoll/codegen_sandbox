@@ -1,0 +1,111 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-PREV-001",
+  "control-id": "AIR-PREV-001",
+  "control-name": "AI System Risk Assessment",
+  "category": "Preventative",
+  "description": "Conduct comprehensive risk assessments for AI systems before deployment to identify, evaluate, and mitigate potential harms",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "assessment-frequency": "pre-deployment",
+    "assessment-triggers": [
+      "initial-deployment",
+      "major-version-update",
+      "model-change",
+      "significant-architecture-change",
+      "regulatory-change"
+    ],
+    "risk-categories": [
+      {
+        "category": "operational",
+        "risks": [
+          "hallucinations",
+          "model-drift",
+          "performance-degradation",
+          "availability-issues"
+        ]
+      },
+      {
+        "category": "security",
+        "risks": [
+          "prompt-injection",
+          "data-poisoning",
+          "model-extraction",
+          "adversarial-attacks"
+        ]
+      },
+      {
+        "category": "regulatory",
+        "risks": [
+          "non-compliance",
+          "privacy-violations",
+          "bias-discrimination",
+          "transparency-failures"
+        ]
+      },
+      {
+        "category": "reputational",
+        "risks": [
+          "inappropriate-outputs",
+          "service-failures",
+          "data-breaches",
+          "ethical-violations"
+        ]
+      }
+    ],
+    "severity-levels": [
+      "low",
+      "medium",
+      "high",
+      "critical"
+    ],
+    "risk-matrix": {
+      "likelihood": [
+        "rare",
+        "unlikely",
+        "possible",
+        "likely",
+        "almost-certain"
+      ],
+      "impact": [
+        "negligible",
+        "minor",
+        "moderate",
+        "major",
+        "catastrophic"
+      ]
+    },
+    "mitigation-required": {
+      "high": "mandatory",
+      "critical": "mandatory-with-executive-approval"
+    },
+    "approval-workflow": {
+      "medium-risk": [
+        "tech-lead",
+        "security-team"
+      ],
+      "high-risk": [
+        "tech-lead",
+        "security-team",
+        "compliance-officer"
+      ],
+      "critical-risk": [
+        "tech-lead",
+        "security-team",
+        "compliance-officer",
+        "executive-sponsor"
+      ]
+    },
+    "documentation-required": [
+      "risk-assessment-report",
+      "mitigation-plan",
+      "approval-records",
+      "monitoring-plan"
+    ],
+    "frameworks": [
+      "FINOS AIR 1.0",
+      "NIST AI RMF",
+      "ISO 42001"
+    ]
+  }
+}

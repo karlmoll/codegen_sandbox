@@ -1,0 +1,62 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-PREV-012",
+  "control-id": "AIR-PREV-012",
+  "control-name": "Role-Based Access Control for AI Data",
+  "category": "Preventative",
+  "description": "Implement granular RBAC to control access to AI models, training data, and sensitive outputs",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "access-control-model": "RBAC",
+    "roles": [
+      {
+        "role-name": "ai-model-admin",
+        "permissions": [
+          "model:read",
+          "model:write",
+          "model:deploy",
+          "data:read",
+          "data:write"
+        ]
+      },
+      {
+        "role-name": "ai-developer",
+        "permissions": [
+          "model:read",
+          "model:test",
+          "data:read"
+        ]
+      },
+      {
+        "role-name": "ai-user",
+        "permissions": [
+          "model:invoke",
+          "output:read"
+        ]
+      }
+    ],
+    "data-classification": {
+      "public": [
+        "allow-all"
+      ],
+      "internal": [
+        "require-authentication"
+      ],
+      "confidential": [
+        "require-authorization",
+        "audit-all-access"
+      ],
+      "restricted": [
+        "require-explicit-grant",
+        "audit-all-access",
+        "encrypt-at-rest",
+        "encrypt-in-transit"
+      ]
+    },
+    "enforcement-points": [
+      "api-gateway",
+      "model-service",
+      "data-layer"
+    ]
+  }
+}

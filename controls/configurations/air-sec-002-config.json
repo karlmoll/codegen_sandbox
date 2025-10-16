@@ -1,0 +1,48 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-SEC-002",
+  "control-id": "AIR-SEC-002",
+  "control-name": "Vector Store Information Protection",
+  "category": "Security",
+  "description": "Prevent sensitive information from being inadvertently included in vector databases used for retrieval-augmented generation",
+  "reference-url": "",
+  "threats-mitigated": [],
+  "implementation-requirements": {
+    "pre-embedding-controls": [
+      "pii-detection-and-removal",
+      "sensitive-data-classification",
+      "access-control-verification",
+      "content-filtering"
+    ],
+    "embedding-controls": [
+      "encryption-at-rest",
+      "encryption-in-transit",
+      "secure-embedding-models",
+      "metadata-sanitization"
+    ],
+    "retrieval-controls": [
+      "user-authorization-check",
+      "data-classification-enforcement",
+      "result-filtering",
+      "audit-logging"
+    ],
+    "data-lifecycle": {
+      "retention-policy": "purpose-limited",
+      "deletion-procedures": "secure-erasure",
+      "update-protocols": "versioned-updates"
+    },
+    "access-control": {
+      "model": "ABAC",
+      "attributes": [
+        "user-clearance",
+        "data-classification",
+        "purpose",
+        "context"
+      ]
+    },
+    "monitoring": {
+      "access-logging": "comprehensive",
+      "anomaly-detection": true,
+      "periodic-audits": "quarterly"
+    }
+  }
+}

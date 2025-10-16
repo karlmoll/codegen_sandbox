@@ -1,0 +1,23 @@
+{
+  "description": "Mapping file for CALM tooling to resolve control $id values to file locations",
+  "mappings": {
+    "https://air-governance-framework.finos.org/calm/AIR-PREV-001": "controls/configurations/air-prev-001-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-PREV-002": "controls/configurations/air-prev-002-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-PREV-003": "controls/configurations/air-prev-003-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-PREV-007": "controls/configurations/air-prev-007-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-PREV-012": "controls/configurations/air-prev-012-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-PREV-018": "controls/configurations/air-prev-018-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-PREV-020": "controls/configurations/air-prev-020-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-DET-004": "controls/configurations/air-det-004-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-DET-005": "controls/configurations/air-det-005-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-DET-021": "controls/configurations/air-det-021-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-CORR-001": "controls/configurations/air-corr-001-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-OP-004": "controls/configurations/air-op-004-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-OP-015": "controls/configurations/air-op-015-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-OP-020": "controls/configurations/air-op-020-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-SEC-001": "controls/configurations/air-sec-001-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-SEC-002": "controls/configurations/air-sec-002-config.json",
+    "https://air-governance-framework.finos.org/calm/AIR-REG-001": "controls/configurations/air-reg-001-config.json",
+    "https://air-governance-framework.finos.org/calm/control-requirement": "controls/requirements/air-control-requirement.json"
+  }
+}
