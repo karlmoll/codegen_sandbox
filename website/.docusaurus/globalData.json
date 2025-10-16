@@ -1,0 +1,189 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/",
+          "mainDocId": "index",
+          "docs": [
+            {
+              "id": "control-requirements/control-requirement",
+              "path": "/control-requirements/control-requirement"
+            },
+            {
+              "id": "controls/AIR-CORR-001",
+              "path": "/controls/AIR-CORR-001"
+            },
+            {
+              "id": "controls/AIR-DET-004",
+              "path": "/controls/AIR-DET-004"
+            },
+            {
+              "id": "controls/AIR-DET-005",
+              "path": "/controls/AIR-DET-005"
+            },
+            {
+              "id": "controls/AIR-PREV-001",
+              "path": "/controls/AIR-PREV-001"
+            },
+            {
+              "id": "controls/AIR-PREV-002",
+              "path": "/controls/AIR-PREV-002"
+            },
+            {
+              "id": "controls/AIR-PREV-003",
+              "path": "/controls/AIR-PREV-003"
+            },
+            {
+              "id": "controls/AIR-PREV-012",
+              "path": "/controls/AIR-PREV-012"
+            },
+            {
+              "id": "controls/undefined",
+              "path": "/controls/undefined"
+            },
+            {
+              "id": "flows/end-to-end-secure-and-observable",
+              "path": "/flows/end-to-end-secure-and-observable",
+              "sidebar": "docs"
+            },
+            {
+              "id": "index",
+              "path": "/",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/api-gateway",
+              "path": "/nodes/api-gateway",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/entitlements-pdp",
+              "path": "/nodes/entitlements-pdp",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/external-client",
+              "path": "/nodes/external-client",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/logging-service",
+              "path": "/nodes/logging-service",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/mcp-service",
+              "path": "/nodes/mcp-service",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/metrics-tracing-service",
+              "path": "/nodes/metrics-tracing-service",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/oidc-provider",
+              "path": "/nodes/oidc-provider",
+              "sidebar": "docs"
+            },
+            {
+              "id": "nodes/secrets-vault",
+              "path": "/nodes/secrets-vault",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/client-to-gateway",
+              "path": "/relationships/client-to-gateway",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/gateway-to-logging",
+              "path": "/relationships/gateway-to-logging",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/gateway-to-mcp",
+              "path": "/relationships/gateway-to-mcp",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/gateway-to-metrics",
+              "path": "/relationships/gateway-to-metrics",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/gateway-to-pdp",
+              "path": "/relationships/gateway-to-pdp",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/gateway-validates-jwt",
+              "path": "/relationships/gateway-validates-jwt",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/mcp-to-logging",
+              "path": "/relationships/mcp-to-logging",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/mcp-to-metrics",
+              "path": "/relationships/mcp-to-metrics",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/mcp-to-pdp",
+              "path": "/relationships/mcp-to-pdp",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/mcp-to-vault",
+              "path": "/relationships/mcp-to-vault",
+              "sidebar": "docs"
+            },
+            {
+              "id": "relationships/mcp-validates-jwks",
+              "path": "/relationships/mcp-validates-jwks",
+              "sidebar": "docs"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "docs": {
+              "link": {
+                "path": "/",
+                "label": "Home"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  },
+  "docusaurus-plugin-search-local": {
+    "default": {
+      "externalSearchSources": [],
+      "removeDefaultStopWordFilter": true,
+      "searchResultContextMaxLength": 50,
+      "searchResultLimits": 5,
+      "translations": {
+        "search_placeholder": "Search",
+        "see_all_results": "See all results",
+        "no_results": "No results.",
+        "search_results_for": "Search results for \"{{ keyword }}\"",
+        "search_the_documentation": "Search the documentation",
+        "count_documents_found_plural": "{{ count }} documents found",
+        "count_documents_found": "{{ count }} document found",
+        "no_documents_were_found": "No documents were found"
+      },
+      "highlightSearchTermsOnTargetPage": true,
+      "indexHash": null
+    }
+  }
+}

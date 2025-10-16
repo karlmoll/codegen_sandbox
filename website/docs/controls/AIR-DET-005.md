@@ -1,0 +1,33 @@
+```json
+{
+  "id": "AIR-DET-005",
+  "description": "Maintain comprehensive audit trails for AI system decisions and actions.",
+  "domain": "observability-logging",
+  "scope": "Relationship",
+  "appliedTo": "mcp-to-logging",
+  "content": {
+    "$id": "https://air-governance-framework.finos.org/calm/AIR-DET-005",
+    "control-id": "AIR-DET-005",
+    "control-name": "AI System Audit Trail",
+    "category": "Detective",
+    "description": "Maintain comprehensive audit trails for AI system decisions and actions.",
+    "reference-url": "https://air-governance-framework.finos.org/mitigations/mi-5_ai-system-audit-trail.html",
+    "threats-mitigated": [],
+    "implementation-requirements": {
+      "logging": {
+        "categories": [
+          "auth",
+          "policy",
+          "tool-call",
+          "admin",
+          "error",
+          "request"
+        ],
+        "format": "json",
+        "pii-scrubbing": true,
+        "redaction-ruleset": "pii-v1",
+        "retention-days": 365
+      }
+    }
+  }
+}

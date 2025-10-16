@@ -1,0 +1,26 @@
+{
+  "id": "relationships/client-to-gateway",
+  "title": "Client To Gateway",
+  "description": "Details",
+  "source": "@site/docs/relationships/client-to-gateway.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/client-to-gateway",
+  "permalink": "/relationships/client-to-gateway",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "client-to-gateway",
+    "title": "Client To Gateway"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Metrics and Tracing Service",
+    "permalink": "/nodes/metrics-tracing-service"
+  },
+  "next": {
+    "title": "Gateway Validates Jwt",
+    "permalink": "/relationships/gateway-validates-jwt"
+  }
+}

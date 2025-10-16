@@ -1,0 +1,26 @@
+{
+  "id": "nodes/api-gateway",
+  "title": "API Gateway",
+  "description": "Details",
+  "source": "@site/docs/nodes/api-gateway.md",
+  "sourceDirName": "nodes",
+  "slug": "/nodes/api-gateway",
+  "permalink": "/nodes/api-gateway",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "api-gateway",
+    "title": "API Gateway"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "External Client",
+    "permalink": "/nodes/external-client"
+  },
+  "next": {
+    "title": "OIDC Provider",
+    "permalink": "/nodes/oidc-provider"
+  }
+}

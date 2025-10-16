@@ -1,0 +1,42 @@
+```json
+{
+  "id": "AIR-PREV-012",
+  "description": "Implement granular access controls for AI data and model access.",
+  "domain": "fine-grained-authorization",
+  "scope": "Relationship",
+  "appliedTo": "mcp-validates-jwks",
+  "content": {
+    "$id": "https://air-governance-framework.finos.org/calm/AIR-PREV-012",
+    "control-id": "AIR-PREV-012",
+    "control-name": "Role-Based Access Control for AI Data",
+    "category": "Preventative",
+    "description": "Implement granular access controls for AI data and model access.",
+    "reference-url": "https://air-governance-framework.finos.org/mitigations/mi-12_role-based-access-control-for-ai-data.html",
+    "threats-mitigated": [
+      "AIR-SEC-002"
+    ],
+    "implementation-requirements": {
+      "oauth-authorization": {
+        "scopes": [
+          "mcp:connect",
+          "mcp:tools:read",
+          "mcp:resources:read"
+        ],
+        "pkce": "S256"
+      },
+      "fine-grained-authorization": {
+        "policy-language": "rego",
+        "decision-ttl-seconds": 5,
+        "default-deny": true,
+        "input-attributes": [
+          "user",
+          "groups",
+          "entitlements",
+          "resource",
+          "action",
+          "context"
+        ]
+      }
+    }
+  }
+}

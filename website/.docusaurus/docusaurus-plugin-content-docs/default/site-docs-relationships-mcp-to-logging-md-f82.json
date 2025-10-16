@@ -1,0 +1,26 @@
+{
+  "id": "relationships/mcp-to-logging",
+  "title": "Mcp To Logging",
+  "description": "Details",
+  "source": "@site/docs/relationships/mcp-to-logging.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/mcp-to-logging",
+  "permalink": "/relationships/mcp-to-logging",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "mcp-to-logging",
+    "title": "Mcp To Logging"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Gateway To Logging",
+    "permalink": "/relationships/gateway-to-logging"
+  },
+  "next": {
+    "title": "Gateway To Metrics",
+    "permalink": "/relationships/gateway-to-metrics"
+  }
+}
