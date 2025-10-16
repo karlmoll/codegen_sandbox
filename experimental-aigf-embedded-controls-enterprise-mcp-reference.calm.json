@@ -421,9 +421,9 @@
     {
       "unique-id": "metrics-tracing-service",
       "node-type": "system",
-      "name": "Metrics & Tracing Service",
+      "name": "Metrics and Tracing Service",
       "description": "OpenTelemetry Collector for metrics, distributed traces, SLIs/SLOs, and trace sampling.",
-      "interfaces": [{ "unique-id": "otel-otlp" }],
+      "interfaces": [{ "unique-id": "otel-otlp" },{ "unique-id": "metrics-intake" }, { "unique-id": "tracing-intake" }],
       "controls": {
         "ai-output-validation": {
           "description": "Validation and monitoring of AI outputs to detect hallucinations and inaccurate responses.",
@@ -503,7 +503,7 @@
           "destination": { "node": "oidc-provider", "interfaces": ["oidc-jwks"] }
         }
       },
-      "protocol": "HTTPS-JWKS",
+      "protocol": "HTTPS",
       "controls": {
         "oauth-authorization": {
           "description": "OAuth 2.1 authorization with OIDC, PKCE, and signed JWTs.",
@@ -624,7 +624,7 @@
           "destination": { "node": "logging-service", "interfaces": ["logging-intake"] }
         }
       },
-      "protocol": "LOG-SHIPPING",
+      "protocol": "HTTPS",
       "controls": {
         "observability-logging": {
           "description": "Structured audit and operational logging shipped to a centralized logging platform with field-level controls and retention.",
@@ -653,7 +653,7 @@
           "destination": { "node": "logging-service", "interfaces": ["logging-intake"] }
         }
       },
-      "protocol": "LOG-SHIPPING",
+      "protocol": "HTTPS",
       "controls": {
         "observability-logging": {
           "description": "Structured audit and operational logging shipped to a centralized logging platform with field-level controls and retention.",
@@ -682,7 +682,7 @@
           "destination": { "node": "metrics-tracing-service", "interfaces": ["metrics-intake", "tracing-intake"] }
         }
       },
-      "protocol": "OTEL",
+      "protocol": "HTTPS",
       "metadata": {
         "framework_note": "Implements best practices for OPS-1 (Logging and Monitoring)."
       }
@@ -696,7 +696,7 @@
           "destination": { "node": "metrics-tracing-service", "interfaces": ["metrics-intake", "tracing-intake"] }
         }
       },
-      "protocol": "OTEL"
+      "protocol": "HTTPS"
     },
     {
       "unique-id": "mcp-to-pdp",
@@ -780,12 +780,12 @@
       "description": "OAuth, edge protections, token validation, policy decisions, logging, metrics, and tracing with comprehensive AIR governance controls.",
       "transitions": [
         { "relationship-unique-id": "client-to-gateway", "sequence-number": 1, "description": "Client calls API Gateway over HTTPS with bearer token." },
-        { "relationship-unique-id": "gateway-validates-jwt", "sequence-number": 2, "description": "Gateway validates JWT via JWKS/metadata." },
+        { "relationship-unique-id": "gateway-validates-jwt", "sequence-number": 2, "description": "Gateway validates JWT via JWKS metadata." },
         { "relationship-unique-id": "gateway-to-pdp", "sequence-number": 3, "description": "Gateway requests authorization decision for the target action." },
         { "relationship-unique-id": "gateway-to-mcp", "sequence-number": 4, "description": "Gateway forwards authorized request to MCP service." },
         { "relationship-unique-id": "mcp-validates-jwks", "sequence-number": 5, "description": "MCP validates token and claims for defense-in-depth." },
-        { "relationship-unique-id": "mcp-to-pdp", "sequence-number": 6, "description": "MCP performs fine-grained policy check for resource/action." },
-        { "relationship-unique-id": "mcp-to-logging", "sequence-number": 7, "description": "MCP emits structured logs for trace/audit." },
+        { "relationship-unique-id": "mcp-to-pdp", "sequence-number": 6, "description": "MCP performs fine-grained policy check for resource and action." },
+        { "relationship-unique-id": "mcp-to-logging", "sequence-number": 7, "description": "MCP emits structured logs for trace and audit." },
         { "relationship-unique-id": "mcp-to-metrics", "sequence-number": 8, "description": "MCP emits metrics and continues distributed trace." }
       ]
     }
