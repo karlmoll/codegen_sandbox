@@ -1,0 +1,28 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-PREV-003",
+  "control-id": "AIR-PREV-003",
+  "control-name": "User/App/Model Firewalling/Filtering",
+  "category": "Preventative",
+  "description": "Monitor and filter interactions between users, applications, and AI models.",
+  "reference-url": "https://air-governance-framework.finos.org/mitigations/mi-3_user-app-model-firewalling-filtering.html",
+  "threats-mitigated": ["AIR-SEC-010"],
+  "implementation-requirements": {
+    "edge-protection": {
+      "rate-limit": {
+        "burst": 100,
+        "per-minute": 1000
+      },
+      "waf-ruleset": "owasp-core",
+      "tls": {
+        "min": "TLSv1.2",
+        "hsts": true
+      }
+    },
+    "prompt-injection-protection": {
+      "content-filtering": true,
+      "tool-allowlist": true,
+      "input-validation": "strict",
+      "prompt-sanitization": true
+    }
+  }
+}

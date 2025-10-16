@@ -1,0 +1,30 @@
+{
+  "$id": "https://air-governance-framework.finos.org/calm/AIR-CORR-001",
+  "control-id": "AIR-CORR-001",
+  "control-name": "AI System Incident Response",
+  "category": "Corrective",
+  "description": "Establish procedures for responding to AI system incidents and failures.",
+  "reference-url": "https://air-governance-framework.finos.org/mitigations/mi-6_ai-system-incident-response.html",
+  "threats-mitigated": ["AIR-OP-020"],
+  "implementation-requirements": {
+    "resilience-and-reliability": {
+      "timeouts-ms": {
+        "default": 5000,
+        "policy": 2000
+      },
+      "retries": {
+        "count": 2,
+        "strategy": "exponential-backoff",
+        "base-ms": 200
+      },
+      "circuit-breaker": {
+        "failure-rate-threshold": 50,
+        "sliding-window": 50,
+        "wait-duration-ms": 30000
+      },
+      "bulkhead": {
+        "max-concurrent": 200
+      }
+    }
+  }
+}
