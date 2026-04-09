@@ -1,0 +1,26 @@
+{
+  "id": "nodes/logging-service",
+  "title": "Centralized Logging Service",
+  "description": "Details",
+  "source": "@site/docs/nodes/logging-service.md",
+  "sourceDirName": "nodes",
+  "slug": "/nodes/logging-service",
+  "permalink": "/nodes/logging-service",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "logging-service",
+    "title": "Centralized Logging Service"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "MCP Service",
+    "permalink": "/nodes/mcp-service"
+  },
+  "next": {
+    "title": "Metrics and Tracing Service",
+    "permalink": "/nodes/metrics-tracing-service"
+  }
+}

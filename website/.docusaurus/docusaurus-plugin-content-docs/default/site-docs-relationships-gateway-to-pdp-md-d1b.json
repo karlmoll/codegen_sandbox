@@ -1,0 +1,26 @@
+{
+  "id": "relationships/gateway-to-pdp",
+  "title": "Gateway To Pdp",
+  "description": "Details",
+  "source": "@site/docs/relationships/gateway-to-pdp.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/gateway-to-pdp",
+  "permalink": "/relationships/gateway-to-pdp",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "gateway-to-pdp",
+    "title": "Gateway To Pdp"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Gateway Validates Jwt",
+    "permalink": "/relationships/gateway-validates-jwt"
+  },
+  "next": {
+    "title": "Gateway To Mcp",
+    "permalink": "/relationships/gateway-to-mcp"
+  }
+}

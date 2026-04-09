@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://air-governance-framework.finos.org/calm/control-requirement",
+  "title": "FINOS AIR Control Requirement Schema",
+  "description": "JSON Schema for FINOS AIR (AI Risks) Framework control requirements",
+  "type": "object",
+  "properties": {
+    "control-id": {
+      "type": "string",
+      "description": "Unique identifier for the AIR control (e.g., AIR-PREV-001)",
+      "pattern": "^AIR-(PREV|DET|CORR)-[0-9]{3}$"
+    },
+    "control-name": {
+      "type": "string",
+      "description": "Human-readable name of the control"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["Preventative", "Detective", "Corrective"],
+      "description": "Control category within the AIR framework"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of what the control addresses"
+    },
+    "reference-url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the official AIR framework documentation for this control"
+    },
+    "threats-mitigated": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^AIR-(OP|SEC|REG)-[0-9]{3}$"
+      },
+      "description": "AIR threat IDs this control helps mitigate"
+    },
+    "implementation-requirements": {
+      "type": "object",
+      "description": "Specific technical requirements for implementing this control",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "control-id",
+    "control-name",
+    "category",
+    "description",
+    "reference-url"
+  ],
+  "additionalProperties": false
+}

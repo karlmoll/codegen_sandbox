@@ -1,0 +1,26 @@
+{
+  "id": "relationships/gateway-validates-jwt",
+  "title": "Gateway Validates Jwt",
+  "description": "Details",
+  "source": "@site/docs/relationships/gateway-validates-jwt.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/gateway-validates-jwt",
+  "permalink": "/relationships/gateway-validates-jwt",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "gateway-validates-jwt",
+    "title": "Gateway Validates Jwt"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Client To Gateway",
+    "permalink": "/relationships/client-to-gateway"
+  },
+  "next": {
+    "title": "Gateway To Pdp",
+    "permalink": "/relationships/gateway-to-pdp"
+  }
+}

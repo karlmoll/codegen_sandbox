@@ -1,0 +1,26 @@
+{
+  "id": "nodes/oidc-provider",
+  "title": "OIDC Provider",
+  "description": "Details",
+  "source": "@site/docs/nodes/oidc-provider.md",
+  "sourceDirName": "nodes",
+  "slug": "/nodes/oidc-provider",
+  "permalink": "/nodes/oidc-provider",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "oidc-provider",
+    "title": "OIDC Provider"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "API Gateway",
+    "permalink": "/nodes/api-gateway"
+  },
+  "next": {
+    "title": "Entitlements Service (PDP)",
+    "permalink": "/nodes/entitlements-pdp"
+  }
+}

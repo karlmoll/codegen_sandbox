@@ -1,0 +1,26 @@
+{
+  "id": "relationships/gateway-to-mcp",
+  "title": "Gateway To Mcp",
+  "description": "Details",
+  "source": "@site/docs/relationships/gateway-to-mcp.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/gateway-to-mcp",
+  "permalink": "/relationships/gateway-to-mcp",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "gateway-to-mcp",
+    "title": "Gateway To Mcp"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Gateway To Pdp",
+    "permalink": "/relationships/gateway-to-pdp"
+  },
+  "next": {
+    "title": "Mcp To Vault",
+    "permalink": "/relationships/mcp-to-vault"
+  }
+}

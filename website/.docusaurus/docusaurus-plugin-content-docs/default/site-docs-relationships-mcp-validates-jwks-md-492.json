@@ -1,0 +1,26 @@
+{
+  "id": "relationships/mcp-validates-jwks",
+  "title": "Mcp Validates Jwks",
+  "description": "Details",
+  "source": "@site/docs/relationships/mcp-validates-jwks.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/mcp-validates-jwks",
+  "permalink": "/relationships/mcp-validates-jwks",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "mcp-validates-jwks",
+    "title": "Mcp Validates Jwks"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Mcp To Pdp",
+    "permalink": "/relationships/mcp-to-pdp"
+  },
+  "next": {
+    "title": "End-to-end secure, authorized, and observable request",
+    "permalink": "/flows/end-to-end-secure-and-observable"
+  }
+}

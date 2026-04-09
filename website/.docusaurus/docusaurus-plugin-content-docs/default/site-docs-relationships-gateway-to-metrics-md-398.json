@@ -1,0 +1,26 @@
+{
+  "id": "relationships/gateway-to-metrics",
+  "title": "Gateway To Metrics",
+  "description": "Details",
+  "source": "@site/docs/relationships/gateway-to-metrics.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/gateway-to-metrics",
+  "permalink": "/relationships/gateway-to-metrics",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "gateway-to-metrics",
+    "title": "Gateway To Metrics"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Mcp To Logging",
+    "permalink": "/relationships/mcp-to-logging"
+  },
+  "next": {
+    "title": "Mcp To Metrics",
+    "permalink": "/relationships/mcp-to-metrics"
+  }
+}

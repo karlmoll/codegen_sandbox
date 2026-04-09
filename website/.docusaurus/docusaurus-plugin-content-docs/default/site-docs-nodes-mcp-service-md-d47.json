@@ -1,0 +1,26 @@
+{
+  "id": "nodes/mcp-service",
+  "title": "MCP Service",
+  "description": "Details",
+  "source": "@site/docs/nodes/mcp-service.md",
+  "sourceDirName": "nodes",
+  "slug": "/nodes/mcp-service",
+  "permalink": "/nodes/mcp-service",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "mcp-service",
+    "title": "MCP Service"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Secrets Management Vault",
+    "permalink": "/nodes/secrets-vault"
+  },
+  "next": {
+    "title": "Centralized Logging Service",
+    "permalink": "/nodes/logging-service"
+  }
+}

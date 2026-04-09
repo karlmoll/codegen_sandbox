@@ -1,0 +1,26 @@
+{
+  "id": "nodes/entitlements-pdp",
+  "title": "Entitlements Service (PDP)",
+  "description": "Details",
+  "source": "@site/docs/nodes/entitlements-pdp.md",
+  "sourceDirName": "nodes",
+  "slug": "/nodes/entitlements-pdp",
+  "permalink": "/nodes/entitlements-pdp",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "entitlements-pdp",
+    "title": "Entitlements Service (PDP)"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "OIDC Provider",
+    "permalink": "/nodes/oidc-provider"
+  },
+  "next": {
+    "title": "Secrets Management Vault",
+    "permalink": "/nodes/secrets-vault"
+  }
+}

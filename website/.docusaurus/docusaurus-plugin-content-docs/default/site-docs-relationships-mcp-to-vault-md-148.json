@@ -1,0 +1,26 @@
+{
+  "id": "relationships/mcp-to-vault",
+  "title": "Mcp To Vault",
+  "description": "Details",
+  "source": "@site/docs/relationships/mcp-to-vault.md",
+  "sourceDirName": "relationships",
+  "slug": "/relationships/mcp-to-vault",
+  "permalink": "/relationships/mcp-to-vault",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "mcp-to-vault",
+    "title": "Mcp To Vault"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Gateway To Mcp",
+    "permalink": "/relationships/gateway-to-mcp"
+  },
+  "next": {
+    "title": "Gateway To Logging",
+    "permalink": "/relationships/gateway-to-logging"
+  }
+}

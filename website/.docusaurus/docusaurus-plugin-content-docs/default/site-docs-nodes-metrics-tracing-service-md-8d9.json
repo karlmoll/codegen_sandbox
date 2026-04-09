@@ -1,0 +1,26 @@
+{
+  "id": "nodes/metrics-tracing-service",
+  "title": "Metrics and Tracing Service",
+  "description": "Details",
+  "source": "@site/docs/nodes/metrics-tracing-service.md",
+  "sourceDirName": "nodes",
+  "slug": "/nodes/metrics-tracing-service",
+  "permalink": "/nodes/metrics-tracing-service",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "metrics-tracing-service",
+    "title": "Metrics and Tracing Service"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Centralized Logging Service",
+    "permalink": "/nodes/logging-service"
+  },
+  "next": {
+    "title": "Client To Gateway",
+    "permalink": "/relationships/client-to-gateway"
+  }
+}
