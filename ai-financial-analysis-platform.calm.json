@@ -1,0 +1,1475 @@
+{
+  "$schema": "https://calm.finos.org/release/1.0/meta/calm.json",
+  "metadata": {
+    "name": "AI-Powered Financial Analysis Platform with AIR Governance",
+    "owners": [
+      "ai-platform-team@company.example",
+      "security@company.example",
+      "compliance@company.example",
+      "ai-governance@company.example"
+    ],
+    "tags": [
+      "ai-platform",
+      "financial-services",
+      "llm",
+      "rag",
+      "vector-database",
+      "oauth2.1",
+      "ai-governance",
+      "finos-air",
+      "model-monitoring",
+      "regulatory-compliance"
+    ],
+    "description": "A comprehensive AI-powered financial analysis platform incorporating LLM-based analysis with embedded FINOS AIR governance framework threats and controls for regulatory compliance.",
+    "air-governance": {
+      "framework": "FINOS AIR",
+      "version": "1.0",
+      "reference": "https://air-governance-framework.finos.org/",
+      "threats": [
+        {
+          "id": "AIR-OP-004",
+          "name": "Hallucination and Inaccurate Outputs",
+          "description": "LLM hallucinations occur when a model generates confident but incorrect financial analysis or recommendations.",
+          "category": "Operational",
+          "severity": "critical",
+          "reference": "https://air-governance-framework.finos.org/#air-op-004"
+        },
+        {
+          "id": "AIR-SEC-010",
+          "name": "Prompt Injection",
+          "description": "Prompt injection attacks could manipulate financial analysis outputs or bypass security controls.",
+          "category": "Security",
+          "severity": "high",
+          "reference": "https://air-governance-framework.finos.org/#air-sec-010"
+        },
+        {
+          "id": "AIR-SEC-002",
+          "name": "Information Leaked to Vector Store",
+          "description": "Sensitive financial data may be inadvertently exposed through vector database embeddings.",
+          "category": "Security",
+          "severity": "critical",
+          "reference": "https://air-governance-framework.finos.org/#air-sec-002"
+        },
+        {
+          "id": "AIR-SEC-001",
+          "name": "Data Poisoning",
+          "description": "Malicious actors may inject fraudulent or misleading financial data into training datasets or knowledge bases.",
+          "category": "Security",
+          "severity": "high",
+          "reference": "https://air-governance-framework.finos.org/#air-sec-001"
+        },
+        {
+          "id": "AIR-OP-020",
+          "name": "Reputational Risk",
+          "description": "Incorrect AI-generated financial advice could lead to significant reputational damage and regulatory scrutiny.",
+          "category": "Operational",
+          "severity": "high",
+          "reference": "https://air-governance-framework.finos.org/#air-op-020"
+        },
+        {
+          "id": "AIR-SEC-008",
+          "name": "Model Inversion and Extraction",
+          "description": "Attackers may attempt to extract proprietary financial models or reverse-engineer training data.",
+          "category": "Security",
+          "severity": "medium",
+          "reference": "https://air-governance-framework.finos.org/#air-sec-008"
+        },
+        {
+          "id": "AIR-OP-015",
+          "name": "Model Drift",
+          "description": "Financial market changes may cause model performance degradation over time.",
+          "category": "Operational",
+          "severity": "high",
+          "reference": "https://air-governance-framework.finos.org/#air-op-015"
+        },
+        {
+          "id": "AIR-SEC-005",
+          "name": "Unauthorized Access to AI Systems",
+          "description": "Unauthorized access could lead to manipulation of financial models or theft of proprietary algorithms.",
+          "category": "Security",
+          "severity": "critical",
+          "reference": "https://air-governance-framework.finos.org/#air-sec-005"
+        }
+      ],
+      "risks": [
+        {
+          "id": "AIR-REG-001",
+          "name": "Regulatory Non-Compliance",
+          "description": "Failure to comply with financial services AI regulations (SEC, FINRA, EU AI Act, etc.).",
+          "category": "Regulatory",
+          "severity": "critical",
+          "reference": "https://air-governance-framework.finos.org/#air-reg-001"
+        },
+        {
+          "id": "AIR-REG-002",
+          "name": "Data Privacy Violations",
+          "description": "Violations of GDPR, CCPA, or other data privacy regulations through AI processing.",
+          "category": "Regulatory",
+          "severity": "high",
+          "reference": "https://air-governance-framework.finos.org/#air-reg-002"
+        },
+        {
+          "id": "AIR-OP-018",
+          "name": "Algorithmic Bias in Financial Decisions",
+          "description": "Biased AI models could lead to discriminatory financial analysis or recommendations.",
+          "category": "Operational",
+          "severity": "high",
+          "reference": "https://air-governance-framework.finos.org/#air-op-018"
+        }
+      ],
+      "controls": [
+        {
+          "id": "AIR-PREV-001",
+          "name": "AI System Risk Assessment",
+          "description": "Conduct comprehensive risk assessments for AI financial analysis systems before deployment.",
+          "category": "Preventative",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-1_ai-system-risk-assessment.html"
+        },
+        {
+          "id": "AIR-PREV-002",
+          "name": "Data Filtering From External Knowledge Bases",
+          "description": "Implement strict data sanitization for financial data ingested into vector databases.",
+          "category": "Preventative",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-2_data-filtering-from-external-knowledge-bases.html"
+        },
+        {
+          "id": "AIR-PREV-003",
+          "name": "User/App/Model Firewalling/Filtering",
+          "description": "Deploy AI firewalls to monitor and filter interactions with financial AI models.",
+          "category": "Preventative",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-3_user-app-model-firewalling-filtering.html"
+        },
+        {
+          "id": "AIR-PREV-007",
+          "name": "Legal and Contractual Frameworks for AI Systems",
+          "description": "Establish comprehensive legal agreements governing AI model development and usage.",
+          "category": "Preventative",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-7_legal-and-contractual-frameworks-for-ai-systems.html"
+        },
+        {
+          "id": "AIR-PREV-012",
+          "name": "Role-Based Access Control for AI Data",
+          "description": "Implement granular RBAC for AI models, training data, and financial analysis outputs.",
+          "category": "Preventative",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-12_role-based-access-control-for-ai-data.html"
+        },
+        {
+          "id": "AIR-DET-004",
+          "name": "AI System Observability",
+          "description": "Comprehensive monitoring of model performance, drift, and anomalous behavior.",
+          "category": "Detective",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-4_ai-system-observability.html"
+        },
+        {
+          "id": "AIR-DET-005",
+          "name": "AI System Audit Trail",
+          "description": "Maintain immutable audit trails for all AI decisions and financial analysis outputs.",
+          "category": "Detective",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-5_ai-system-audit-trail.html"
+        },
+        {
+          "id": "AIR-CORR-001",
+          "name": "AI System Incident Response",
+          "description": "Establish incident response procedures for AI failures and security breaches.",
+          "category": "Corrective",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-6_ai-system-incident-response.html"
+        },
+        {
+          "id": "AIR-PREV-008",
+          "name": "Model Validation and Testing",
+          "description": "Rigorous validation and testing of AI models before deployment to production.",
+          "category": "Preventative",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-8_model-validation-and-testing.html"
+        },
+        {
+          "id": "AIR-DET-006",
+          "name": "Model Performance Monitoring",
+          "description": "Continuous monitoring of model accuracy, precision, recall, and fairness metrics.",
+          "category": "Detective",
+          "reference": "https://air-governance-framework.finos.org/mitigations/mi-6_model-performance-monitoring.html"
+        }
+      ]
+    }
+  },
+  "controls": {
+    "oauth-authorization": {
+      "description": "OAuth 2.1 Authorization Code Flow with PKCE for secure authentication and authorization.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/security/oauth-authorization",
+          "config": {
+            "appliesTo": {
+              "nodes": ["api-gateway", "auth-service", "ai-analysis-service", "client-application"],
+              "relationships": ["client-to-gateway", "gateway-validates-token", "gateway-to-ai-service"]
+            },
+            "scopes": ["ai:analyze", "financial:read", "reports:write"],
+            "pkce": "S256",
+            "tokenType": "JWT"
+          }
+        }
+      ],
+      "air-controls": ["AIR-PREV-012", "AIR-SEC-005"]
+    },
+    "ai-prompt-injection-protection": {
+      "description": "Multi-layered defenses against prompt injection attacks on financial AI models.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/ai/prompt-injection-protection",
+          "config": {
+            "appliesTo": {
+              "nodes": ["ai-gateway", "ai-analysis-service", "llm-service"],
+              "relationships": ["ai-gateway-to-llm", "analysis-to-llm"]
+            },
+            "techniques": [
+              "input-sanitization",
+              "prompt-templating",
+              "output-validation",
+              "adversarial-testing"
+            ],
+            "filteringEnabled": true,
+            "allowlistOnly": false
+          }
+        }
+      ],
+      "air-controls": ["AIR-SEC-010", "AIR-PREV-003"]
+    },
+    "vector-database-security": {
+      "description": "Security controls for vector database containing financial embeddings.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/ai/vector-db-security",
+          "config": {
+            "appliesTo": {
+              "nodes": ["vector-database", "embedding-service"],
+              "relationships": ["embedding-to-vectordb", "rag-to-vectordb"]
+            },
+            "encryption": {
+              "atRest": true,
+              "inTransit": true,
+              "algorithm": "AES-256-GCM"
+            },
+            "accessControl": "RBAC",
+            "dataClassification": "confidential",
+            "piiDetection": true,
+            "sensitiveDataFiltering": true
+          }
+        }
+      ],
+      "air-controls": ["AIR-SEC-002", "AIR-PREV-002", "AIR-REG-002"]
+    },
+    "model-monitoring": {
+      "description": "Continuous monitoring of AI model performance, drift, and fairness.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/ai/model-monitoring",
+          "config": {
+            "appliesTo": {
+              "nodes": ["llm-service", "model-monitoring-service", "ai-analysis-service"]
+            },
+            "metrics": [
+              "accuracy",
+              "precision",
+              "recall",
+              "f1-score",
+              "drift-detection",
+              "fairness-metrics",
+              "hallucination-rate"
+            ],
+            "alertThresholds": {
+              "accuracy": 0.85,
+              "drift": 0.15,
+              "hallucinationRate": 0.05
+            },
+            "monitoringFrequency": "real-time"
+          }
+        }
+      ],
+      "air-controls": ["AIR-DET-004", "AIR-DET-006", "AIR-OP-015"]
+    },
+    "ai-audit-logging": {
+      "description": "Comprehensive audit logging for all AI system interactions and decisions.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/ai/audit-logging",
+          "config": {
+            "appliesTo": {
+              "nodes": ["ai-gateway", "ai-analysis-service", "llm-service", "audit-service"],
+              "relationships": ["gateway-to-audit", "ai-service-to-audit", "llm-to-audit"]
+            },
+            "logEvents": [
+              "model-invocation",
+              "prompt-submission",
+              "response-generation",
+              "access-control-decision",
+              "data-access",
+              "configuration-change"
+            ],
+            "format": "json",
+            "retention": {
+              "days": 2555,
+              "archival": true
+            },
+            "immutability": true,
+            "piiRedaction": true
+          }
+        }
+      ],
+      "air-controls": ["AIR-DET-005", "AIR-REG-001"]
+    },
+    "data-governance": {
+      "description": "Data governance controls for financial data used in AI training and inference.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/data/governance",
+          "config": {
+            "appliesTo": {
+              "nodes": ["data-lake", "vector-database", "embedding-service"],
+              "relationships": ["datalake-to-embedding", "embedding-to-vectordb"]
+            },
+            "classification": ["public", "internal", "confidential", "restricted"],
+            "defaultClassification": "confidential",
+            "purposeLimitation": true,
+            "dataMinimization": true,
+            "consentTracking": true,
+            "rightToBeForgotten": true,
+            "retentionPolicy": {
+              "internal": 365,
+              "confidential": 180,
+              "restricted": 90
+            }
+          }
+        }
+      ],
+      "air-controls": ["AIR-PREV-002", "AIR-REG-001", "AIR-REG-002"]
+    },
+    "hallucination-detection": {
+      "description": "Detection and mitigation of AI hallucinations in financial analysis.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/ai/hallucination-detection",
+          "config": {
+            "appliesTo": {
+              "nodes": ["ai-analysis-service", "validation-service", "llm-service"]
+            },
+            "techniques": [
+              "fact-checking",
+              "confidence-scoring",
+              "source-attribution",
+              "cross-validation",
+              "human-in-the-loop"
+            ],
+            "confidenceThreshold": 0.8,
+            "requireSourceAttribution": true,
+            "humanReviewForLowConfidence": true
+          }
+        }
+      ],
+      "air-controls": ["AIR-OP-004", "AIR-OP-020"]
+    },
+    "model-access-control": {
+      "description": "Fine-grained access control for AI models and training data.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/ai/model-access-control",
+          "config": {
+            "appliesTo": {
+              "nodes": ["llm-service", "model-registry", "ai-analysis-service"],
+              "relationships": ["analysis-to-llm", "registry-to-llm"]
+            },
+            "authenticationMethod": "mTLS",
+            "authorizationMethod": "RBAC",
+            "roles": [
+              "model-admin",
+              "model-developer",
+              "model-consumer",
+              "auditor"
+            ],
+            "leastPrivilege": true,
+            "accessReviewFrequency": 90
+          }
+        }
+      ],
+      "air-controls": ["AIR-PREV-012", "AIR-SEC-005"]
+    },
+    "observability": {
+      "description": "Comprehensive observability for AI platform with metrics, traces, and logs.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/observability/platform",
+          "config": {
+            "appliesTo": {
+              "nodes": ["api-gateway", "ai-gateway", "ai-analysis-service", "llm-service", "observability-platform"]
+            },
+            "otelEnabled": true,
+            "traceSampling": {
+              "rate": 0.1,
+              "headBased": false,
+              "tailBased": true
+            },
+            "metrics": [
+              "request-rate",
+              "error-rate",
+              "latency",
+              "token-usage",
+              "model-invocations",
+              "cache-hit-rate"
+            ],
+            "slos": {
+              "availability": "99.95%",
+              "p95_latency_ms": 2000,
+              "p99_latency_ms": 5000
+            }
+          }
+        }
+      ],
+      "air-controls": ["AIR-DET-004", "AIR-CORR-001"]
+    },
+    "incident-response": {
+      "description": "AI-specific incident response procedures and automation.",
+      "requirements": [
+        {
+          "requirement-url": "https://controls.company.example/ai/incident-response",
+          "config": {
+            "appliesTo": {
+              "nodes": ["ai-analysis-service", "llm-service", "model-monitoring-service"]
+            },
+            "procedures": [
+              "model-rollback",
+              "emergency-shutdown",
+              "stakeholder-notification",
+              "root-cause-analysis",
+              "remediation"
+            ],
+            "automatedResponses": {
+              "highDriftDetected": "trigger-alert-and-review",
+              "securityBreachDetected": "emergency-shutdown",
+              "hallucinationRateExceeded": "enable-human-review"
+            },
+            "escalationPath": [
+              "ai-ops-team",
+              "security-team",
+              "compliance-team",
+              "executive-leadership"
+            ]
+          }
+        }
+      ],
+      "air-controls": ["AIR-CORR-001", "AIR-OP-020"]
+    }
+  },
+  "nodes": [
+    {
+      "unique-id": "client-application",
+      "node-type": "application",
+      "name": "Client Application",
+      "description": "Web or mobile application used by financial analysts to request AI-powered analysis.",
+      "interfaces": [
+        {
+          "unique-id": "client-https"
+        }
+      ],
+      "metadata": {
+        "deployment": "spa-react",
+        "air": {
+          "threats": ["AIR-SEC-010"],
+          "controls": ["AIR-PREV-003"],
+          "risk-level": "medium"
+        }
+      }
+    },
+    {
+      "unique-id": "api-gateway",
+      "node-type": "service",
+      "name": "API Gateway",
+      "description": "Enterprise API gateway with WAF, rate limiting, and OAuth validation.",
+      "interfaces": [
+        {
+          "unique-id": "gateway-https"
+        }
+      ],
+      "metadata": {
+        "waf": {
+          "enabled": true,
+          "ruleset": "owasp-core"
+        },
+        "rateLimiting": {
+          "enabled": true,
+          "requestsPerMinute": 500,
+          "burstSize": 100
+        },
+        "tls": {
+          "minVersion": "TLSv1.3",
+          "hsts": true
+        },
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": ["AIR-SEC-010", "AIR-SEC-005"],
+          "controls": [
+            {
+              "id": "AIR-PREV-003",
+              "name": "User/App/Model Firewalling/Filtering",
+              "category": "Preventative"
+            },
+            {
+              "id": "AIR-PREV-012",
+              "name": "Role-Based Access Control for AI Data",
+              "category": "Preventative"
+            }
+          ],
+          "risk-level": "high"
+        }
+      }
+    },
+    {
+      "unique-id": "auth-service",
+      "node-type": "service",
+      "name": "Authentication Service",
+      "description": "OAuth 2.1 and OIDC provider for user authentication and authorization.",
+      "interfaces": [
+        {
+          "unique-id": "auth-oauth"
+        },
+        {
+          "unique-id": "auth-jwks"
+        }
+      ],
+      "metadata": {
+        "oauth": {
+          "version": "2.1",
+          "oidcEnabled": true,
+          "supportedFlows": ["authorization_code"],
+          "pkceRequired": true
+        },
+        "air": {
+          "threats": ["AIR-SEC-005"],
+          "controls": ["AIR-PREV-012"],
+          "risk-level": "high"
+        }
+      }
+    },
+    {
+      "unique-id": "ai-gateway",
+      "node-type": "service",
+      "name": "AI Gateway",
+      "description": "Specialized gateway for AI workloads with prompt injection protection and AI firewall capabilities.",
+      "interfaces": [
+        {
+          "unique-id": "ai-gateway-https"
+        }
+      ],
+      "metadata": {
+        "capabilities": [
+          "prompt-injection-detection",
+          "content-filtering",
+          "token-usage-tracking",
+          "rate-limiting",
+          "caching"
+        ],
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": ["AIR-SEC-010", "AIR-OP-004", "AIR-SEC-008"],
+          "controls": [
+            {
+              "id": "AIR-PREV-003",
+              "name": "User/App/Model Firewalling/Filtering",
+              "category": "Preventative"
+            },
+            {
+              "id": "AIR-DET-004",
+              "name": "AI System Observability",
+              "category": "Detective"
+            }
+          ],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "ai-analysis-service",
+      "node-type": "service",
+      "name": "AI Financial Analysis Service",
+      "description": "Core service orchestrating AI-powered financial analysis using RAG and LLMs.",
+      "interfaces": [
+        {
+          "unique-id": "analysis-api"
+        }
+      ],
+      "metadata": {
+        "runtime": "python-3.11",
+        "framework": "langchain",
+        "capabilities": [
+          "rag-orchestration",
+          "prompt-engineering",
+          "response-validation",
+          "source-attribution"
+        ],
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": [
+            "AIR-OP-004",
+            "AIR-SEC-010",
+            "AIR-SEC-002",
+            "AIR-OP-020",
+            "AIR-OP-015"
+          ],
+          "controls": [
+            {
+              "id": "AIR-PREV-001",
+              "name": "AI System Risk Assessment",
+              "category": "Preventative"
+            },
+            {
+              "id": "AIR-PREV-003",
+              "name": "User/App/Model Firewalling/Filtering",
+              "category": "Preventative"
+            },
+            {
+              "id": "AIR-DET-004",
+              "name": "AI System Observability",
+              "category": "Detective"
+            },
+            {
+              "id": "AIR-DET-005",
+              "name": "AI System Audit Trail",
+              "category": "Detective"
+            },
+            {
+              "id": "AIR-CORR-001",
+              "name": "AI System Incident Response",
+              "category": "Corrective"
+            }
+          ],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "llm-service",
+      "node-type": "service",
+      "name": "LLM Service",
+      "description": "Hosted large language model for financial analysis (e.g., GPT-4, Claude, or fine-tuned model).",
+      "interfaces": [
+        {
+          "unique-id": "llm-api"
+        }
+      ],
+      "metadata": {
+        "modelProvider": "azure-openai",
+        "model": "gpt-4-turbo",
+        "deployment": "private-endpoint",
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": [
+            "AIR-OP-004",
+            "AIR-SEC-010",
+            "AIR-SEC-008",
+            "AIR-OP-015"
+          ],
+          "controls": [
+            {
+              "id": "AIR-PREV-008",
+              "name": "Model Validation and Testing",
+              "category": "Preventative"
+            },
+            {
+              "id": "AIR-DET-006",
+              "name": "Model Performance Monitoring",
+              "category": "Detective"
+            }
+          ],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "embedding-service",
+      "node-type": "service",
+      "name": "Embedding Service",
+      "description": "Service for generating vector embeddings from financial documents and data.",
+      "interfaces": [
+        {
+          "unique-id": "embedding-api"
+        }
+      ],
+      "metadata": {
+        "model": "text-embedding-ada-002",
+        "dimensionality": 1536,
+        "air": {
+          "threats": ["AIR-SEC-002", "AIR-SEC-001"],
+          "controls": [
+            {
+              "id": "AIR-PREV-002",
+              "name": "Data Filtering From External Knowledge Bases",
+              "category": "Preventative"
+            }
+          ],
+          "risk-level": "high"
+        }
+      }
+    },
+    {
+      "unique-id": "vector-database",
+      "node-type": "datastore",
+      "name": "Vector Database",
+      "description": "Vector database storing embeddings of financial documents for RAG retrieval.",
+      "interfaces": [
+        {
+          "unique-id": "vectordb-api"
+        }
+      ],
+      "metadata": {
+        "technology": "pinecone",
+        "indexType": "hnsw",
+        "dimensions": 1536,
+        "encryption": {
+          "atRest": true,
+          "inTransit": true
+        },
+        "air": {
+          "framework": "FINOS AIR",
+          "threats": [
+            "AIR-SEC-002",
+            "AIR-SEC-001",
+            "AIR-SEC-005"
+          ],
+          "controls": [
+            {
+              "id": "AIR-PREV-002",
+              "name": "Data Filtering From External Knowledge Bases",
+              "category": "Preventative"
+            },
+            {
+              "id": "AIR-PREV-012",
+              "name": "Role-Based Access Control for AI Data",
+              "category": "Preventative"
+            }
+          ],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "data-lake",
+      "node-type": "datastore",
+      "name": "Financial Data Lake",
+      "description": "Centralized repository for structured and unstructured financial data.",
+      "interfaces": [
+        {
+          "unique-id": "datalake-api"
+        }
+      ],
+      "metadata": {
+        "technology": "azure-data-lake",
+        "dataClassification": "confidential",
+        "air": {
+          "threats": ["AIR-SEC-001", "AIR-SEC-005", "AIR-REG-002"],
+          "controls": [
+            {
+              "id": "AIR-PREV-002",
+              "name": "Data Filtering From External Knowledge Bases",
+              "category": "Preventative"
+            },
+            {
+              "id": "AIR-PREV-012",
+              "name": "Role-Based Access Control for AI Data",
+              "category": "Preventative"
+            }
+          ],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "model-monitoring-service",
+      "node-type": "service",
+      "name": "Model Monitoring Service",
+      "description": "Continuous monitoring of AI model performance, drift, and fairness metrics.",
+      "interfaces": [
+        {
+          "unique-id": "monitoring-api"
+        }
+      ],
+      "metadata": {
+        "technology": "evidently-ai",
+        "capabilities": [
+          "drift-detection",
+          "performance-tracking",
+          "fairness-monitoring",
+          "data-quality-checks"
+        ],
+        "air": {
+          "threats": ["AIR-OP-015", "AIR-OP-018"],
+          "controls": [
+            {
+              "id": "AIR-DET-004",
+              "name": "AI System Observability",
+              "category": "Detective"
+            },
+            {
+              "id": "AIR-DET-006",
+              "name": "Model Performance Monitoring",
+              "category": "Detective"
+            }
+          ],
+          "risk-level": "high"
+        }
+      }
+    },
+    {
+      "unique-id": "audit-service",
+      "node-type": "service",
+      "name": "Audit and Compliance Service",
+      "description": "Immutable audit logging for all AI system interactions and decisions.",
+      "interfaces": [
+        {
+          "unique-id": "audit-intake"
+        }
+      ],
+      "metadata": {
+        "storage": "blockchain-backed",
+        "immutability": true,
+        "retention": "7-years",
+        "air": {
+          "threats": ["AIR-REG-001"],
+          "controls": [
+            {
+              "id": "AIR-DET-005",
+              "name": "AI System Audit Trail",
+              "category": "Detective"
+            }
+          ],
+          "risk-level": "critical"
+        }
+      }
+    },
+    {
+      "unique-id": "validation-service",
+      "node-type": "service",
+      "name": "Output Validation Service",
+      "description": "Service for validating AI outputs, detecting hallucinations, and fact-checking.",
+      "interfaces": [
+        {
+          "unique-id": "validation-api"
+        }
+      ],
+      "metadata": {
+        "techniques": [
+          "fact-checking",
+          "confidence-scoring",
+          "source-attribution",
+          "cross-validation"
+        ],
+        "air": {
+          "threats": ["AIR-OP-004", "AIR-OP-020"],
+          "controls": [
+            {
+              "id": "AIR-PREV-008",
+              "name": "Model Validation and Testing",
+              "category": "Preventative"
+            }
+          ],
+          "risk-level": "high"
+        }
+      }
+    },
+    {
+      "unique-id": "model-registry",
+      "node-type": "service",
+      "name": "Model Registry",
+      "description": "Central registry for AI models with versioning and governance.",
+      "interfaces": [
+        {
+          "unique-id": "registry-api"
+        }
+      ],
+      "metadata": {
+        "technology": "mlflow",
+        "capabilities": [
+          "model-versioning",
+          "lineage-tracking",
+          "approval-workflow",
+          "metadata-management"
+        ],
+        "air": {
+          "threats": ["AIR-SEC-008", "AIR-OP-015"],
+          "controls": [
+            {
+              "id": "AIR-PREV-001",
+              "name": "AI System Risk Assessment",
+              "category": "Preventative"
+            },
+            {
+              "id": "AIR-PREV-012",
+              "name": "Role-Based Access Control for AI Data",
+              "category": "Preventative"
+            }
+          ],
+          "risk-level": "high"
+        }
+      }
+    },
+    {
+      "unique-id": "observability-platform",
+      "node-type": "service",
+      "name": "Observability Platform",
+      "description": "Centralized platform for metrics, traces, and logs using OpenTelemetry.",
+      "interfaces": [
+        {
+          "unique-id": "otel-intake"
+        }
+      ],
+      "metadata": {
+        "technology": "datadog",
+        "air": {
+          "threats": ["AIR-OP-015"],
+          "controls": [
+            {
+              "id": "AIR-DET-004",
+              "name": "AI System Observability",
+              "category": "Detective"
+            }
+          ],
+          "risk-level": "medium"
+        }
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "unique-id": "client-to-gateway",
+      "description": "Client application sends analysis requests to API Gateway.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "client-application",
+            "interfaces": ["client-https"]
+          },
+          "destination": {
+            "node": "api-gateway",
+            "interfaces": ["gateway-https"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "OAuth 2.1 with PKCE",
+        "data": ["Analysis Request", "Bearer Token"],
+        "air": {
+          "threats": ["AIR-SEC-010"],
+          "controls": ["AIR-PREV-003"]
+        }
+      }
+    },
+    {
+      "unique-id": "gateway-validates-token",
+      "description": "API Gateway validates OAuth token with authentication service.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway"
+          },
+          "destination": {
+            "node": "auth-service",
+            "interfaces": ["auth-jwks"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "purpose": "JWT validation",
+        "air": {
+          "threats": ["AIR-SEC-005"],
+          "controls": ["AIR-PREV-012"]
+        }
+      }
+    },
+    {
+      "unique-id": "gateway-to-ai-gateway",
+      "description": "API Gateway routes AI requests to specialized AI Gateway.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway"
+          },
+          "destination": {
+            "node": "ai-gateway",
+            "interfaces": ["ai-gateway-https"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "mTLS",
+        "air": {
+          "threats": ["AIR-SEC-010"],
+          "controls": ["AIR-PREV-003"]
+        }
+      }
+    },
+    {
+      "unique-id": "ai-gateway-to-analysis",
+      "description": "AI Gateway forwards validated requests to AI Analysis Service.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "ai-gateway"
+          },
+          "destination": {
+            "node": "ai-analysis-service",
+            "interfaces": ["analysis-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "mTLS",
+        "promptInjectionChecked": true,
+        "air": {
+          "threats": ["AIR-SEC-010", "AIR-OP-004"],
+          "controls": ["AIR-PREV-003", "AIR-DET-004"]
+        }
+      }
+    },
+    {
+      "unique-id": "analysis-to-vectordb",
+      "description": "AI Analysis Service queries vector database for relevant context.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "ai-analysis-service"
+          },
+          "destination": {
+            "node": "vector-database",
+            "interfaces": ["vectordb-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "queryType": "similarity-search",
+        "topK": 10,
+        "air": {
+          "threats": ["AIR-SEC-002"],
+          "controls": ["AIR-PREV-002", "AIR-PREV-012"]
+        }
+      }
+    },
+    {
+      "unique-id": "analysis-to-llm",
+      "description": "AI Analysis Service sends prompts to LLM for generation.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "ai-analysis-service"
+          },
+          "destination": {
+            "node": "llm-service",
+            "interfaces": ["llm-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "API-Key",
+        "data": ["Prompt", "Context", "Parameters"],
+        "air": {
+          "threats": ["AIR-OP-004", "AIR-SEC-010", "AIR-SEC-008"],
+          "controls": ["AIR-PREV-003", "AIR-PREV-008"]
+        }
+      }
+    },
+    {
+      "unique-id": "analysis-to-validation",
+      "description": "AI Analysis Service validates LLM output before returning to user.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "ai-analysis-service"
+          },
+          "destination": {
+            "node": "validation-service",
+            "interfaces": ["validation-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "validationType": "hallucination-detection",
+        "air": {
+          "threats": ["AIR-OP-004", "AIR-OP-020"],
+          "controls": ["AIR-PREV-008"]
+        }
+      }
+    },
+    {
+      "unique-id": "datalake-to-embedding",
+      "description": "Financial data is extracted from data lake for embedding generation.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "data-lake",
+            "interfaces": ["datalake-api"]
+          },
+          "destination": {
+            "node": "embedding-service",
+            "interfaces": ["embedding-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "dataFlow": "batch-and-streaming",
+        "piiFiltering": true,
+        "air": {
+          "threats": ["AIR-SEC-001", "AIR-SEC-002"],
+          "controls": ["AIR-PREV-002"]
+        }
+      }
+    },
+    {
+      "unique-id": "embedding-to-vectordb",
+      "description": "Generated embeddings are stored in vector database.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "embedding-service"
+          },
+          "destination": {
+            "node": "vector-database",
+            "interfaces": ["vectordb-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "encryption": true,
+        "air": {
+          "threats": ["AIR-SEC-002"],
+          "controls": ["AIR-PREV-002", "AIR-PREV-012"]
+        }
+      }
+    },
+    {
+      "unique-id": "llm-to-monitoring",
+      "description": "LLM service metrics flow to model monitoring service.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "llm-service"
+          },
+          "destination": {
+            "node": "model-monitoring-service",
+            "interfaces": ["monitoring-api"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "metrics": [
+          "token-usage",
+          "latency",
+          "error-rate",
+          "confidence-scores"
+        ],
+        "air": {
+          "threats": ["AIR-OP-015"],
+          "controls": ["AIR-DET-004", "AIR-DET-006"]
+        }
+      }
+    },
+    {
+      "unique-id": "analysis-to-audit",
+      "description": "All AI analysis interactions are logged to audit service.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "ai-analysis-service"
+          },
+          "destination": {
+            "node": "audit-service",
+            "interfaces": ["audit-intake"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "format": "JSON",
+        "piiRedaction": true,
+        "air": {
+          "threats": ["AIR-REG-001"],
+          "controls": ["AIR-DET-005"]
+        }
+      }
+    },
+    {
+      "unique-id": "gateway-to-audit",
+      "description": "API Gateway logs all access attempts to audit service.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway"
+          },
+          "destination": {
+            "node": "audit-service",
+            "interfaces": ["audit-intake"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "air": {
+          "threats": ["AIR-REG-001"],
+          "controls": ["AIR-DET-005"]
+        }
+      }
+    },
+    {
+      "unique-id": "ai-gateway-to-audit",
+      "description": "AI Gateway logs prompt injection attempts and filtering actions.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "ai-gateway"
+          },
+          "destination": {
+            "node": "audit-service",
+            "interfaces": ["audit-intake"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "air": {
+          "threats": ["AIR-SEC-010"],
+          "controls": ["AIR-DET-005"]
+        }
+      }
+    },
+    {
+      "unique-id": "llm-to-audit",
+      "description": "LLM service logs all prompts and responses for compliance.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "llm-service"
+          },
+          "destination": {
+            "node": "audit-service",
+            "interfaces": ["audit-intake"]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "air": {
+          "threats": ["AIR-REG-001", "AIR-OP-004"],
+          "controls": ["AIR-DET-005"]
+        }
+      }
+    },
+    {
+      "unique-id": "platform-to-observability",
+      "description": "All services emit OpenTelemetry metrics and traces to observability platform.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "ai-analysis-service"
+          },
+          "destination": {
+            "node": "observability-platform",
+            "interfaces": ["otel-intake"]
+          }
+        }
+      },
+      "protocol": "OTLP",
+      "metadata": {
+        "air": {
+          "threats": ["AIR-OP-015"],
+          "controls": ["AIR-DET-004"]
+        }
+      }
+    },
+    {
+      "unique-id": "registry-to-llm",
+      "description": "Model registry manages LLM versioning and deployment.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "model-registry",
+            "interfaces": ["registry-api"]
+          },
+          "destination": {
+            "node": "llm-service"
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "purpose": "model-deployment",
+        "air": {
+          "threats": ["AIR-OP-015", "AIR-SEC-008"],
+          "controls": ["AIR-PREV-001", "AIR-PREV-012"]
+        }
+      }
+    }
+  ],
+  "flows": [
+    {
+      "unique-id": "end-to-end-ai-analysis-flow",
+      "name": "End-to-End AI Financial Analysis with Governance",
+      "description": "Complete flow from user request through AI analysis with comprehensive AIR governance controls.",
+      "transitions": [
+        {
+          "relationship-unique-id": "client-to-gateway",
+          "sequence-number": 1,
+          "description": "User submits financial analysis request with OAuth token."
+        },
+        {
+          "relationship-unique-id": "gateway-validates-token",
+          "sequence-number": 2,
+          "description": "API Gateway validates authentication token."
+        },
+        {
+          "relationship-unique-id": "gateway-to-ai-gateway",
+          "sequence-number": 3,
+          "description": "Request forwarded to AI-specialized gateway."
+        },
+        {
+          "relationship-unique-id": "ai-gateway-to-analysis",
+          "sequence-number": 4,
+          "description": "AI Gateway performs prompt injection checks and forwards to analysis service."
+        },
+        {
+          "relationship-unique-id": "analysis-to-vectordb",
+          "sequence-number": 5,
+          "description": "Analysis service retrieves relevant financial context from vector database."
+        },
+        {
+          "relationship-unique-id": "analysis-to-llm",
+          "sequence-number": 6,
+          "description": "Contextualized prompt sent to LLM for analysis generation."
+        },
+        {
+          "relationship-unique-id": "analysis-to-validation",
+          "sequence-number": 7,
+          "description": "LLM output validated for hallucinations and accuracy."
+        },
+        {
+          "relationship-unique-id": "analysis-to-audit",
+          "sequence-number": 8,
+          "description": "Full interaction logged to immutable audit trail."
+        },
+        {
+          "relationship-unique-id": "llm-to-monitoring",
+          "sequence-number": 9,
+          "description": "Model performance metrics captured for drift detection."
+        },
+        {
+          "relationship-unique-id": "platform-to-observability",
+          "sequence-number": 10,
+          "description": "Distributed traces and metrics sent to observability platform."
+        }
+      ],
+      "air-governance": {
+        "threats-mitigated": [
+          "AIR-OP-004",
+          "AIR-SEC-010",
+          "AIR-SEC-002",
+          "AIR-SEC-001",
+          "AIR-OP-020",
+          "AIR-SEC-008",
+          "AIR-OP-015",
+          "AIR-SEC-005"
+        ],
+        "controls-applied": [
+          "AIR-PREV-001",
+          "AIR-PREV-002",
+          "AIR-PREV-003",
+          "AIR-PREV-007",
+          "AIR-PREV-008",
+          "AIR-PREV-012",
+          "AIR-DET-004",
+          "AIR-DET-005",
+          "AIR-DET-006",
+          "AIR-CORR-001"
+        ],
+        "compliance-level": "financial-services-ready",
+        "regulatory-frameworks": [
+          "SEC",
+          "FINRA",
+          "EU-AI-Act",
+          "GDPR",
+          "CCPA"
+        ]
+      }
+    },
+    {
+      "unique-id": "data-ingestion-flow",
+      "name": "Financial Data Ingestion and Embedding",
+      "description": "Flow for ingesting financial data, generating embeddings, and storing in vector database with AIR controls.",
+      "transitions": [
+        {
+          "relationship-unique-id": "datalake-to-embedding",
+          "sequence-number": 1,
+          "description": "Financial data extracted from data lake with PII filtering."
+        },
+        {
+          "relationship-unique-id": "embedding-to-vectordb",
+          "sequence-number": 2,
+          "description": "Sanitized embeddings stored in encrypted vector database."
+        }
+      ],
+      "air-governance": {
+        "threats-mitigated": [
+          "AIR-SEC-001",
+          "AIR-SEC-002",
+          "AIR-REG-002"
+        ],
+        "controls-applied": [
+          "AIR-PREV-002",
+          "AIR-PREV-012"
+        ],
+        "compliance-level": "data-governance-compliant"
+      }
+    },
+    {
+      "unique-id": "model-monitoring-flow",
+      "name": "Continuous Model Monitoring and Drift Detection",
+      "description": "Ongoing monitoring of AI model performance with automated alerting.",
+      "transitions": [
+        {
+          "relationship-unique-id": "llm-to-monitoring",
+          "sequence-number": 1,
+          "description": "Real-time model metrics collected."
+        },
+        {
+          "relationship-unique-id": "platform-to-observability",
+          "sequence-number": 2,
+          "description": "Metrics aggregated in observability platform for alerting."
+        }
+      ],
+      "air-governance": {
+        "threats-mitigated": [
+          "AIR-OP-015",
+          "AIR-OP-018"
+        ],
+        "controls-applied": [
+          "AIR-DET-004",
+          "AIR-DET-006",
+          "AIR-CORR-001"
+        ],
+        "compliance-level": "operational-excellence"
+      }
+    }
+  ],
+  "adrs": [
+    "https://air-governance-framework.finos.org/",
+    "https://www.finos.org/",
+    "https://www.sec.gov/ai",
+    "https://artificialintelligenceact.eu/",
+    "https://www.rfc-editor.org/rfc/rfc8414",
+    "https://www.rfc-editor.org/rfc/rfc8725",
+    "https://arxiv.org/abs/2308.07308",
+    "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+  ]
+}
