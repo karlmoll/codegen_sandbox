@@ -1,0 +1,854 @@
+{
+  "$schema": "https://calm.finos.org/release/1.0/meta/calm.json",
+  "metadata": {
+    "name": "Enterprise MCP Golden Path with Embedded FINOS AIR Controls",
+    "version": "2.0",
+    "owners": [
+      "platform-security@company.example",
+      "sre@company.example",
+      "data-governance@company.example",
+      "ai-governance@company.example"
+    ],
+    "tags": [
+      "mcp",
+      "enterprise",
+      "oauth2.1",
+      "oidc",
+      "authorization",
+      "opa",
+      "observability",
+      "logging",
+      "metrics",
+      "tracing",
+      "resilience",
+      "vault",
+      "finos-air",
+      "ai-governance",
+      "controls-embedded"
+    ],
+    "description": "A certified architectural pattern for deploying secure, observable, and resilient MCP services in a regulated environment with comprehensively embedded FINOS AIR governance controls following CALM MCP best practices.",
+    "air-governance-framework": {
+      "framework": "FINOS AIR (AI Governance Framework)",
+      "version": "1.0",
+      "reference": "https://air-governance-framework.finos.org/",
+      "compliance-level": "enterprise-ready",
+      "last-reviewed": "2025-10-10"
+    }
+  },
+  "nodes": [
+    {
+      "unique-id": "external-client",
+      "node-type": "actor",
+      "name": "External MCP Client Application",
+      "description": "External application or user agent initiating MCP requests (e.g., Claude Desktop, custom MCP client).",
+      "interfaces": [
+        {
+          "unique-id": "external-http"
+        }
+      ],
+      "controls": {
+        "ai-prompt-injection-prevention": {
+          "description": "Controls to prevent malicious prompt injection attacks at the client interface",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/mitigations/mi-3_user-app-model-firewalling-filtering.html",
+              "config-url": "https://controls.company.example/air/prompt-injection-prevention.config.json"
+            }
+          ]
+        },
+        "ai-reputational-risk-management": {
+          "description": "Controls to manage and mitigate reputational risks from AI system failures",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/threats/air-op-020_reputational-risk.html",
+              "config-url": "https://controls.company.example/air/reputational-risk.config.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "api-gateway",
+      "node-type": "service",
+      "name": "Enterprise API Gateway",
+      "description": "Edge gateway enforcing OAuth 2.1, OIDC, rate limiting, WAF, and initial authorization decisions before forwarding to MCP service.",
+      "interfaces": [
+        {
+          "unique-id": "gateway-https",
+          "port": 443,
+          "protocol": "HTTPS"
+        }
+      ],
+      "controls": {
+        "oauth-authorization": {
+          "description": "OAuth 2.1 Authorization Code + PKCE with OIDC metadata and JWKS validation at the edge",
+          "requirements": [
+            {
+              "requirement-url": "https://controls.company.example/security/oauth-authorization.requirement.json",
+              "config-url": "https://controls.company.example/security/oauth-authorization.config.json"
+            }
+          ]
+        },
+        "ai-access-control": {
+          "description": "Role-Based Access Control for AI Data and Model Access",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/mitigations/mi-12_role-based-access-control-for-ai-data.html",
+              "config-url": "https://controls.company.example/air/rbac-ai-data.config.json"
+            }
+          ]
+        },
+        "ai-input-filtering": {
+          "description": "User/App/Model Firewalling and Filtering to prevent malicious inputs",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/mitigations/mi-3_user-app-model-firewalling-filtering.html",
+              "config-url": "https://controls.company.example/air/input-filtering.config.json"
+            }
+          ]
+        },
+        "observability-logging": {
+          "description": "Structured audit and operational logging with PII scrubbing",
+          "requirements": [
+            {
+              "requirement-url": "https://controls.company.example/observability/logging.requirement.json",
+              "config-url": "https://controls.company.example/observability/logging.config.json"
+            }
+          ]
+        },
+        "ai-audit-trail": {
+          "description": "AI System Audit Trail for comprehensive decision tracking",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/mitigations/mi-5_ai-system-audit-trail.html",
+              "config-url": "https://controls.company.example/air/audit-trail.config.json"
+            }
+          ]
+        },
+        "rate-limiting-ddos": {
+          "description": "Rate limiting and DDoS protection at the edge",
+          "requirements": [
+            {
+              "requirement-url": "https://controls.company.example/security/rate-limiting.requirement.json",
+              "config-url": "https://controls.company.example/security/rate-limiting.config.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "oidc-provider",
+      "node-type": "service",
+      "name": "OIDC Identity Provider",
+      "description": "Centralized identity provider implementing OAuth 2.1 and OpenID Connect (e.g., Okta, Auth0, Keycloak).",
+      "interfaces": [
+        {
+          "unique-id": "oidc-jwks",
+          "path": "/.well-known/jwks.json"
+        },
+        {
+          "unique-id": "oidc-metadata",
+          "path": "/.well-known/openid-configuration"
+        },
+        {
+          "unique-id": "oidc-auth-endpoint",
+          "path": "/oauth2/v1/authorize"
+        },
+        {
+          "unique-id": "oidc-token-endpoint",
+          "path": "/oauth2/v1/token"
+        }
+      ],
+      "controls": {
+        "identity-verification": {
+          "description": "Strong identity verification and authentication",
+          "requirements": [
+            {
+              "requirement-url": "https://controls.company.example/security/identity-verification.requirement.json",
+              "config-url": "https://controls.company.example/security/identity-verification.config.json"
+            }
+          ]
+        },
+        "ai-legal-frameworks": {
+          "description": "Legal and Contractual Frameworks for AI Systems ensuring proper user consent and data usage",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/mitigations/mi-7_legal-and-contractual-frameworks-for-ai-systems.html",
+              "config-url": "https://controls.company.example/air/legal-frameworks.config.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "entitlements-pdp",
+      "node-type": "service",
+      "name": "Policy Decision Point (OPA)",
+      "description": "Externalized policy engine for fine-grained authorization decisions (e.g., Open Policy Agent).",
+      "interfaces": [
+        {
+          "unique-id": "pdp-api",
+          "port": 8181,
+          "path": "/v1/data/policy"
+        }
+      ],
+      "controls": {
+        "fine-grained-authorization": {
+          "description": "Externalized fine-grained authorization via Policy Decision Point",
+          "requirements": [
+            {
+              "requirement-url": "https://controls.company.example/security/authorization/pdp-opa.requirement.json",
+              "config-url": "https://controls.company.example/security/authorization/pdp-opa.config.json"
+            }
+          ]
+        },
+        "ai-rbac": {
+          "description": "Role-Based Access Control for AI Data with policy-based enforcement",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/mitigations/mi-12_role-based-access-control-for-ai-data.html",
+              "config-url": "https://controls.company.example/air/rbac-policies.config.json"
+            }
+          ]
+        },
+        "ai-data-filtering": {
+          "description": "Data Filtering From External Knowledge Bases enforced through policies",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/mitigations/mi-2_data-filtering-from-external-knowledge-bases.html",
+              "config-url": "https://controls.company.example/air/data-filtering-policies.config.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "mcp-service",
+      "node-type": "service",
+      "name": "MCP Service Core",
+      "description": "Core MCP service implementing the Model Context Protocol, exposing tools and resources with comprehensive AI governance controls.",
+      "interfaces": [
+        {
+          "unique-id": "mcp-api-https",
+          "port": 8080,
+          "protocol": "HTTPS"
+        }
+      ],
+      "controls": {
+        "ai-system-risk-assessment": {
+          "description": "Comprehensive AI System Risk Assessment conducted before deployment",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/mitigations/mi-1_ai-system-risk-assessment.html",
+              "config-url": "https://controls.company.example/air/risk-assessment.config.json"
+            }
+          ]
+        },
+        "ai-hallucination-mitigation": {
+          "description": "Controls to detect and mitigate LLM hallucinations and inaccurate outputs",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/threats/air-op-004_hallucination-inaccurate-outputs.html",
+              "config-url": "https://controls.company.example/air/hallucination-detection.config.json"
+            }
+          ]
+        },
+        "ai-data-poisoning-prevention": {
+          "description": "Controls to prevent data poisoning attacks on training data and vector stores",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/threats/air-sec-001_data-poisoning.html",
+              "config-url": "https://controls.company.example/air/data-poisoning-prevention.config.json"
+            }
+          ]
+        },
+        "ai-vector-store-protection": {
+          "description": "Protection against information leakage to vector stores",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/threats/air-sec-002_information-leaked-to-vector-store.html",
+              "config-url": "https://controls.company.example/air/vector-store-protection.config.json"
+            }
+          ]
+        },
+        "ai-observability": {
+          "description": "Comprehensive AI System Observability for anomaly detection",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/mitigations/mi-4_ai-system-observability.html",
+              "config-url": "https://controls.company.example/air/ai-observability.config.json"
+            }
+          ]
+        },
+        "ai-model-drift-detection": {
+          "description": "Model drift detection and monitoring",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/threats/air-op-015_model-drift.html",
+              "config-url": "https://controls.company.example/air/model-drift-detection.config.json"
+            }
+          ]
+        },
+        "ai-incident-response": {
+          "description": "AI System Incident Response procedures and automation",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/mitigations/mi-6_ai-system-incident-response.html",
+              "config-url": "https://controls.company.example/air/incident-response.config.json"
+            }
+          ]
+        },
+        "secrets-management": {
+          "description": "Centralized secrets management with rotation",
+          "requirements": [
+            {
+              "requirement-url": "https://controls.company.example/security/secrets-management.requirement.json",
+              "config-url": "https://controls.company.example/security/secrets-management.config.json"
+            }
+          ]
+        },
+        "data-governance": {
+          "description": "Data minimization, classification, retention, and purpose limitation",
+          "requirements": [
+            {
+              "requirement-url": "https://controls.company.example/governance/data-governance.requirement.json",
+              "config-url": "https://controls.company.example/governance/data-governance.config.json"
+            }
+          ]
+        },
+        "resilience": {
+          "description": "Circuit breakers, retries, timeouts, and graceful degradation",
+          "requirements": [
+            {
+              "requirement-url": "https://controls.company.example/resilience/patterns.requirement.json",
+              "config-url": "https://controls.company.example/resilience/patterns.config.json"
+            }
+          ]
+        },
+        "ai-regulatory-compliance": {
+          "description": "Compliance with AI-specific regulations and standards",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/threats/air-reg-001_regulatory-non-compliance.html",
+              "config-url": "https://controls.company.example/air/regulatory-compliance.config.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "secrets-vault",
+      "node-type": "service",
+      "name": "Secrets Vault",
+      "description": "Centralized secrets management system with rotation capabilities (e.g., HashiCorp Vault, AWS Secrets Manager).",
+      "interfaces": [
+        {
+          "unique-id": "vault-api",
+          "port": 8200
+        }
+      ],
+      "controls": {
+        "secrets-rotation": {
+          "description": "Automated secrets rotation and lifecycle management",
+          "requirements": [
+            {
+              "requirement-url": "https://controls.company.example/security/secrets-rotation.requirement.json",
+              "config-url": "https://controls.company.example/security/secrets-rotation.config.json"
+            }
+          ]
+        },
+        "ai-credential-protection": {
+          "description": "Protection of AI model API keys and credentials",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/mitigations/mi-2_data-filtering-from-external-knowledge-bases.html",
+              "config-url": "https://controls.company.example/air/credential-protection.config.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "logging-service",
+      "node-type": "service",
+      "name": "Centralized Logging Service",
+      "description": "Destination for structured audit and operational logs with PII scrubbing and retention policies.",
+      "interfaces": [
+        {
+          "unique-id": "logging-intake",
+          "port": 9200
+        }
+      ],
+      "controls": {
+        "log-retention": {
+          "description": "Log retention and lifecycle management policies",
+          "requirements": [
+            {
+              "requirement-url": "https://controls.company.example/observability/log-retention.requirement.json",
+              "config-url": "https://controls.company.example/observability/log-retention.config.json"
+            }
+          ]
+        },
+        "ai-audit-logging": {
+          "description": "AI System Audit Trail with comprehensive logging",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/mitigations/mi-5_ai-system-audit-trail.html",
+              "config-url": "https://controls.company.example/air/audit-logging.config.json"
+            }
+          ]
+        },
+        "pii-scrubbing": {
+          "description": "PII detection and scrubbing in logs",
+          "requirements": [
+            {
+              "requirement-url": "https://controls.company.example/privacy/pii-scrubbing.requirement.json",
+              "config-url": "https://controls.company.example/privacy/pii-scrubbing.config.json"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "unique-id": "metrics-tracing-service",
+      "node-type": "service",
+      "name": "Metrics and Tracing Service",
+      "description": "OpenTelemetry-compatible service for metrics collection and distributed tracing with AI-specific metrics.",
+      "interfaces": [
+        {
+          "unique-id": "metrics-intake",
+          "port": 4317
+        },
+        {
+          "unique-id": "tracing-intake",
+          "port": 4318
+        }
+      ],
+      "controls": {
+        "observability-metrics-tracing": {
+          "description": "Metrics and distributed tracing via OpenTelemetry with SLIs/SLOs",
+          "requirements": [
+            {
+              "requirement-url": "https://controls.company.example/observability/metrics-tracing.requirement.json",
+              "config-url": "https://controls.company.example/observability/metrics-tracing.config.json"
+            }
+          ]
+        },
+        "ai-performance-monitoring": {
+          "description": "AI System Observability with model performance metrics",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/mitigations/mi-4_ai-system-observability.html",
+              "config-url": "https://controls.company.example/air/performance-monitoring.config.json"
+            }
+          ]
+        },
+        "ai-drift-metrics": {
+          "description": "Model drift detection through metrics and alerting",
+          "requirements": [
+            {
+              "requirement-url": "https://air-governance-framework.finos.org/threats/air-op-015_model-drift.html",
+              "config-url": "https://controls.company.example/air/drift-metrics.config.json"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "unique-id": "client-to-gateway",
+      "description": "Initial MCP request over a secure channel with OAuth 2.1 bearer token.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "external-client",
+            "interfaces": [
+              "external-http"
+            ]
+          },
+          "destination": {
+            "node": "api-gateway",
+            "interfaces": [
+              "gateway-https"
+            ]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "OIDC Authorization Code Flow + PKCE",
+        "data": [
+          "MCP Request Body",
+          "Bearer Token (JWT)"
+        ],
+        "air-threats-addressed": [
+          "AIR-SEC-010 (Prompt Injection)",
+          "AIR-OP-020 (Reputational Risk)"
+        ]
+      }
+    },
+    {
+      "unique-id": "gateway-validates-jwt",
+      "description": "Gateway validates JWT signature and claims against OIDC provider's JWKS endpoint.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway"
+          },
+          "destination": {
+            "node": "oidc-provider",
+            "interfaces": [
+              "oidc-jwks"
+            ]
+          }
+        }
+      },
+      "protocol": "HTTPS-JWKS",
+      "metadata": {
+        "air-threats-addressed": [
+          "AIR-SEC-001 (Data Poisoning)"
+        ],
+        "validation": [
+          "signature",
+          "issuer",
+          "audience",
+          "expiration",
+          "not-before"
+        ]
+      }
+    },
+    {
+      "unique-id": "gateway-to-pdp",
+      "description": "Gateway checks if the authenticated user is authorized for the requested MCP action via policy engine.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway"
+          },
+          "destination": {
+            "node": "entitlements-pdp",
+            "interfaces": [
+              "pdp-api"
+            ]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "mTLS",
+        "data": [
+          "User Identity Claims",
+          "Target Resource",
+          "Action",
+          "Context"
+        ],
+        "air-threats-addressed": [
+          "AIR-SEC-002 (Information Leaked to Vector Store)"
+        ]
+      }
+    },
+    {
+      "unique-id": "gateway-to-mcp",
+      "description": "Gateway forwards the request after successful authentication and authorization to MCP service.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway",
+            "interfaces": [
+              "gateway-https"
+            ]
+          },
+          "destination": {
+            "node": "mcp-service",
+            "interfaces": [
+              "mcp-api-https"
+            ]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "Forwarded JWT",
+        "air-threats-addressed": [
+          "AIR-SEC-010 (Prompt Injection)",
+          "AIR-OP-004 (Hallucination and Inaccurate Outputs)"
+        ]
+      }
+    },
+    {
+      "unique-id": "mcp-validates-jwks",
+      "description": "MCP service validates JWTs against the OIDC provider JWKS endpoint for defense-in-depth.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "mcp-service"
+          },
+          "destination": {
+            "node": "oidc-provider",
+            "interfaces": [
+              "oidc-jwks"
+            ]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "jwksUri": "https://auth.company.example/oauth2/v1/keys",
+        "audience": "https://mcp.company.example",
+        "issuers": [
+          "https://auth.company.example"
+        ],
+        "claimsChecked": [
+          "aud",
+          "iss",
+          "exp",
+          "nbf",
+          "scope"
+        ],
+        "air-threats-addressed": [
+          "AIR-SEC-001 (Data Poisoning)"
+        ]
+      }
+    },
+    {
+      "unique-id": "mcp-to-pdp",
+      "description": "MCP service queries PDP for fine-grained authorization decisions on resources and tools.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "mcp-service"
+          },
+          "destination": {
+            "node": "entitlements-pdp",
+            "interfaces": [
+              "pdp-api"
+            ]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "mTLS",
+        "air-threats-addressed": [
+          "AIR-SEC-002 (Information Leaked to Vector Store)"
+        ]
+      }
+    },
+    {
+      "unique-id": "mcp-to-vault",
+      "description": "MCP service retrieves secrets at startup and on demand with automatic rotation.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "mcp-service"
+          },
+          "destination": {
+            "node": "secrets-vault",
+            "interfaces": [
+              "vault-api"
+            ]
+          }
+        }
+      },
+      "protocol": "HTTPS",
+      "metadata": {
+        "authentication": "SPIFFE/mTLS",
+        "air-threats-addressed": [
+          "AIR-SEC-001 (Data Poisoning)",
+          "AIR-SEC-002 (Information Leaked to Vector Store)"
+        ]
+      }
+    },
+    {
+      "unique-id": "gateway-to-logging",
+      "description": "Gateway ships structured audit and operational logs with PII scrubbing.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway"
+          },
+          "destination": {
+            "node": "logging-service",
+            "interfaces": [
+              "logging-intake"
+            ]
+          }
+        }
+      },
+      "protocol": "LOG-SHIPPING",
+      "metadata": {
+        "format": "JSON Audit Log Format v1.2",
+        "air-threats-addressed": [
+          "AIR-SEC-002 (Information Leaked to Vector Store)"
+        ],
+        "air-controls-applied": [
+          "AIR-DET-005 (AI System Audit Trail)"
+        ]
+      }
+    },
+    {
+      "unique-id": "mcp-to-logging",
+      "description": "MCP service ships application and business logs including AI-specific events.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "mcp-service"
+          },
+          "destination": {
+            "node": "logging-service",
+            "interfaces": [
+              "logging-intake"
+            ]
+          }
+        }
+      },
+      "protocol": "LOG-SHIPPING",
+      "metadata": {
+        "format": "JSON App Log Format v1.0",
+        "air-threats-addressed": [
+          "AIR-SEC-002 (Information Leaked to Vector Store)"
+        ],
+        "air-controls-applied": [
+          "AIR-DET-004 (AI System Observability)",
+          "AIR-DET-005 (AI System Audit Trail)"
+        ]
+      }
+    },
+    {
+      "unique-id": "gateway-to-metrics",
+      "description": "Gateway emits metrics and starts distributed traces for request tracking.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "api-gateway"
+          },
+          "destination": {
+            "node": "metrics-tracing-service",
+            "interfaces": [
+              "metrics-intake",
+              "tracing-intake"
+            ]
+          }
+        }
+      },
+      "protocol": "OTEL",
+      "metadata": {
+        "framework": "OpenTelemetry",
+        "air-controls-applied": [
+          "AIR-DET-004 (AI System Observability)"
+        ]
+      }
+    },
+    {
+      "unique-id": "mcp-to-metrics",
+      "description": "MCP continues the distributed trace and emits AI-specific metrics including model performance.",
+      "relationship-type": {
+        "connects": {
+          "source": {
+            "node": "mcp-service"
+          },
+          "destination": {
+            "node": "metrics-tracing-service",
+            "interfaces": [
+              "metrics-intake",
+              "tracing-intake"
+            ]
+          }
+        }
+      },
+      "protocol": "OTEL",
+      "metadata": {
+        "air-threats-addressed": [
+          "AIR-OP-004 (Hallucination and Inaccurate Outputs)",
+          "AIR-OP-015 (Model Drift)"
+        ],
+        "air-controls-applied": [
+          "AIR-DET-004 (AI System Observability)"
+        ]
+      }
+    }
+  ],
+  "flows": [
+    {
+      "unique-id": "end-to-end-secure-observable-ai-governed",
+      "name": "End-to-end secure, authorized, observable MCP request with AI governance",
+      "description": "Complete flow demonstrating OAuth 2.1, edge protections, token validation, policy decisions, logging, metrics, tracing, and comprehensive FINOS AIR governance controls.",
+      "transitions": [
+        {
+          "relationship-unique-id": "client-to-gateway",
+          "sequence-number": 1,
+          "description": "Client initiates MCP request to API Gateway over HTTPS with OAuth 2.1 bearer token (AIR: Prompt Injection Prevention)"
+        },
+        {
+          "relationship-unique-id": "gateway-validates-jwt",
+          "sequence-number": 2,
+          "description": "Gateway validates JWT signature and claims via OIDC JWKS endpoint (AIR: Identity Verification)"
+        },
+        {
+          "relationship-unique-id": "gateway-to-pdp",
+          "sequence-number": 3,
+          "description": "Gateway requests authorization decision from Policy Decision Point (AIR: RBAC for AI Data)"
+        },
+        {
+          "relationship-unique-id": "gateway-to-mcp",
+          "sequence-number": 4,
+          "description": "Gateway forwards authorized request to MCP service (AIR: Input Filtering Applied)"
+        },
+        {
+          "relationship-unique-id": "mcp-validates-jwks",
+          "sequence-number": 5,
+          "description": "MCP validates token and claims for defense-in-depth (AIR: Data Poisoning Prevention)"
+        },
+        {
+          "relationship-unique-id": "mcp-to-pdp",
+          "sequence-number": 6,
+          "description": "MCP performs fine-grained policy check for resource/action (AIR: Data Filtering)"
+        },
+        {
+          "relationship-unique-id": "mcp-to-logging",
+          "sequence-number": 7,
+          "description": "MCP emits structured logs for trace/audit with AI-specific events (AIR: Audit Trail)"
+        },
+        {
+          "relationship-unique-id": "mcp-to-metrics",
+          "sequence-number": 8,
+          "description": "MCP emits metrics and continues distributed trace including AI model performance (AIR: Observability & Model Drift Detection)"
+        }
+      ],
+      "air-governance-summary": {
+        "threats-mitigated": [
+          "AIR-OP-004 (Hallucination and Inaccurate Outputs)",
+          "AIR-SEC-010 (Prompt Injection)",
+          "AIR-SEC-002 (Information Leaked to Vector Store)",
+          "AIR-SEC-001 (Data Poisoning)",
+          "AIR-OP-020 (Reputational Risk)",
+          "AIR-OP-015 (Model Drift)"
+        ],
+        "risks-managed": [
+          "AIR-REG-001 (Regulatory Non-Compliance)"
+        ],
+        "controls-applied": [
+          "AIR-PREV-001 (AI System Risk Assessment)",
+          "AIR-PREV-002 (Data Filtering From External Knowledge Bases)",
+          "AIR-PREV-003 (User/App/Model Firewalling/Filtering)",
+          "AIR-PREV-007 (Legal and Contractual Frameworks for AI Systems)",
+          "AIR-PREV-012 (Role-Based Access Control for AI Data)",
+          "AIR-DET-004 (AI System Observability)",
+          "AIR-DET-005 (AI System Audit Trail)",
+          "AIR-CORR-001 (AI System Incident Response)"
+        ],
+        "compliance-level": "enterprise-ready",
+        "framework-version": "FINOS AIR 1.0"
+      }
+    }
+  ],
+  "adrs": [
+    "https://modelcontextprotocol.io/specification/",
+    "https://www.rfc-editor.org/rfc/rfc8414",
+    "https://www.rfc-editor.org/rfc/rfc8725",
+    "https://github.com/Puliczek/awesome-mcp-security",
+    "https://air-governance-framework.finos.org/",
+    "https://calm.finos.org/workshop/controls/"
+  ]
+}
